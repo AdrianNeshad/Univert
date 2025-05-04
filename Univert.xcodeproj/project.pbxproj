@@ -21,6 +21,14 @@
 		3A21D73B2DC7823200B37E2D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73A2DC7823200B37E2D /* Time.swift */; };
 		3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73C2DC7823E00B37E2D /* Temperature.swift */; };
 		3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73E2DC7824700B37E2D /* Volume.swift */; };
+		3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */; };
+		3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7422DC78AFA00B37E2D /* Data Size.swift */; };
+		3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */; };
+		3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7462DC78B1600B37E2D /* Pressure.swift */; };
+		3A21D7492DC78B2000B37E2D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7482DC78B2000B37E2D /* Power.swift */; };
+		3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74A2DC78B3300B37E2D /* Torque.swift */; };
+		3A21D74D2DC78B3E00B37E2D /* Metric Prefixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */; };
+		3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +66,14 @@
 		3A21D73A2DC7823200B37E2D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		3A21D73C2DC7823E00B37E2D /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		3A21D73E2DC7824700B37E2D /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
+		3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shoe Size.swift"; sourceTree = "<group>"; };
+		3A21D7422DC78AFA00B37E2D /* Data Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Size.swift"; sourceTree = "<group>"; };
+		3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Transfer Speed.swift"; sourceTree = "<group>"; };
+		3A21D7462DC78B1600B37E2D /* Pressure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pressure.swift; sourceTree = "<group>"; };
+		3A21D7482DC78B2000B37E2D /* Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
+		3A21D74A2DC78B3300B37E2D /* Torque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torque.swift; sourceTree = "<group>"; };
+		3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Metric Prefixes.swift"; sourceTree = "<group>"; };
+		3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Clothing Size.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +167,14 @@
 				3A21D73A2DC7823200B37E2D /* Time.swift */,
 				3A21D73C2DC7823E00B37E2D /* Temperature.swift */,
 				3A21D73E2DC7824700B37E2D /* Volume.swift */,
+				3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */,
+				3A21D7422DC78AFA00B37E2D /* Data Size.swift */,
+				3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */,
+				3A21D7462DC78B1600B37E2D /* Pressure.swift */,
+				3A21D7482DC78B2000B37E2D /* Power.swift */,
+				3A21D74A2DC78B3300B37E2D /* Torque.swift */,
+				3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */,
+				3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -294,12 +318,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
 				3A21D7012DC7720A00B37E2D /* ContentView.swift in Sources */,
+				3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */,
+				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
+				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
 				3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */,
+				3A21D7492DC78B2000B37E2D /* Power.swift in Sources */,
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
+				3A21D74D2DC78B3E00B37E2D /* Metric Prefixes.swift in Sources */,
+				3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */,
+				3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */,
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  Volume.swift
+//  Power.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-05-04.
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct Volume: View {
+struct Power: View {
     var body: some View {
         VStack {
-            Text("🍷")
+            Text("⚡️")
                 .font(.system(size: 100))
-            Text("This is the Volume page")
+            Text("This is the Power page")
                 .font(.title)
         }
-        .navigationTitle("Volume")
+        .navigationTitle("Power")
     }
 }
 
-struct Volume_Previews: PreviewProvider {
+struct Power_Previews: PreviewProvider {
     static var previews: some View {
-        Volume()
+        Power()
     }
 }

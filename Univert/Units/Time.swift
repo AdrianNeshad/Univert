@@ -9,7 +9,13 @@ import SwiftUI
 
 struct Time: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("⏰")
+                .font(.system(size: 100))
+            Text("This is the Time page")
+                .font(.title)
+        }
+        .navigationTitle("Time")
     }
 }
 

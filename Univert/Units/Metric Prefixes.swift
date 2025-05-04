@@ -1,5 +1,5 @@
 //
-//  Volume.swift
+//  Metric Prefixes.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-05-04.
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct Volume: View {
+struct MetricPrefixes: View {
     var body: some View {
         VStack {
-            Text("🍷")
+            Text("📶")
                 .font(.system(size: 100))
-            Text("This is the Volume page")
+            Text("This is the Metric Prefixes page")
                 .font(.title)
         }
-        .navigationTitle("Volume")
+        .navigationTitle("Metric Prefixes")
     }
 }
 
-struct Volume_Previews: PreviewProvider {
+struct MetricPrefixes_Previews: PreviewProvider {
     static var previews: some View {
-        Volume()
+        MetricPrefixes()
     }
 }

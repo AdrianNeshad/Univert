@@ -1,5 +1,5 @@
 //
-//  Volume.swift
+//  Data Size.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-05-04.
@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct Volume: View {
+struct DataSize: View {
     var body: some View {
         VStack {
-            Text("🍷")
+            Text("💾")
                 .font(.system(size: 100))
-            Text("This is the Volume page")
+            Text("This is the Data Size page")
                 .font(.title)
         }
-        .navigationTitle("Volume")
+        .navigationTitle("Data Size")
     }
 }
 
-struct Volume_Previews: PreviewProvider {
+struct DataSize_Previews: PreviewProvider {
     static var previews: some View {
-        Volume()
+        DataSize()
     }
 }
