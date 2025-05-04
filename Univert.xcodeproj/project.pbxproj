@@ -14,6 +14,9 @@
 		3A21D7102DC7721100B37E2D /* UnivertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D70F2DC7721100B37E2D /* UnivertTests.swift */; };
 		3A21D71A2DC7721100B37E2D /* UnivertUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7192DC7721100B37E2D /* UnivertUITests.swift */; };
 		3A21D71C2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D71B2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift */; };
+		3A21D72B2DC774C600B37E2D /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D72A2DC774C600B37E2D /* Units.swift */; };
+		3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7302DC77A4700B37E2D /* Units Index.swift */; };
+		3A21D7342DC77B9E00B37E2D /* StaticList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7332DC77B9E00B37E2D /* StaticList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		3A21D7152DC7721100B37E2D /* UnivertUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivertUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D7192DC7721100B37E2D /* UnivertUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertUITests.swift; sourceTree = "<group>"; };
 		3A21D71B2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3A21D72A2DC774C600B37E2D /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
+		3A21D7302DC77A4700B37E2D /* Units Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Units Index.swift"; sourceTree = "<group>"; };
+		3A21D7332DC77B9E00B37E2D /* StaticList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +100,12 @@
 		3A21D6FD2DC7720A00B37E2D /* Univert */ = {
 			isa = PBXGroup;
 			children = (
+				3A21D7322DC77B6A00B37E2D /* Static List */,
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
 				3A21D7002DC7720A00B37E2D /* ContentView.swift */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
+				3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */,
+				3A21D7282DC7746A00B37E2D /* Units */,
 				3A21D7042DC7721000B37E2D /* Preview Content */,
 			);
 			path = Univert;
@@ -125,6 +134,30 @@
 				3A21D71B2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift */,
 			);
 			path = UnivertUITests;
+			sourceTree = "<group>";
+		};
+		3A21D7282DC7746A00B37E2D /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				3A21D72A2DC774C600B37E2D /* Units.swift */,
+			);
+			path = Units;
+			sourceTree = "<group>";
+		};
+		3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */ = {
+			isa = PBXGroup;
+			children = (
+				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
+			);
+			path = "Dynamic List Index";
+			sourceTree = "<group>";
+		};
+		3A21D7322DC77B6A00B37E2D /* Static List */ = {
+			isa = PBXGroup;
+			children = (
+				3A21D7332DC77B9E00B37E2D /* StaticList.swift */,
+			);
+			path = "Static List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +290,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A21D7342DC77B9E00B37E2D /* StaticList.swift in Sources */,
 				3A21D7012DC7720A00B37E2D /* ContentView.swift in Sources */,
+				3A21D72B2DC774C600B37E2D /* Units.swift in Sources */,
+				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
