@@ -57,7 +57,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
                                     .hidden()
                             } else {
                                 content(option)
-                                    .scaleEffect(scale)
+                                            .scaleEffect(scale)
                             }
                         }
                         .position(x: geo.size.width / 2, y: geo.size.height / 2)

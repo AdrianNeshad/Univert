@@ -17,7 +17,7 @@ struct Velocity: View {
     var body: some View {
         VStack {
             // TextField för att skriva in värde
-            TextField("Skriv in värde", text: $inputValue)
+            TextField("Value", text: $inputValue)
                 .keyboardType(.decimalPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -33,8 +33,8 @@ struct Velocity: View {
                         options: units
                     ) { unit in
                         Text(unit)
-                            .font(.headline)
-                            .frame(width: 60) // Anpassa bredd om du vill
+                            .font(.title)
+                            .frame(width: 100)
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -43,22 +43,20 @@ struct Velocity: View {
                     Text("To")
                         .font(.headline)
                         .padding(.bottom, 10)
-                    
                     PomodoroPicker(
                         selection: $selectedToUnit,
                         options: units
                     ) { unit in
                         Text(unit)
-                            .font(.headline)
-                            .frame(width: 60)
+                            .font(.title)
+                            .frame(width: 100)
                     }
                 }
                 .frame(maxWidth: .infinity)
             }
-            .frame(height: 150) // Justera höjd för hjulet om du vill
+            .frame(height: 300) // Justera höjd för hjulet om du vill
 
-            // Visar vad du valt + input
-            Text("Konverterar \(inputValue) \(selectedFromUnit ?? "") till \(selectedToUnit ?? "")")
+            Text("Converting \(selectedFromUnit ?? "") to \(selectedToUnit ?? "")")
                 .padding(.top, 20)
 
             Spacer()
