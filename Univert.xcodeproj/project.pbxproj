@@ -29,6 +29,8 @@
 		3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74A2DC78B3300B37E2D /* Torque.swift */; };
 		3A21D74D2DC78B3E00B37E2D /* Metric Prefixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */; };
 		3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */; };
+		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
+		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		3A21D74A2DC78B3300B37E2D /* Torque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torque.swift; sourceTree = "<group>"; };
 		3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Metric Prefixes.swift"; sourceTree = "<group>"; };
 		3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Clothing Size.swift"; sourceTree = "<group>"; };
+		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
+		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,7 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				3A2F60902DC80E790013BF5E /* Velocity.swift */,
 				3A21D7352DC7821100B37E2D /* Mass.swift */,
 				3A21D7382DC7822800B37E2D /* Length.swift */,
 				3A21D73A2DC7823200B37E2D /* Time.swift */,
@@ -184,6 +189,7 @@
 			children = (
 				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
 				3A21D72A2DC774C600B37E2D /* Units List.swift */,
+				3A2F60922DC816760013BF5E /* PomodoroPicker.swift */,
 			);
 			path = "Dynamic List Index";
 			sourceTree = "<group>";
@@ -326,6 +332,8 @@
 				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
 				3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */,
 				3A21D7492DC78B2000B37E2D /* Power.swift in Sources */,
+				3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */,
+				3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */,
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,

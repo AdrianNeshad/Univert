@@ -17,7 +17,7 @@ struct UnitsListView: View {
 
     var body: some View {
         NavigationView {
-            List(filteredUnits, id: \.name) { unit in
+            List(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
                 NavigationLink(destination: destinationView(for: unit)) {
                     HStack {
                         Text(unit.icon)
@@ -54,6 +54,8 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.name {
+    case "Velocity":
+        Velocity()
     case "Mass":
         Mass()
     case "Length":
