@@ -11,30 +11,53 @@ struct UnitsListView: View {
 
     var body: some View {
         NavigationView {
-        List(units, id: \.name) {
-            food in HStack {
-                Text(units.icon)
-                Text(units.name)
-            }
-        }
-        .toolbar {
-            Button {
-                
-                let newUnits = Units(name: "New", icon: "?")
-                withAnimation {
-                    units.append(newUnits)
+            List(units, id: \.name) { unit in
+                NavigationLink(destination: destinationView(for: unit)) {
+                    HStack {
+                        Text(unit.icon)
+                        Text(unit.name)
+                    }
                 }
-                
-            } label: {
-                Label("Add", systemImage: "plus")
             }
+            .navigationTitle("Units")
         }
     }
+}
+
+struct UnitsDetailView: View {
+    let unit: Units
+
+    var body: some View {
+        VStack {
+            Text(unit.icon)
+                .font(.largeTitle)
+            Text(unit.name)
+                .font(.title)
+        }
+        .navigationTitle(unit.name)
     }
 }
 
 struct UnitsListView_Previews: PreviewProvider {
     static var previews: some View {
         UnitsListView()
+    }
+}
+
+@ViewBuilder
+func destinationView(for unit: Units) -> some View {
+    switch unit.name {
+    case "Mass":
+        Mass()
+    case "Length":
+        Length()
+    case "Time":
+        Time()
+    case "Temperature":
+        Temperature()
+    case "Volume":
+        Volume()
+    default:
+        UnitsDetailView(unit: unit) // fallback om ingen matchar
     }
 }
