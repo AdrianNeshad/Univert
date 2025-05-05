@@ -1,19 +1,19 @@
 //
-//  Mass.swift
+//  Enhetsmall.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-05.
 //
 
 import SwiftUI
 
-struct Massa: View {
-    @State private var selectedFromUnit: String? = "mg"
-    @State private var selectedToUnit: String? = "mg"
+struct Enhetsmall: View {
+    @State private var selectedFromUnit: String? = "XXX"
+    @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["mg", "g", "hg", "kg", "m ton", "carat", "t oz", "t lb", "stone", "oz", "lb"]
+    let units = ["XXX", "XXX", "XXX"]
     
     var body: some View {
         VStack {
@@ -113,7 +113,7 @@ struct Massa: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Massa")
+        .navigationTitle("Enhetsmall")
         .padding()
 
     }

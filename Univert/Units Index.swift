@@ -80,6 +80,8 @@ func destinationView(for unit: Units) -> some View {
         Vridmoment()
     case "Klädstorlek":
         Klädstorlek()
+    case "Enhetsmall":
+        Enhetsmall()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

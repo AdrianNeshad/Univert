@@ -26,6 +26,7 @@ struct Units {
          Units(name: "Kraft", icon: "⚡️", isFavorite: false),
          Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
          Units(name: "Klädstorlek", icon: "👕", isFavorite: false),
+         Units(name: "Enhetsmall", icon: "❌", isFavorite: false)
         ]
     }
 }

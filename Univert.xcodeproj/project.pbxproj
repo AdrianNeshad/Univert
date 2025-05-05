@@ -29,6 +29,7 @@
 		3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */; };
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
+		3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Clothing Size.swift"; sourceTree = "<group>"; };
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
+		3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enhetsmall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */,
 				3A2F60902DC80E790013BF5E /* Velocity.swift */,
 				3A21D7352DC7821100B37E2D /* Mass.swift */,
 				3A21D7382DC7822800B37E2D /* Length.swift */,
@@ -318,6 +321,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
 				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
 				3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */,
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
