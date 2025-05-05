@@ -11,23 +11,20 @@ struct Velocity: View {
     @State private var selectedFromUnit: String? = "m/s"
     @State private var selectedToUnit: String? = "km/h"
     @State private var inputValue = ""
+    @State private var outputValue = ""
+
 
     let units = ["m/s", "km/h", "mph", "knots"]
 
     var body: some View {
         VStack {
-            // TextField för att skriva in värde
-            TextField("Value", text: $inputValue)
-                .keyboardType(.decimalPad)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-
             HStack {
                 VStack {
                     Text("From")
-                        .font(.headline)
-                        .padding(.bottom, 10)
-                    
+                        .font(.title)
+                        .bold()
+                    Text("(\(selectedFromUnit ?? ""))")
+                        .font(.system(size: 15))
                     PomodoroPicker(
                         selection: $selectedFromUnit,
                         options: units
@@ -37,13 +34,23 @@ struct Velocity: View {
                             .bold()
                             .frame(width: 100)
                     }
+                    TextField("Value", text: $inputValue)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .frame(height: 50)
+                        .frame(maxWidth: 100)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .padding()
                 }
                 .frame(maxWidth: .infinity)
 
                 VStack {
                     Text("To")
-                        .font(.headline)
-                        .padding(.bottom, 10)
+                        .font(.title)
+                        .bold()
+                    Text("(\(selectedToUnit ?? ""))")
+                        .font(.system(size: 15))
                     PomodoroPicker(
                         selection: $selectedToUnit,
                         options: units
@@ -53,14 +60,17 @@ struct Velocity: View {
                             .bold()
                             .frame(width: 100)
                     }
+                    Text(outputValue.isEmpty ? "" : outputValue)
+                                            .frame(height: 50)
+                                            .frame(maxWidth: 100)
+                                            .background(Color.gray.opacity(0.1))
+                                            .cornerRadius(5)
+                                            .padding()
+
                 }
                 .frame(maxWidth: .infinity)
             }
-            .frame(height: 300) // Justera höjd för hjulet om du vill
-
-            Text("Converting \(selectedFromUnit ?? "") to \(selectedToUnit ?? "")")
-                .padding(.top, 20)
-
+            .frame(height: 280) // Justera höjd för hjulet
             Spacer()
         }
         .navigationTitle("Velocity")

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */; };
-		3A21D7012DC7720A00B37E2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7002DC7720A00B37E2D /* ContentView.swift */; };
 		3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7022DC7721000B37E2D /* Assets.xcassets */; };
 		3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */; };
 		3A21D7102DC7721100B37E2D /* UnivertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D70F2DC7721100B37E2D /* UnivertTests.swift */; };
@@ -53,7 +52,6 @@
 /* Begin PBXFileReference section */
 		3A21D6FB2DC7720A00B37E2D /* Univert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Univert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertApp.swift; sourceTree = "<group>"; };
-		3A21D7002DC7720A00B37E2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A21D7022DC7721000B37E2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A21D70B2DC7721100B37E2D /* UnivertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
-				3A21D7002DC7720A00B37E2D /* ContentView.swift */,
+				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
 				3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */,
 				3A21D7282DC7746A00B37E2D /* Units */,
@@ -187,7 +185,6 @@
 		3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */ = {
 			isa = PBXGroup;
 			children = (
-				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
 				3A21D72A2DC774C600B37E2D /* Units List.swift */,
 				3A2F60922DC816760013BF5E /* PomodoroPicker.swift */,
 			);
@@ -325,7 +322,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
-				3A21D7012DC7720A00B37E2D /* ContentView.swift in Sources */,
 				3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */,
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
