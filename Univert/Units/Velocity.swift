@@ -34,6 +34,7 @@ struct Velocity: View {
                     ) { unit in
                         Text(unit)
                             .font(.title)
+                            .bold()
                             .frame(width: 100)
                     }
                 }
@@ -49,6 +50,7 @@ struct Velocity: View {
                     ) { unit in
                         Text(unit)
                             .font(.title)
+                            .bold()
                             .frame(width: 100)
                     }
                 }
