@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Pressure: View {
+struct Tryck: View {
     var body: some View {
         VStack {
             Text("🧭")
@@ -15,12 +15,12 @@ struct Pressure: View {
             Text("This is the Pressure page")
                 .font(.title)
         }
-        .navigationTitle("Pressure")
+        .navigationTitle("Tryck")
     }
 }
 
-struct Pressure_Previews: PreviewProvider {
+struct Tryck_Previews: PreviewProvider {
     static var previews: some View {
-        Pressure()
+        Tryck()
     }
 }

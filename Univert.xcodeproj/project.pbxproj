@@ -26,7 +26,6 @@
 		3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7462DC78B1600B37E2D /* Pressure.swift */; };
 		3A21D7492DC78B2000B37E2D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7482DC78B2000B37E2D /* Power.swift */; };
 		3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74A2DC78B3300B37E2D /* Torque.swift */; };
-		3A21D74D2DC78B3E00B37E2D /* Metric Prefixes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */; };
 		3A21D74F2DC78DAE00B37E2D /* Clothing Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */; };
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
@@ -72,7 +71,6 @@
 		3A21D7462DC78B1600B37E2D /* Pressure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pressure.swift; sourceTree = "<group>"; };
 		3A21D7482DC78B2000B37E2D /* Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
 		3A21D74A2DC78B3300B37E2D /* Torque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torque.swift; sourceTree = "<group>"; };
-		3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Metric Prefixes.swift"; sourceTree = "<group>"; };
 		3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Clothing Size.swift"; sourceTree = "<group>"; };
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 				3A21D7462DC78B1600B37E2D /* Pressure.swift */,
 				3A21D7482DC78B2000B37E2D /* Power.swift */,
 				3A21D74A2DC78B3300B37E2D /* Torque.swift */,
-				3A21D74C2DC78B3E00B37E2D /* Metric Prefixes.swift */,
 				3A21D74E2DC78DAE00B37E2D /* Clothing Size.swift */,
 			);
 			path = Units;
@@ -333,7 +330,6 @@
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
-				3A21D74D2DC78B3E00B37E2D /* Metric Prefixes.swift in Sources */,
 				3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */,
 				3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */,
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,

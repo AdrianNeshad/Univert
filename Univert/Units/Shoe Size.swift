@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ShoeSize: View {
+struct Skostorlek: View {
     var body: some View {
         VStack {
             Text("👟")
@@ -15,12 +15,12 @@ struct ShoeSize: View {
             Text("This is the Shoe Size page")
                 .font(.title)
         }
-        .navigationTitle("Shoe Size")
+        .navigationTitle("Skostorlek")
     }
 }
 
-struct ShoeSize_Previews: PreviewProvider {
+struct Skostorlek_Previews: PreviewProvider {
     static var previews: some View {
-        ShoeSize()
+        Skostorlek()
     }
 }

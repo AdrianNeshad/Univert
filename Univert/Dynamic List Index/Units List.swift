@@ -13,20 +13,19 @@ struct Units {
     var isFavorite: Bool
     
     static func preview() -> [Units] {
-        [Units(name: "Velocity", icon: "🏎", isFavorite: false),
-         Units(name: "Mass", icon: "⚖️", isFavorite: false),
-         Units(name: "Length", icon: "📐", isFavorite: false),
-         Units(name: "Time", icon: "⏰", isFavorite: false),
-         Units(name: "Temperature", icon: "🌡", isFavorite: false),
-         Units(name: "Volume", icon: "🍷", isFavorite: false),
-         Units(name: "Shoe Size", icon: "👟", isFavorite: false),
-         Units(name: "Data Size", icon: "💾", isFavorite: false),
-         Units(name: "Data Transfer Speed", icon: "🔁", isFavorite: false),
-         Units(name: "Pressure", icon: "🧭", isFavorite: false),
-         Units(name: "Power", icon: "⚡️", isFavorite: false),
-         Units(name: "Torque", icon: "⚙️", isFavorite: false),
-         Units(name: "Metric Prefixes", icon: "📶", isFavorite: false),
-         Units(name: "Clothing Sizes", icon: "👕", isFavorite: false),
+        [Units(name: "Velocitet", icon: "🏎", isFavorite: false),
+         Units(name: "Massa", icon: "⚖️", isFavorite: false),
+         Units(name: "Längd", icon: "📐", isFavorite: false),
+         Units(name: "Tid", icon: "⏰", isFavorite: false),
+         Units(name: "Temperatur", icon: "🌡", isFavorite: false),
+         Units(name: "Volym", icon: "🍷", isFavorite: false),
+         Units(name: "Skostorlek", icon: "👟", isFavorite: false),
+         Units(name: "Datastorlek", icon: "💾", isFavorite: false),
+         Units(name: "Dataöverföringshastighet", icon: "🔁", isFavorite: false),
+         Units(name: "Tryck", icon: "🧭", isFavorite: false),
+         Units(name: "Kraft", icon: "⚡️", isFavorite: false),
+         Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
+         Units(name: "Klädstorlek", icon: "👕", isFavorite: false),
         ]
     }
 }

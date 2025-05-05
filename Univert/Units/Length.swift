@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Length: View {
+struct Längd: View {
     var body: some View {
         VStack {
             Text("📐")
@@ -15,12 +15,12 @@ struct Length: View {
             Text("This is the Length page")
                 .font(.title)
         }
-        .navigationTitle("Length")
+        .navigationTitle("Längd")
     }
 }
 
-struct Length_Previews: PreviewProvider {
+struct Längd_Previews: PreviewProvider {
     static var previews: some View {
-        Length()
+        Längd()
     }
 }

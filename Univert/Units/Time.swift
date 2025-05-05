@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Time: View {
+struct Tid: View {
     var body: some View {
         VStack {
             Text("⏰")
@@ -15,12 +15,12 @@ struct Time: View {
             Text("This is the Time page")
                 .font(.title)
         }
-        .navigationTitle("Time")
+        .navigationTitle("Tid")
     }
 }
 
-struct Time_Previews: PreviewProvider {
+struct Tid_Previews: PreviewProvider {
     static var previews: some View {
-        Time()
+        Tid()
     }
 }

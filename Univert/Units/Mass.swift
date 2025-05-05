@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Mass: View {
+struct Massa: View {
     var body: some View {
         VStack {
             Text("⚖️")
@@ -19,8 +19,8 @@ struct Mass: View {
     }
 }
 
-struct Mass_Previews: PreviewProvider {
+struct Massa_Previews: PreviewProvider {
     static var previews: some View {
-        Mass()
+        Massa()
     }
 }

@@ -25,8 +25,8 @@ struct UnitsListView: View {
                     }
                 }
             }
-            .navigationTitle("Units")
-            .searchable(text: $searchTerm, prompt: "Search Units")
+            .navigationTitle("Enheter")
+            .searchable(text: $searchTerm, prompt: "Sök enheter")
         }
     }
 }
@@ -54,34 +54,32 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.name {
-    case "Velocity":
-        Velocity()
-    case "Mass":
-        Mass()
-    case "Length":
-        Length()
-    case "Time":
-        Time()
-    case "Temperature":
-        Temperature()
-    case "Volume":
-        Volume()
-    case "Shoe Size":
-        ShoeSize()
-    case "Data Size":
-        DataSize()
-    case "Data Transfer Speed":
-        DataTransferSpeed()
-    case "Pressure":
-        Pressure()
-    case "Power":
-        Power()
-    case "Torque":
-        Torque()
-    case "Metric Prefixes":
-        MetricPrefixes()
-    case "Clothing Sizes":
-        ClothingSizes()
+    case "Velocitet":
+        Velocitet()
+    case "Massa":
+        Massa()
+    case "Längd":
+        Längd()
+    case "Tid":
+        Tid()
+    case "Temperatur":
+        Temperatur()
+    case "Volym":
+        Volym()
+    case "Skostorlek":
+        Skostorlek()
+    case "Datastorlek":
+        Datastorlek()
+    case "Dataöverföringshastighet":
+        Dataöverföringshastighet()
+    case "Tryck":
+        Tryck()
+    case "Kraft":
+        Kraft()
+    case "Vridmoment":
+        Vridmoment()
+    case "Klädstorlek":
+        Klädstorlek()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

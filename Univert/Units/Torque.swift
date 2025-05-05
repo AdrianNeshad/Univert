@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Torque: View {
+struct Vridmoment: View {
     var body: some View {
         VStack {
             Text("⚙️")
@@ -15,12 +15,12 @@ struct Torque: View {
             Text("This is the Torque page")
                 .font(.title)
         }
-        .navigationTitle("Torque")
+        .navigationTitle("Vridmoment")
     }
 }
 
-struct Torque_Previews: PreviewProvider {
+struct Vridmoment_Previews: PreviewProvider {
     static var previews: some View {
-        Torque()
+        Vridmoment()
     }
 }

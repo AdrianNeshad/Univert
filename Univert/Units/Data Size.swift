@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DataSize: View {
+struct Datastorlek: View {
     var body: some View {
         VStack {
             Text("💾")
@@ -15,12 +15,12 @@ struct DataSize: View {
             Text("This is the Data Size page")
                 .font(.title)
         }
-        .navigationTitle("Data Size")
+        .navigationTitle("Datastorlek")
     }
 }
 
-struct DataSize_Previews: PreviewProvider {
+struct Datastorlek_Previews: PreviewProvider {
     static var previews: some View {
-        DataSize()
+        Datastorlek()
     }
 }

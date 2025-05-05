@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Volume: View {
+struct Volym: View {
     var body: some View {
         VStack {
             Text("🍷")
@@ -15,12 +15,12 @@ struct Volume: View {
             Text("This is the Volume page")
                 .font(.title)
         }
-        .navigationTitle("Volume")
+        .navigationTitle("Volym")
     }
 }
 
 struct Volume_Previews: PreviewProvider {
     static var previews: some View {
-        Volume()
+        Volym()
     }
 }

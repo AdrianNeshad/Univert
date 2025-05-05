@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DataTransferSpeed: View {
+struct Dataöverföringshastighet: View {
     var body: some View {
         VStack {
             Text("🔁")
@@ -15,12 +15,12 @@ struct DataTransferSpeed: View {
             Text("This is the Data Transfer Speed page")
                 .font(.title)
         }
-        .navigationTitle("Data Transfer Speed")
+        .navigationTitle("Dataöverföringshastighet")
     }
 }
 
-struct DataTransferSpeed_Previews: PreviewProvider {
+struct Dataöverföringshastighet_Previews: PreviewProvider {
     static var previews: some View {
-        DataTransferSpeed()
+        Dataöverföringshastighet()
     }
 }

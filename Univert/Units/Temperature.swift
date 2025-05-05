@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Temperature: View {
+struct Temperatur: View {
     var body: some View {
         VStack {
             Text("🌡")
@@ -15,12 +15,12 @@ struct Temperature: View {
             Text("This is the Temperature page")
                 .font(.title)
         }
-        .navigationTitle("Temperature")
+        .navigationTitle("Temperatur")
     }
 }
 
-struct Temperature_Previews: PreviewProvider {
+struct Temperatur_Previews: PreviewProvider {
     static var previews: some View {
-        Temperature()
+        Temperatur()
     }
 }

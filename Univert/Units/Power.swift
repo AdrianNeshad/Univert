@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Power: View {
+struct Kraft: View {
     var body: some View {
         VStack {
             Text("⚡️")
@@ -15,12 +15,12 @@ struct Power: View {
             Text("This is the Power page")
                 .font(.title)
         }
-        .navigationTitle("Power")
+        .navigationTitle("Kraft")
     }
 }
 
-struct Power_Previews: PreviewProvider {
+struct Kraft_Previews: PreviewProvider {
     static var previews: some View {
-        Power()
+        Kraft()
     }
 }
