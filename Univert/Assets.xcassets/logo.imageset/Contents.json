@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "UNIVERT_ICON.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
