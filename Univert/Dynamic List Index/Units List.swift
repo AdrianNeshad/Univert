@@ -26,7 +26,6 @@ struct Units {
          Units(name: "Kraft", icon: "⚡️", isFavorite: false),
          Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
          Units(name: "Valuta", icon: "💲", isFavorite: false),
-         Units(name: "Enhetsmall", icon: "❌", isFavorite: false),
          Units(name: "Yta", icon: "🗺️", isFavorite: false),
          Units(name: "Krypto", icon: "💲", isFavorite: false),
         ]

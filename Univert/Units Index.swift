@@ -80,8 +80,6 @@ func destinationView(for unit: Units) -> some View {
         Vridmoment()
     case "Valuta":
         Valuta()
-    case "Enhetsmall":
-        Enhetsmall()
     case "Yta":
         Yta()
     case "Krypto":
