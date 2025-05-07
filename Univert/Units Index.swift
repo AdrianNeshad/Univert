@@ -56,8 +56,8 @@ func destinationView(for unit: Units) -> some View {
     switch unit.name {
     case "Velocitet":
         Velocitet()
-    case "Massa":
-        Massa()
+    case "Vikt":
+        Vikt()
     case "Längd":
         Längd()
     case "Tid":
@@ -78,10 +78,12 @@ func destinationView(for unit: Units) -> some View {
         Kraft()
     case "Vridmoment":
         Vridmoment()
-    case "Klädstorlek":
-        Klädstorlek()
+    case "Valuta":
+        Valuta()
     case "Enhetsmall":
         Enhetsmall()
+    case "Yta":
+        Yta()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

@@ -1,19 +1,28 @@
 //
-//  Power.swift
+//  Currency.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-07.
 //
 
 import SwiftUI
 
-struct Kraft: View {
-    @State private var selectedFromUnit: String? = "Watt"
-    @State private var selectedToUnit: String? = "Watt"
+struct Valuta: View {
+    var body: some View {
+        VStack{
+            Text("Kommer snart")
+                .font(.largeTitle)
+                .bold()
+          Spacer()
+        }
+    }
+    /*
+    @State private var selectedFromUnit: String? = "XXX"
+    @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["Watt", "MW", "kW", "hp", "BTU/h", "ton/ref"]
+    let units = ["XXX", "XXX", "XXX"]
     
     var body: some View {
         VStack {
@@ -133,39 +142,48 @@ struct Kraft: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Kraft")
+        .navigationTitle("Mall")
         .padding()
     }
     
-    func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "Watt": 1,
-            "kW": 1000, // 1 kW = 1000 W
-            "MW": 1000000, // 1 MW = 1,000,000 W
-            "hp": 745.7, // 1 hp = 745.7 W
-            "BTU/h": 0.2931, // 1 btu/h ≈ 0.2931 W
-            "ton/ref": 3516.85 // 1 ton/ref ≈ 3516.85 W
+            "mg": 0.001,
+            "g": 1, // utgångspunkt för uträkning
+            "hg": 100,
+            "kg": 1000,
+            "m ton": 1000000,
+            "carat": 0.2,
+            "t oz": 31.1035,
+            "t lb": 373.2417,
+            "stone": 6350,
+            "oz": 28.3495,
+            "lbs": 453.59237,
+            "N": 9.81,
+            "kN": 9810
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
+        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
             return nil // Om någon enhet inte finns i listan, returnera nil
         }
 
-        // Omvandla till Watt (basenhet)
-        let valueInWatts = value * fromFactor
+        // Omvandla till gram (basenhet)
+        let valueInGrams = value * fromFactor / conversionFactors["g"]!
         
-        // Omvandla från Watt till mål-enhet
-        let convertedValue = valueInWatts / toFactor
+        // Omvandla från gram till mål-enhet
+        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertPower(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.6f", result)
+        if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            let formattedResult = String(format: "%.2f", result).replacingOccurrences(of: ".", with: ",")
             outputValue = formattedResult
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+     */
 }
+

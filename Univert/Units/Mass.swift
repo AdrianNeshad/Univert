@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Massa: View {
+struct Vikt: View {
     @State private var selectedFromUnit: String? = "mg"
     @State private var selectedToUnit: String? = "mg"
     @State private var inputValue = ""
@@ -133,7 +133,7 @@ struct Massa: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Massa")
+        .navigationTitle("Vikt")
         .padding()
     }
     

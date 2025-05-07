@@ -1,19 +1,19 @@
 //
-//  Power.swift
+//  Area.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-07.
 //
 
 import SwiftUI
 
-struct Kraft: View {
-    @State private var selectedFromUnit: String? = "Watt"
-    @State private var selectedToUnit: String? = "Watt"
+struct Yta: View {
+    @State private var selectedFromUnit: String? = "m²"
+    @State private var selectedToUnit: String? = "m²"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["Watt", "MW", "kW", "hp", "BTU/h", "ton/ref"]
+    let units = ["m²", "km²", "cm²", "mm²", "ha", "ac", "mi²", "yd²", "ft²", "in²"]
     
     var body: some View {
         VStack {
@@ -133,18 +133,22 @@ struct Kraft: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Kraft")
+        .navigationTitle("Yta")
         .padding()
     }
     
-    func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertArea(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "Watt": 1,
-            "kW": 1000, // 1 kW = 1000 W
-            "MW": 1000000, // 1 MW = 1,000,000 W
-            "hp": 745.7, // 1 hp = 745.7 W
-            "BTU/h": 0.2931, // 1 btu/h ≈ 0.2931 W
-            "ton/ref": 3516.85 // 1 ton/ref ≈ 3516.85 W
+            "m²": 1, // m² is the base unit
+            "km²": 1e6, // 1 km² = 1,000,000 m²
+            "cm²": 1e-4, // 1 cm² = 0.0001 m²
+            "mm²": 1e-6, // 1 mm² = 0.000001 m²
+            "ha": 1e4, // 1 ha = 10,000 m²
+            "ac": 4046.856, // 1 acre = 4046.856 m²
+            "mi²": 2.58999e6, // 1 mi² = 2,589,990 m²
+            "yd²": 0.836127, // 1 yd² = 0.836127 m²
+            "ft²": 0.092903, // 1 ft² = 0.092903 m²
+            "in²": 0.00064516 // 1 in² = 0.00064516 m²
         ]
         
         // Kontrollera om enheterna finns i conversionFactors
@@ -152,17 +156,17 @@ struct Kraft: View {
             return nil // Om någon enhet inte finns i listan, returnera nil
         }
 
-        // Omvandla till Watt (basenhet)
-        let valueInWatts = value * fromFactor
+        // Omvandla till m² (basenhet)
+        let valueInM2 = value * fromFactor
         
-        // Omvandla från Watt till mål-enhet
-        let convertedValue = valueInWatts / toFactor
+        // Omvandla från m² till mål-enhet
+        let convertedValue = valueInM2 / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertPower(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.6f", result)
+        if let result = convertArea(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            let formattedResult = String(format: "%.2f", result)
             outputValue = formattedResult
         } else {
             outputValue = "Ogiltig enhet"

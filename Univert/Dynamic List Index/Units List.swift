@@ -14,7 +14,7 @@ struct Units {
     
     static func preview() -> [Units] {
         [Units(name: "Velocitet", icon: "🏎", isFavorite: false),
-         Units(name: "Massa", icon: "⚖️", isFavorite: false),
+         Units(name: "Vikt", icon: "⚖️", isFavorite: false),
          Units(name: "Längd", icon: "📐", isFavorite: false),
          Units(name: "Tid", icon: "⏰", isFavorite: false),
          Units(name: "Temperatur", icon: "🌡", isFavorite: false),
@@ -25,8 +25,9 @@ struct Units {
          Units(name: "Tryck", icon: "🧭", isFavorite: false),
          Units(name: "Kraft", icon: "⚡️", isFavorite: false),
          Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
-         Units(name: "Klädstorlek", icon: "👕", isFavorite: false),
-         Units(name: "Enhetsmall", icon: "❌", isFavorite: false)
+         Units(name: "Valuta", icon: "💲", isFavorite: false),
+         Units(name: "Enhetsmall", icon: "❌", isFavorite: false),
+         Units(name: "Yta", icon: "🗺️", isFavorite: false),
         ]
     }
 }
