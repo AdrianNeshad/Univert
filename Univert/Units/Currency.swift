@@ -8,22 +8,15 @@
 import SwiftUI
 
 struct Valuta: View {
-    var body: some View {
-        VStack{
-            Text("Kommer snart")
-                .font(.largeTitle)
-                .bold()
-          Spacer()
-        }
-    }
-    /*
-    @State private var selectedFromUnit: String? = "XXX"
-    @State private var selectedToUnit: String? = "XXX"
+    @State private var selectedFromUnit: String? = "BTC"
+    @State private var selectedToUnit: String? = "BTC"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["XXX", "XXX", "XXX"]
+    let units = ["BTC", "ETH", "USD"]
     
+    @State private var exchangeRates: [String: Double] = [:]
+
     var body: some View {
         VStack {
             HStack {
@@ -142,48 +135,50 @@ struct Valuta: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Mall")
+        .navigationTitle("Valuta")
         .padding()
+        
+        .onAppear {
+                    fetchExchangeRates() // Hämta växelkurser när vyn visas
+                }
     }
     
-    func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        let conversionFactors: [String: Double] = [
-            "mg": 0.001,
-            "g": 1, // utgångspunkt för uträkning
-            "hg": 100,
-            "kg": 1000,
-            "m ton": 1000000,
-            "carat": 0.2,
-            "t oz": 31.1035,
-            "t lb": 373.2417,
-            "stone": 6350,
-            "oz": 28.3495,
-            "lbs": 453.59237,
-            "N": 9.81,
-            "kN": 9810
-        ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+    func fetchExchangeRates() {
+            let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
+            
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let data = data {
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            if let bitcoinData = json["bitcoin"] as? [String: Any],
+                               let ethereumData = json["ethereum"] as? [String: Any] {
+                                DispatchQueue.main.async {
+                                    self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
+                                    self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
+                                    self.exchangeRates["USD"] = 1 // USD är basenhet, så dess kurs är alltid 1
+                                }
+                            }
+                        }
+                    } catch {
+                        print("Fel vid JSON-parsing")
+                    }
+                }
+            }.resume()
         }
-
-        // Omvandla till gram (basenhet)
-        let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
-        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
-        return convertedValue
-    }
-
+    
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result).replacingOccurrences(of: ".", with: ",")
-            outputValue = formattedResult
-        } else {
-            outputValue = "Ogiltig enhet"
-        }
-    }
-     */
-}
+            guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
+                  let toRate = exchangeRates[selectedToUnit ?? ""] else {
+                outputValue = "Ogiltig enhet"
+                return
+            }
 
+            // Konvertera till USD basenhet
+            let valueInUSD = inputDouble * fromRate
+
+            // Konvertera från USD till den valda mål-enheten
+            let convertedValue = valueInUSD / toRate
+            let formattedResult = String(format: "%.2f", convertedValue)
+            outputValue = formattedResult
+        }
+}

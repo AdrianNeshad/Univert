@@ -135,55 +135,36 @@ struct Tryck: View {
     }
     
     func convertPressure(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        // First convert everything to Pascals (Pa) - the SI unit for pressure
-        let valueInPascals: Double
+        let conversionFactors: [String: Double] = [
+            "bar": 100000,
+            "psi": 6894.76,
+            "kPa": 1000,
+            "atm": 101325,
+            "mbar": 100,
+            "MPa": 1000000,
+            "Pa": 1
+        ]
         
-        switch fromUnit {
-        case "bar":
-            valueInPascals = value * 100_000
-        case "psi":
-            valueInPascals = value * 6894.76
-        case "kPa":
-            valueInPascals = value * 1_000
-        case "atm":
-            valueInPascals = value * 101_325
-        case "mbar":
-            valueInPascals = value * 100
-        case "MPa":
-            valueInPascals = value * 1_000_000
-        case "Pa":
-            valueInPascals = value
-        default:
-            return nil
+        // Kontrollera om enheterna finns i conversionFactors
+        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+            return nil // Om någon enhet inte finns i listan, returnera nil
         }
         
-        // Then convert from Pascals to the target unit
-        switch toUnit {
-        case "bar":
-            return valueInPascals / 100_000
-        case "psi":
-            return valueInPascals / 6894.76
-        case "kPa":
-            return valueInPascals / 1_000
-        case "atm":
-            return valueInPascals / 101_325
-        case "mbar":
-            return valueInPascals / 100
-        case "MPa":
-            return valueInPascals / 1_000_000
-        case "Pa":
-            return valueInPascals
-        default:
-            return nil
-        }
+        // Omvandla till Pascal (Pa) som basenhet
+        let valueInPascals = value * fromFactor
+        
+        // Omvandla från Pascal (Pa) till mål-enheten
+        let convertedValue = valueInPascals / toFactor
+        return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertPressure(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result).replacingOccurrences(of: ".", with: ",")
+            let formattedResult = String(format: "%.6f", result)  // Visar resultat med 6 decimaler
             outputValue = formattedResult
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 }

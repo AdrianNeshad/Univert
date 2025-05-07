@@ -13,7 +13,7 @@ struct Dataöverföringshastighet: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["bit/s", "B/s", "Kbit/s", "KB/s", "Mbit/s", "MB/s", "Gbit/s", "GB/s", "Tbit/s", "TB/s"]
+    let units = ["bit/s", "Byte/s", "Kbit/s", "KB/s", "Mbit/s", "MB/s", "Gbit/s", "GB/s", "Tbit/s", "TB/s"]
     
     var body: some View {
         VStack {
@@ -135,64 +135,35 @@ struct Dataöverföringshastighet: View {
     }
     
     func convertDataTransferSpeed(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        // First convert everything to bits per second
-        let valueInBitsPerSecond: Double
+        let conversionFactors: [String: Double] = [
+            "bit/s": 1,
+            "Byte/s": 8, // 1 byte = 8 bits
+            "Kbit/s": 1000, // 1 Kbit = 1000 bits
+            "KB/s": 8 * 1000, // 1 KB = 8 * 1000 bits
+            "Mbit/s": 1000000, // 1 Mbit = 1,000,000 bits
+            "MB/s": 8 * 1000000, // 1 MB = 8 * 1,000,000 bits
+            "Gbit/s": 1000000000, // 1 Gbit = 1,000,000,000 bits
+            "GB/s": 8 * 1000000000, // 1 GB = 8 * 1,000,000,000 bits
+            "Tbit/s": 1000000000000, // 1 Tbit = 1,000,000,000,000 bits
+            "TB/s": 8 * 1000000000000 // 1 TB = 8 * 1,000,000,000,000 bits
+        ]
         
-        switch fromUnit {
-        case "bit/s":
-            valueInBitsPerSecond = value
-        case "B/s":
-            valueInBitsPerSecond = value * 8
-        case "Kbit/s":
-            valueInBitsPerSecond = value * 1000
-        case "KB/s":
-            valueInBitsPerSecond = value * 8 * 1000
-        case "Mbit/s":
-            valueInBitsPerSecond = value * 1000 * 1000
-        case "MB/s":
-            valueInBitsPerSecond = value * 8 * 1000 * 1000
-        case "Gbit/s":
-            valueInBitsPerSecond = value * 1000 * 1000 * 1000
-        case "GB/s":
-            valueInBitsPerSecond = value * 8 * 1000 * 1000 * 1000
-        case "Tbit/s":
-            valueInBitsPerSecond = value * 1000 * 1000 * 1000 * 1000
-        case "TB/s":
-            valueInBitsPerSecond = value * 8 * 1000 * 1000 * 1000 * 1000
-        default:
-            return nil
+        // Kontrollera om enheterna finns i conversionFactors
+        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+            return nil // Om någon enhet inte finns i listan, returnera nil
         }
+
+        // Omvandla till bit per sekund (basenhet)
+        let valueInBitsPerSecond = value * fromFactor
         
-        // Then convert from bits per second to the target unit
-        switch toUnit {
-        case "bit/s":
-            return valueInBitsPerSecond
-        case "B/s":
-            return valueInBitsPerSecond / 8
-        case "Kbit/s":
-            return valueInBitsPerSecond / 1000
-        case "KB/s":
-            return valueInBitsPerSecond / (8 * 1000)
-        case "Mbit/s":
-            return valueInBitsPerSecond / (1000 * 1000)
-        case "MB/s":
-            return valueInBitsPerSecond / (8 * 1000 * 1000)
-        case "Gbit/s":
-            return valueInBitsPerSecond / (1000 * 1000 * 1000)
-        case "GB/s":
-            return valueInBitsPerSecond / (8 * 1000 * 1000 * 1000)
-        case "Tbit/s":
-            return valueInBitsPerSecond / (1000 * 1000 * 1000 * 1000)
-        case "TB/s":
-            return valueInBitsPerSecond / (8 * 1000 * 1000 * 1000 * 1000)
-        default:
-            return nil
-        }
+        // Omvandla från bit per sekund till mål-enhet
+        let convertedValue = valueInBitsPerSecond / toFactor
+        return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertDataTransferSpeed(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result).replacingOccurrences(of: ".", with: ",")
+            let formattedResult = String(format: "%.6f", result)  // Visar resultat med 6 decimaler
             outputValue = formattedResult
         } else {
             outputValue = "Ogiltig enhet"
