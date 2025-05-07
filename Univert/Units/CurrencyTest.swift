@@ -1,5 +1,5 @@
 //
-//  Currency.swift
+//  CurrencyTest.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-05-07.
@@ -7,19 +7,20 @@
 
 import SwiftUI
 
-struct ExchangeResponse: Codable {
+struct ExchangeResponse2: Codable {
     let rates: [String: Double]
     let base: String
     let date: String
 }
 
-struct Valuta: View {
-    @State private var selectedFromUnit: String? = "USD"
-    @State private var selectedToUnit: String? = "USD"
+struct Krypto: View {
+    @State private var selectedFromUnit: String? = "BTC"
+    @State private var selectedToUnit: String? = "BTC"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
+    let units = ["BTC", "USD", "ETH"]
+
     @State private var exchangeRates: [String: Double] = [:]
     
     var body: some View {
@@ -145,51 +146,42 @@ struct Valuta: View {
     }
     
     func fetchExchangeRates() {
-            guard let fromUnit = selectedFromUnit else { return }
-            let urlString = "https://api.frankfurter.app/latest?from=\(fromUnit)"
-            
-            guard let url = URL(string: urlString) else {
-                print("Ogiltig URL")
-                return
-            }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    print("Fel vid hämtning: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = data else {
-                    print("Ingen data")
-                    return
-                }
-                
-                do {
-                    let decoded = try JSONDecoder().decode(ExchangeResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.exchangeRates = decoded.rates
-                        self.exchangeRates[fromUnit] = 1.0
-                        print("Hämtade växelkurser: \(self.exchangeRates)")
-                        
-                        if let inputDouble = Double(self.inputValue.replacingOccurrences(of: ",", with: ".")) {
-                            self.updateOutputValue(inputDouble: inputDouble)
-                        }
-                    }
-                } catch {
-                    print("Fel vid JSON-parsing: \(error)")
-                }
-            }.resume()
-        }
- 
- 
-    func updateOutputValue(inputDouble: Double) {
-        guard let toRate = exchangeRates[selectedToUnit ?? ""] else {
-            outputValue = "Ogiltig enhet"
-            return
-        }
-        
-        let convertedValue = inputDouble * toRate
-        let formattedResult = String(format: "%.2f", convertedValue).replacingOccurrences(of: ".", with: ",")
-        outputValue = formattedResult
-    }
+                   let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
+                   
+                   URLSession.shared.dataTask(with: url) { data, response, error in
+                       if let data = data {
+                           do {
+                               if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                                   if let bitcoinData = json["bitcoin"] as? [String: Any],
+                                      let ethereumData = json["ethereum"] as? [String: Any] {
+                                       DispatchQueue.main.async {
+                                           self.exchangeRates["USD"] = 1
+                                           self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
+                                           self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
+                                           
+                                       }
+                                   }
+                               }
+                           } catch {
+                               print("Fel vid JSON-parsing")
+                           }
+                       }
+                   }.resume()
+               }
+           
+           func updateOutputValue(inputDouble: Double) {
+                   guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
+                         let toRate = exchangeRates[selectedToUnit ?? ""] else {
+                       outputValue = "Ogiltig enhet"
+                       return
+                   }
+
+                   // Konvertera till USD basenhet
+                   let valueInUSD = inputDouble * fromRate
+               
+                   // Konvertera från USD till den valda mål-enheten
+                   let convertedValue = valueInUSD / toRate
+                   let formattedResult = String(format: "%.2f", convertedValue).replacingOccurrences(of: ".", with: ",")
+                   outputValue = formattedResult
+               }
 }

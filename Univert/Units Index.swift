@@ -84,6 +84,8 @@ func destinationView(for unit: Units) -> some View {
         Enhetsmall()
     case "Yta":
         Yta()
+    case "Krypto":
+        Krypto()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }
