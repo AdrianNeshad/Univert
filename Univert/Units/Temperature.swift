@@ -13,7 +13,13 @@ struct Temperatur: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["°C", "°F", "Kelvin"]
+    let units = ["°C", "°F", "K"]
+    
+    let fullNames: [String: String] = [
+            "°C": "Celsius",
+            "°F": "Fahrenheit",
+            "K": "Kelvin",
+        ]
     
     var body: some View {
         VStack {
@@ -76,18 +82,17 @@ struct Temperatur: View {
             } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
-            
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

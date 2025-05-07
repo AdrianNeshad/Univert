@@ -20,6 +20,41 @@ struct Valuta: View {
     @State private var outputValue = ""
     
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
+    
+    let currencyNames: [String: String] = [
+            "USD": "US Dollar",
+            "EUR": "Euro",
+            "SEK": "Swedish Krona",
+            "GBP": "British Pound",
+            "AUD": "Australian Dollar",
+            "BGN": "Bulgarian Lev",
+            "BRL": "Brazilian Real",
+            "CAD": "Canadian Dollar",
+            "CHF": "Swiss Franc",
+            "CNY": "Chinese Yuan",
+            "CZK": "Czech Koruna",
+            "DKK": "Danish Krone",
+            "HKD": "Hong Kong Dollar",
+            "HUF": "Hungarian Forint",
+            "IDR": "Indonesian Rupiah",
+            "ILS": "Israeli New Shekel",
+            "INR": "Indian Rupee",
+            "ISK": "Icelandic Króna",
+            "JPY": "Japanese Yen",
+            "KRW": "South Korean Won",
+            "MXN": "Mexican Peso",
+            "MYR": "Malaysian Ringgit",
+            "NOK": "Norwegian Krone",
+            "NZD": "New Zealand Dollar",
+            "PHP": "Philippine Peso",
+            "PLN": "Polish Zloty",
+            "RON": "Romanian Leu",
+            "SGD": "Singapore Dollar",
+            "THB": "Thai Baht",
+            "TRY": "Turkish Lira",
+            "ZAR": "South African Rand"
+        ]
+    
     @State private var exchangeRates: [String: Double] = [:]
     
     var body: some View {
@@ -86,16 +121,16 @@ struct Valuta: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            }
+                            Text("(\(selectedFromUnit ?? "")) \(currencyNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(currencyNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

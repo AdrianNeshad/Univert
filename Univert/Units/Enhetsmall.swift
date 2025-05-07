@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct Enhetsmall: View {
-    @State private var selectedFromUnit: String? = "mg"
-    @State private var selectedToUnit: String? = "mg"
+    @State private var selectedFromUnit: String? = "XXX"
+    @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["XXX", "XXX", "XXX"]
+    let units = ["XXX", "YYY", "ZZZ"]
+    
+    let fullNames: [String: String] = [
+            "XXX": "XXX",
+            "YYY": "YYY",
+            "ZZZ": "ZZZ",
+        ]
+    
     
     var body: some View {
         VStack {
@@ -78,16 +85,16 @@ struct Enhetsmall: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

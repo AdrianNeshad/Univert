@@ -15,6 +15,15 @@ struct Skostorlek: View {
     
     let units = ["EU", "UK", "US M", "US W", "cm", "in"]
     
+    let fullNames: [String: String] = [
+        "EU": "European Union",
+        "UK": "United Kingdom",
+        "US M": "US Men's",
+        "US W": "US Women's",
+        "cm": "Centimeter",
+        "in": "Inch"
+    ]
+    
     var body: some View {
         VStack {
             // Din befintliga UI-kod här (första HStack med "Från" och "Till")
@@ -81,16 +90,16 @@ struct Skostorlek: View {
             
             // Enhetsetiketter
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            }
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             // Input/output HStack
             HStack(spacing: 10) {

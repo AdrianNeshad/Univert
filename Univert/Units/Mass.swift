@@ -15,6 +15,22 @@ struct Vikt: View {
     
     let units = ["mg", "g", "hg", "kg", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz", "lbs"]
     
+    let fullNames: [String: String] = [
+        "mg": "Milligram",
+        "g": "Gram",
+        "hg": "Hektogram",
+        "kg": "Kilogram",
+        "m ton": "Metric Ton",
+        "N": "Newton",
+        "kN": "Kilonewton",
+        "carat": "Carat",
+        "t oz": "Troy Ounce",
+        "t lb": "Troy Pound",
+        "stone": "Stone",
+        "oz": "Ounce",
+        "lbs": "Pounds"
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +94,16 @@ struct Vikt: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

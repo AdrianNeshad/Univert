@@ -15,6 +15,13 @@ struct Vridmoment: View {
     
     let units = ["N m", "lb ft", "lb in", "kg m"]
     
+    let fullNames: [String: String] = [
+        "N m": "Newton meter",
+        "lb ft": "Pound foot",
+        "lb in": "Pound inch",
+        "kg m": "Kilogram meter"
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +85,16 @@ struct Vridmoment: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

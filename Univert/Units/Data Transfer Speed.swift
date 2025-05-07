@@ -15,6 +15,19 @@ struct Dataöverföringshastighet: View {
     
     let units = ["bit/s", "Byte/s", "Kbit/s", "KB/s", "Mbit/s", "MB/s", "Gbit/s", "GB/s", "Tbit/s", "TB/s"]
     
+    let fullNames: [String: String] = [
+        "bit/s": "Bit per second",
+        "Byte/s": "Byte per second",
+        "Kbit/s": "Kilobit per second",
+        "KB/s": "Kilobyte per second",
+        "Mbit/s": "Megabit per second",
+        "MB/s": "Megabyte per second",
+        "Gbit/s": "Gigabit per second",
+        "GB/s": "Gigabyte per second",
+        "Tbit/s": "Terabit per second",
+        "TB/s": "Terabyte per second"
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +91,16 @@ struct Dataöverföringshastighet: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            }
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

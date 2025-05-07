@@ -8,12 +8,23 @@
 import SwiftUI
 
 struct Datastorlek: View {
-    @State private var selectedFromUnit: String? = "bit"
-    @State private var selectedToUnit: String? = "bit"
+    @State private var selectedFromUnit: String? = "b"
+    @State private var selectedToUnit: String? = "b"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["bit", "byte", "KB", "MB", "GB", "TB", "PB", "EB"]
+    let units = ["b", "B", "KB", "MB", "GB", "TB", "PB", "EB"]
+    
+    let fullNames: [String: String] = [
+        "b": "Bit",
+        "B": "Byte",
+        "KB": "Kilobyte",
+        "MB": "Megabyte",
+        "GB": "Gigabyte",
+        "TB": "Terabyte",
+        "PB": "Petabyte",
+        "EB": "Exabyte"
+    ]
     
     var body: some View {
         VStack {
@@ -78,16 +89,16 @@ struct Datastorlek: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

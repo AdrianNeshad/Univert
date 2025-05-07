@@ -15,6 +15,19 @@ struct Yta: View {
     
     let units = ["m²", "km²", "cm²", "mm²", "ha", "ac", "mi²", "yd²", "ft²", "in²"]
     
+    let fullNames: [String: String] = [
+        "m²": "Square Meter",
+        "km²": "Square Kilometer",
+        "cm²": "Square Centimeter",
+        "mm²": "Square Millimeter",
+        "ha": "Hectare",
+        "ac": "Acre",
+        "mi²": "Square Mile",
+        "yd²": "Square Yard",
+        "ft²": "Square Foot",
+        "in²": "Square Inch"
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +91,16 @@ struct Yta: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

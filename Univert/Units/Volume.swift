@@ -13,7 +13,23 @@ struct Volym: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["L", "ml", "cl", "dl", "gal", "cup", "UK pint", "quart", "fl oz", "cm³", "dm³", "m³", "mm³"]
+    let units = ["L", "ml", "cl", "dl", "gal", "cup", "pint", "qrt", "fl oz", "cm³", "dm³", "m³", "mm³"]
+    
+    let fullNames: [String: String] = [
+        "L": "Liter",
+        "ml": "Milliliter",
+        "cl": "Centiliter",
+        "dl": "Deciliter",
+        "gal": "Gallon",
+        "cup": "Cup",
+        "pint": "UK Pint",
+        "qrt": "Quart",
+        "fl oz": "Fluid Ounce",
+        "cm³": "Cubic Centimeter",
+        "dm³": "Cubic Decimeter",
+        "m³": "Cubic Meter",
+        "mm³": "Cubic Millimeter"
+    ]
     
     var body: some View {
         VStack {
@@ -78,16 +94,16 @@ struct Volym: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

@@ -13,7 +13,18 @@ struct Tid: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["ms", "s", "min", "h", "dag", "vecka", "månad", "år"]
+    let units = ["ms", "s", "min", "h", "d", "w", "m", "yr"]
+    
+    let fullNames: [String: String] = [
+        "ms": "Millisecond",
+        "s": "Second",
+        "min": "Minute",
+        "h": "Hour",
+        "d": "Day",
+        "w": "Week",
+        "m": "Month",
+        "yr": "Year"
+    ]
     
     var body: some View {
         VStack {
@@ -78,16 +89,16 @@ struct Tid: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

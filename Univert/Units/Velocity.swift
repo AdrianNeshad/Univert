@@ -15,6 +15,19 @@ struct Velocitet: View {
     
     let units = ["km/h", "mph", "m/s", "knot", "km/min", "m/min", "m/h", "km/s", "ft/s", "ft/min"]
     
+    let fullNames: [String: String] = [
+        "km/h": "Kilometer per hour",
+        "mph": "Miles per hour",
+        "m/s": "Meters per second",
+        "knot": "Knots",
+        "km/min": "Kilometers per minute",
+        "m/min": "Meters per minute",
+        "m/h": "Meters per hour",
+        "km/s": "Kilometers per second",
+        "ft/s": "Feet per second",
+        "ft/min": "Feet per minute"
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +91,16 @@ struct Velocitet: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            } //HStack
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)

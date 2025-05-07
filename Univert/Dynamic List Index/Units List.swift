@@ -28,6 +28,7 @@ struct Units {
          Units(name: "Valuta", icon: "💲", isFavorite: false),
          Units(name: "Yta", icon: "🗺️", isFavorite: false),
          Units(name: "Krypto", icon: "💲", isFavorite: false),
+         Units(name: "Enhetsmall", icon: "❌", isFavorite: false),
         ]
     }
 }

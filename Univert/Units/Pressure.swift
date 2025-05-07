@@ -15,6 +15,17 @@ struct Tryck: View {
     
     let units = ["bar", "psi", "kPa", "atm", "mbar", "MPa", "Pa"]
     
+    let fullNames: [String: String] = [
+        "bar": "Bar",
+        "psi": "Psi",
+        "kPa": "Kilopascal",
+        "atm": "Atmosphere",
+        "mbar": "Millibar",
+        "MPa": "Megapascal",
+        "Pa": "Pascal"
+    ]
+
+    
     var body: some View {
         VStack {
             HStack {
@@ -78,16 +89,16 @@ struct Tryck: View {
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? ""))")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            }
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
