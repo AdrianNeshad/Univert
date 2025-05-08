@@ -175,19 +175,20 @@ struct Krypto: View {
                    }.resume()
                }
            
-           func updateOutputValue(inputDouble: Double) {
-                   guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
-                         let toRate = exchangeRates[selectedToUnit ?? ""] else {
-                       outputValue = "Ogiltig enhet"
-                       return
-                   }
+    func updateOutputValue(inputDouble: Double) {
+        guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
+              let toRate = exchangeRates[selectedToUnit ?? ""] else {
+            outputValue = "Ogiltig enhet"
+            return
+        }
 
-                   // Konvertera till USD basenhet
-                   let valueInUSD = inputDouble * fromRate
-               
-                   // Konvertera från USD till den valda mål-enheten
-                   let convertedValue = valueInUSD / toRate
-                   let formattedResult = String(format: "%.2f", convertedValue).replacingOccurrences(of: ".", with: ",")
-                   outputValue = formattedResult
-               }
+        // Konvertera till USD basenhet
+        let valueInUSD = inputDouble * fromRate
+
+        // Konvertera från USD till den valda mål-enheten
+        let convertedValue = valueInUSD / toRate
+
+        outputValue = FormatterHelper.shared.formatResult(convertedValue)
+    }
+
 }

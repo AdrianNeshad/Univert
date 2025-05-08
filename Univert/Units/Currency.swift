@@ -216,7 +216,6 @@ struct Valuta: View {
             }.resume()
         }
  
- 
     func updateOutputValue(inputDouble: Double) {
         guard let toRate = exchangeRates[selectedToUnit ?? ""] else {
             outputValue = "Ogiltig enhet"
@@ -224,7 +223,7 @@ struct Valuta: View {
         }
         
         let convertedValue = inputDouble * toRate
-        let formattedResult = String(format: "%.2f", convertedValue).replacingOccurrences(of: ".", with: ",")
-        outputValue = formattedResult
+        outputValue = FormatterHelper.shared.formatResult(convertedValue)
     }
 }
+    

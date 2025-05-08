@@ -120,17 +120,18 @@ struct Tid: View {
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        // Uppdatera output när enheten ändras
-                        if let inputDouble = Double(inputValue) {
+                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(formattedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        // Uppdatera output när enheten ändras
-                        if let inputDouble = Double(inputValue) {
+                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(formattedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
+
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
