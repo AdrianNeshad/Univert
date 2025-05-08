@@ -90,8 +90,8 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.name {
-    case "Velocitet":
-        Velocitet()
+    case "Hastighet":
+        Hastighet()
     case "Vikt":
         Vikt()
     case "Längd":

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Velocitet: View {
+struct Hastighet: View {
     @State private var selectedFromUnit: String? = "km/h"
     @State private var selectedToUnit: String? = "km/h"
     @State private var inputValue = ""
