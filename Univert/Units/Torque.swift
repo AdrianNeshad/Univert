@@ -167,10 +167,10 @@ struct Vridmoment: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertTorque(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result)
-            outputValue = formattedResult
+            outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 }

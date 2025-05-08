@@ -163,10 +163,10 @@ struct Temperatur: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertTemperature(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result).replacingOccurrences(of: ".", with: ",")
-            outputValue = formattedResult
+            outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 }

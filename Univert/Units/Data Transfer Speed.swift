@@ -176,10 +176,10 @@ struct Dataöverföringshastighet: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertDataTransferSpeed(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.6f", result)  // Visar resultat med 6 decimaler
-            outputValue = formattedResult
+            outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 }

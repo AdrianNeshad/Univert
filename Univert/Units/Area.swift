@@ -179,10 +179,10 @@ struct Yta: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertArea(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.2f", result)
-            outputValue = formattedResult
+            outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 }

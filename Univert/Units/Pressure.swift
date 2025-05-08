@@ -171,8 +171,7 @@ struct Tryck: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertPressure(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formattedResult = String(format: "%.6f", result)  // Visar resultat med 6 decimaler
-            outputValue = formattedResult
+            outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
         }

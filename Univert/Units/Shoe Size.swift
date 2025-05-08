@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct ShoeSizeRow {
+    let eu: Double
+    let uk: Double
+    let usM: Double
+    let usW: Double
+    let cm: Double
+}
+
 struct Skostorlek: View {
     @State private var selectedFromUnit: String? = "EU"
     @State private var selectedToUnit: String? = "EU"
@@ -24,9 +32,34 @@ struct Skostorlek: View {
         "in": "Inch"
     ]
     
+    let shoeSizeTable: [ShoeSizeRow] = [
+        ShoeSizeRow(eu: 35, uk: 2.5, usM: 3, usW: 4, cm: 22),
+        ShoeSizeRow(eu: 36, uk: 3.5, usM: 4, usW: 5, cm: 22.5),
+        ShoeSizeRow(eu: 37, uk: 4, usM: 4.5, usW: 5.5, cm: 23),
+        ShoeSizeRow(eu: 37.5, uk: 4.5, usM: 5, usW: 6, cm: 23.5),
+        ShoeSizeRow(eu: 38, uk: 5, usM: 5.5, usW: 6.5, cm: 24),
+        ShoeSizeRow(eu: 38.5, uk: 5.5, usM: 6, usW: 7, cm: 24.5),
+        ShoeSizeRow(eu: 39, uk: 6, usM: 6.5, usW: 7.5, cm: 25),
+        ShoeSizeRow(eu: 40, uk: 6.5, usM: 7, usW: 8, cm: 25.5),
+        ShoeSizeRow(eu: 40.5, uk: 7, usM: 7.5, usW: 8.5, cm: 26),
+        ShoeSizeRow(eu: 41, uk: 7, usM: 8, usW: 9, cm: 26),
+        ShoeSizeRow(eu: 42, uk: 8, usM: 9, usW: 10, cm: 27),
+        ShoeSizeRow(eu: 42.5, uk: 8.5, usM: 9.5, usW: 10.5, cm: 27.5),
+        ShoeSizeRow(eu: 43, uk: 9, usM: 10, usW: 11, cm: 28),
+        ShoeSizeRow(eu: 44, uk: 9.5, usM: 10.5, usW: 11.5, cm: 28.5),
+        ShoeSizeRow(eu: 44.5, uk: 10, usM: 11, usW: 12, cm: 29),
+        ShoeSizeRow(eu: 45, uk: 10.5, usM: 11.5, usW: 12.5, cm: 29.5),
+        ShoeSizeRow(eu: 46, uk: 11, usM: 12, usW: 13, cm: 30),
+        ShoeSizeRow(eu: 46.5, uk: 11.5, usM: 12.5, usW: 13.5, cm: 30.5),
+        ShoeSizeRow(eu: 47, uk: 12, usM: 13, usW: 14, cm: 31),
+        ShoeSizeRow(eu: 48, uk: 13, usM: 14, usW: 15, cm: 32),
+        ShoeSizeRow(eu: 49, uk: 14, usM: 15, usW: 16, cm: 33),
+        ShoeSizeRow(eu: 50, uk: 15, usM: 16, usW: 17, cm: 34)
+    ]
+
+    
     var body: some View {
         VStack {
-            // Din befintliga UI-kod här (första HStack med "Från" och "Till")
             HStack {
                 Text("Från")
                     .font(.title)
@@ -56,7 +89,6 @@ struct Skostorlek: View {
                     .multilineTextAlignment(.center)
             }
             
-            // Picker HStack
             HStack {
                 Text("►")
                     .font(.title)
@@ -88,20 +120,18 @@ struct Skostorlek: View {
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
-            // Enhetsetiketter
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 0)
-                        }
+                Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
+                
+                Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 0)
+            }
             
-            // Input/output HStack
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
                     .keyboardType(.decimalPad)
@@ -112,14 +142,14 @@ struct Skostorlek: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { newValue in
-                        convertShoeSize()
+                    .onChange(of: inputValue) { _ in
+                        convertUsingTable()
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        convertShoeSize()
+                        convertUsingTable()
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        convertShoeSize()
+                        convertUsingTable()
                     }
 
                 Text(outputValue)
@@ -138,70 +168,41 @@ struct Skostorlek: View {
         .padding()
     }
     
-    func convertShoeSize() {
-        guard !inputValue.isEmpty,
+    func convertUsingTable() {
+        guard let fromUnit = selectedFromUnit,
+              let toUnit = selectedToUnit,
               let inputDouble = Double(inputValue.replacingOccurrences(of: ",", with: ".")) else {
             outputValue = ""
             return
         }
         
-        // Konvertera först till centimeter som referens
-        let cmSize: Double
+        // Hitta den raden som ligger närmast inputvärdet i inputenheten
+        let nearestRow = shoeSizeTable.min(by: { abs(value(for: fromUnit, in: $0) - inputDouble) < abs(value(for: fromUnit, in: $1) - inputDouble) })
         
-        // Konvertera från vald enhet till centimeter
-        switch selectedFromUnit {
-        case "EU":
-            cmSize = (inputDouble + 10) / 1.5
-        case "UK":
-            let euSize = inputDouble + 33
-            cmSize = (euSize + 10) / 1.5
-        case "US M":
-            let euSize = inputDouble + 33.5
-            cmSize = (euSize + 10) / 1.5
-        case "US W":
-            let euSize = inputDouble + 31.5
-            cmSize = (euSize + 10) / 1.5
-        case "cm":
-            cmSize = inputDouble
-        case "in":
-            cmSize = inputDouble * 2.54
-        default:
-            cmSize = inputDouble
+        guard let row = nearestRow else {
+            outputValue = "Ingen match"
+            return
         }
         
-        // Konvertera från centimeter till mål-enhet
-        var result: Double
-        switch selectedToUnit {
-        case "EU":
-            result = cmSize * 1.5 - 10
-        case "UK":
-            let euSize = cmSize * 1.5 - 10
-            result = euSize - 33
-        case "US M":
-            let euSize = cmSize * 1.5 - 10
-            result = euSize - 33.5
-        case "US W":
-            let euSize = cmSize * 1.5 - 10
-            result = euSize - 31.5
-        case "cm":
-            result = cmSize
-        case "in":
-            result = cmSize / 2.54
-        default:
-            result = cmSize
-        }
+        let output = value(for: toUnit, in: row)
         
         // Formatera resultatet
-        if selectedToUnit == "cm" || selectedToUnit == "in" {
-            outputValue = String(format: "%.1f", result).replacingOccurrences(of: ".", with: ",")
+        if toUnit == "cm" || toUnit == "in" {
+            outputValue = String(format: "%.1f", output).replacingOccurrences(of: ".", with: ",")
         } else {
-            // Avrunda till närmaste halva storlek för skostorlekar
-            let rounded = (result * 2).rounded() / 2
-            if rounded == rounded.rounded() {
-                outputValue = String(format: "%.0f", rounded)
-            } else {
-                outputValue = String(format: "%.1f", rounded).replacingOccurrences(of: ".", with: ",")
-            }
+            outputValue = String(format: "%.1f", output).replacingOccurrences(of: ".", with: ",")
+        }
+    }
+    
+    func value(for unit: String, in row: ShoeSizeRow) -> Double {
+        switch unit {
+        case "EU": return row.eu
+        case "UK": return row.uk
+        case "US M": return row.usM
+        case "US W": return row.usW
+        case "cm": return row.cm
+        case "in": return row.cm / 2.54  // beräkna inch från cm
+        default: return 0
         }
     }
 }
