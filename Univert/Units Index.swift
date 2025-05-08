@@ -18,12 +18,28 @@ struct UnitsListView: View {
 
     var body: some View {
         NavigationView {
-            List(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
-                NavigationLink(destination: destinationView(for: unit)) {
-                    HStack {
-                        Text(unit.icon)
-                        Text(unit.name)
+            List {
+                // Huvudinnehåll
+                ForEach(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
+                    NavigationLink(destination: destinationView(for: unit)) {
+                        HStack {
+                            Text(unit.icon)
+                            Text(unit.name)
+                        }
                     }
+                }
+
+                Section {
+                    EmptyView()
+                } footer: {
+                    VStack(spacing: 4) {
+                        Text("© Univert App - Adrian Neshad")
+                        Text("Github.com/AdrianNeshad")
+                    }
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, -100)
                 }
             }
             .navigationTitle("Enheter")
@@ -37,8 +53,7 @@ struct UnitsListView: View {
                             }
                         }
         }
-        .preferredColorScheme(isDarkMode ? .dark : .light)  // <-- Lägg till denna rad
-
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
 
