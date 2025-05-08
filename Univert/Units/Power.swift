@@ -13,16 +13,17 @@ struct Effekt: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["W", "MW", "kW", "hp", "BTU/h", "ton/ref"]
+ let units = ["W", "MW", "kW", "hp", "BTU/h", "ton/ref"]
+ 
+ let fullNames: [String: String] = [
+     "W": "Watt",
+     "MW": "Megawatt",
+     "kW": "Kilowatt",
+     "hp": "Horsepower",
+     "BTU/h": "British Thermal Unit per hour",
+     "ton/ref": "Ton of Refrigeration"
+ ]
     
-    let fullNames: [String: String] = [
-        "W": "Watt",
-        "MW": "Megawatt",
-        "kW": "Kilowatt",
-        "hp": "Horsepower",
-        "BTU/h": "British Thermal Unit per hour",
-        "ton/ref": "Ton of Refrigeration"
-    ]
     
     var body: some View {
         VStack {
@@ -147,13 +148,13 @@ struct Effekt: View {
         .padding()
     }
     
-    func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
+ func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "Watt": 1,
-            "kW": 1000, // 1 kW = 1000 W
-            "MW": 1000000, // 1 MW = 1,000,000 W
-            "hp": 745.7, // 1 hp = 745.7 W
-            "BTU/h": 0.2931, // 1 btu/h ≈ 0.2931 W
+            "W": 1,           // Watt (basenhet)
+            "kW": 1000,       // 1 kW = 1000 W
+            "MW": 1000000,    // 1 MW = 1,000,000 W
+            "hp": 745.7,      // 1 hp = 745.7 W
+            "BTU/h": 0.2931,  // 1 btu/h ≈ 0.2931 W
             "ton/ref": 3516.85 // 1 ton/ref ≈ 3516.85 W
         ]
         
@@ -170,12 +171,12 @@ struct Effekt: View {
         return convertedValue
     }
 
+    // Uppdaterar outputvärdet
     func updateOutputValue(inputDouble: Double) {
         if let result = convertPower(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result)
+            outputValue = FormatterHelper.shared.formatResult(result) // Använd formatresultat från FormatterHelper
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }

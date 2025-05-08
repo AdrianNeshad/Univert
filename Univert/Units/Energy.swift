@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct Energi: View {
-    @State private var selectedFromUnit: String? = "XXX"
-    @State private var selectedToUnit: String? = "XXX"
+    @State private var selectedFromUnit: String? = "J"
+    @State private var selectedToUnit: String? = "J"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
     let units = ["J", "kJ", "kWh", "Wh", "cal", "kcal", "Btu"]
     
     let fullNames: [String: String] = [
-            "J": "XXX",
-            "kJ": "YYY",
-            "kWh": "ZZ",
-            "Wh": "",
+            "J": "Joule",
+            "kJ": "Kilojoule",
+            "kWh": "Kilowatt-hour",
+            "Wh": "Watt-hour",
             "cal": "Calorie",
-            "kcal": "kilocalorie",
+            "kcal": "Kilocalorie",
+            "Btu": "British Thermal Unit"
         ]
     
     
@@ -144,31 +145,36 @@ struct Energi: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Mall")
+        .navigationTitle("Energi")
         .padding()
     }
     
-    func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        let conversionFactors: [String: Double] = [
-            "mg": 0.001,
-           
-        ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+    func convertEnergy(value: Double, fromUnit: String, toUnit: String) -> Double? {
+            let conversionFactors: [String: Double] = [
+                "J": 1,           // Joule (basenhet)
+                "kJ": 1000,       // 1 kJ = 1000 J
+                "kWh": 3600000, // 1 kWh = 3,600,000 J
+                "Wh": 3600,       // 1 Wh = 3600 J
+                "cal": 4.184,     // 1 cal = 4.184 J
+                "kcal": 4184,     // 1 kcal = 4184 J
+                "Btu": 1055.06    // 1 Btu = 1055.06 J
+            ]
+            
+            // Kontrollera att enheterna finns i conversionFactors
+            guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+                return nil // Om någon enhet inte finns i listan, returnera nil
+            }
+
+            // Omvandla till Joule (basenhet)
+            let valueInJoules = value * fromFactor
+            
+            // Omvandla från Joule till mål-enheten
+            let convertedValue = valueInJoules / toFactor
+            return convertedValue
         }
-
-        // Omvandla till gram (basenhet)
-        let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
-        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
-        return convertedValue
-    }
-
+    
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+        if let result = convertEnergy(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result)
         } else {
             outputValue = "Ogiltig enhet"
