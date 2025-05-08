@@ -1,33 +1,29 @@
 //
-//  CurrencyTest.swift
+//  Energy.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-07.
+//  Created by Adrian Neshad on 2025-05-08.
 //
 
 import SwiftUI
 
-struct ExchangeResponse2: Codable {
-    let rates: [String: Double]
-    let base: String
-    let date: String
-}
-
-struct Krypto: View {
-    @State private var selectedFromUnit: String? = "BTC"
-    @State private var selectedToUnit: String? = "BTC"
+struct Energi: View {
+    @State private var selectedFromUnit: String? = "XXX"
+    @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["BTC", "USD", "ETH"]
+    let units = ["J", "kJ", "kWh", "Wh", "cal", "kcal", "Btu"]
     
     let fullNames: [String: String] = [
-            "BTC": "Bitcoin",
-            "USD": "US Dollar",
-            "ETH": "Ethereum",
+            "J": "XXX",
+            "kJ": "YYY",
+            "kWh": "ZZ",
+            "Wh": "",
+            "cal": "Calorie",
+            "kcal": "kilocalorie",
         ]
-
-    @State private var exchangeRates: [String: Double] = [:]
+    
     
     var body: some View {
         VStack {
@@ -35,6 +31,7 @@ struct Krypto: View {
                 Text("Från")
                     .font(.title)
                     .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
@@ -51,18 +48,18 @@ struct Krypto: View {
                 Text("Till")
                     .font(.title)
                     .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            }
+            } //HStack
             
             HStack {
                 Text("►")
                     .font(.title)
                     .frame(width: 50)
-                
                 PomodoroPicker(
                     selection: $selectedFromUnit,
                     options: units
@@ -73,7 +70,6 @@ struct Krypto: View {
                         .frame(width: 100)
                         .padding(.leading, -90)
                 }
-                
                 PomodoroPicker(
                     selection: $selectedToUnit,
                     options: units
@@ -84,11 +80,10 @@ struct Krypto: View {
                         .frame(width: 100)
                         .padding(.trailing, -90)
                 }
-                
                 Text("◄")
                     .font(.title)
                     .frame(width: 50)
-            }
+            } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
@@ -107,6 +102,7 @@ struct Krypto: View {
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
                     .keyboardType(.decimalPad)
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .frame(maxWidth: .infinity)
@@ -114,6 +110,7 @@ struct Krypto: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
+                        // Omvandla komma till punkt och försök att konvertera till Double
                         let formattedValue = newValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(formattedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -122,14 +119,19 @@ struct Krypto: View {
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        fetchExchangeRates()
-                    }
-                    .onChange(of: selectedToUnit) { _ in
-                        if let inputDouble = Double(inputValue) {
+                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(formattedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-                
+                    .onChange(of: selectedToUnit) { _ in
+                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(formattedValue) {
+                            updateOutputValue(inputDouble: inputDouble)
+                        }
+                    }
+
+
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -137,58 +139,41 @@ struct Krypto: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
-            }
+            } //HStack
             .padding([.leading, .trailing], 10)
-        }
+        } //VStack
         .padding(.top, 20)
-        
         Spacer()
-        .navigationTitle("Krypto")
+        .navigationTitle("Mall")
         .padding()
-        
-        .onAppear {
-            fetchExchangeRates()
-        }
     }
     
-    func fetchExchangeRates() {
-                   let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
-                   
-                   URLSession.shared.dataTask(with: url) { data, response, error in
-                       if let data = data {
-                           do {
-                               if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                                   if let bitcoinData = json["bitcoin"] as? [String: Any],
-                                      let ethereumData = json["ethereum"] as? [String: Any] {
-                                       DispatchQueue.main.async {
-                                           self.exchangeRates["USD"] = 1
-                                           self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
-                                           self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
-                                           
-                                       }
-                                   }
-                               }
-                           } catch {
-                               print("Fel vid JSON-parsing")
-                           }
-                       }
-                   }.resume()
-               }
+    func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
+        let conversionFactors: [String: Double] = [
+            "mg": 0.001,
            
-    func updateOutputValue(inputDouble: Double) {
-        guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
-              let toRate = exchangeRates[selectedToUnit ?? ""] else {
-            outputValue = "Ogiltig enhet"
-            return
+        ]
+        
+        // Kontrollera att enheterna finns i conversionFactors
+        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+            return nil // Om någon enhet inte finns i listan, returnera nil
         }
 
-        // Konvertera till USD basenhet
-        let valueInUSD = inputDouble * fromRate
+        // Omvandla till gram (basenhet)
+        let valueInGrams = value * fromFactor / conversionFactors["g"]!
+        
+        // Omvandla från gram till mål-enhet
+        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
+        return convertedValue
+    }
 
-        // Konvertera från USD till den valda mål-enheten
-        let convertedValue = valueInUSD / toRate
-
-        outputValue = FormatterHelper.shared.formatResult(convertedValue)
+    func updateOutputValue(inputDouble: Double) {
+        if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            outputValue = FormatterHelper.shared.formatResult(result)
+        } else {
+            outputValue = "Ogiltig enhet"
+        }
     }
 
 }
+

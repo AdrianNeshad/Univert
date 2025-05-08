@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Kraft: View {
+struct Effekt: View {
     @State private var selectedFromUnit: String? = "W"
     @State private var selectedToUnit: String? = "W"
     @State private var inputValue = ""
@@ -143,7 +143,7 @@ struct Kraft: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Kraft")
+        .navigationTitle("Effekt")
         .padding()
     }
     

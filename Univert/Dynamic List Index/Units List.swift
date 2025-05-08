@@ -23,12 +23,12 @@ struct Units {
          Units(name: "Datastorlek", icon: "💾", isFavorite: false),
          Units(name: "Dataöverföringshastighet", icon: "🔁", isFavorite: false),
          Units(name: "Tryck", icon: "🧭", isFavorite: false),
-         Units(name: "Kraft", icon: "⚡️", isFavorite: false),
+         Units(name: "Effekt", icon: "⚡️", isFavorite: false),
          Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
          Units(name: "Valuta", icon: "💲", isFavorite: false),
          Units(name: "Yta", icon: "🗺️", isFavorite: false),
          Units(name: "Krypto", icon: "💲", isFavorite: false),
-         Units(name: "Enhetsmall", icon: "❌", isFavorite: false),
+         Units(name: "Energi", icon: "🔋", isFavorite: false),
         ]
     }
 }

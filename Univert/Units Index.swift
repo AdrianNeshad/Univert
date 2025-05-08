@@ -110,8 +110,8 @@ func destinationView(for unit: Units) -> some View {
         Dataöverföringshastighet()
     case "Tryck":
         Tryck()
-    case "Kraft":
-        Kraft()
+    case "Effekt":
+        Effekt()
     case "Vridmoment":
         Vridmoment()
     case "Valuta":
@@ -120,8 +120,8 @@ func destinationView(for unit: Units) -> some View {
         Yta()
     case "Krypto":
         Krypto()
-    case "Enhetsmall":
-        Enhetsmall()
+    case "Energi":
+        Energi()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

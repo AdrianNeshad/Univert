@@ -13,7 +13,7 @@ struct Vridmoment: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["N m", "lb ft", "lb in", "kg m"]
+    let units = ["N m", "lb ft", "lb in", "kg•m"]
     
     let fullNames: [String: String] = [
         "N m": "Newton meter",
