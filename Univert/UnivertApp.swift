@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct UnivertApp: App {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+
     var body: some Scene {
         WindowGroup {
             UnitsListView()
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }

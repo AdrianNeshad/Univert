@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct UnitsListView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var units = Units.preview()
     @State private var searchTerm = ""
     
@@ -27,7 +28,17 @@ struct UnitsListView: View {
             }
             .navigationTitle("Enheter")
             .searchable(text: $searchTerm, prompt: "Sök enheter")
+            .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Toggle(isOn: $isDarkMode) {
+                                    Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
+                                }
+                                .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            }
+                        }
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)  // <-- Lägg till denna rad
+
     }
 }
 
@@ -47,9 +58,19 @@ struct UnitsDetailView: View {
 
 struct UnitsListView_Previews: PreviewProvider {
     static var previews: some View {
-        UnitsListView()
+        Group {
+            UnitsListView()
+                .preferredColorScheme(.light)
+                .previewDisplayName("Ljust läge")
+            
+            UnitsListView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Mörkt läge")
+        }
     }
 }
+
+
 
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
