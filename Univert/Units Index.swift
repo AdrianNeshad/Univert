@@ -33,7 +33,7 @@ struct UnitsListView: View {
                     EmptyView()
                 } footer: {
                     VStack(spacing: 4) {
-                        Text("© Univert App - Adrian Neshad")
+                        Text("© 2025 Univert App - Adrian Neshad")
                         Text("Github.com/AdrianNeshad")
                     }
                     .font(.caption)
