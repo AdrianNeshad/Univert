@@ -176,7 +176,7 @@ struct Energi: View {
     
     func updateOutputValue(inputDouble: Double) {
         if let result = convertEnergy(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
         } else {
             outputValue = "Ogiltig enhet"
         }
