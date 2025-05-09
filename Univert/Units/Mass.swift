@@ -117,23 +117,22 @@ struct Vikt: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        // Omvandla komma till punkt och försök att konvertera till Double
-                        let formattedValue = newValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
                             outputValue = ""
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
@@ -187,7 +186,7 @@ struct Vikt: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
         } else {
             outputValue = "Ogiltig enhet"
         }

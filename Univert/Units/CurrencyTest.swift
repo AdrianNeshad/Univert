@@ -14,7 +14,7 @@ struct ExchangeResponse2: Codable {
 }
 
 struct Krypto: View {
-    
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "BTC"
     @State private var selectedToUnit: String? = "BTC"
     @State private var inputValue = ""
@@ -23,10 +23,10 @@ struct Krypto: View {
     let units = ["BTC", "USD", "ETH"]
     
     let fullNames: [String: String] = [
-            "BTC": "Bitcoin",
-            "USD": "US Dollar",
-            "ETH": "Ethereum",
-        ]
+        "BTC": "Bitcoin",
+        "USD": "US Dollar",
+        "ETH": "Ethereum"
+    ]
 
     @State private var exchangeRates: [String: Double] = [:]
     
@@ -94,16 +94,16 @@ struct Krypto: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 0)
-                        }
+                Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
+                
+                Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 0)
+            }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
@@ -115,8 +115,8 @@ struct Krypto: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let formattedValue = newValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
                             outputValue = ""
@@ -126,7 +126,8 @@ struct Krypto: View {
                         fetchExchangeRates()
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        if let inputDouble = Double(inputValue) {
+                        let normalizedValue = useSwedishDecimal ? inputValue.replacingOccurrences(of: ",", with: ".") : inputValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
@@ -146,36 +147,39 @@ struct Krypto: View {
         Spacer()
         .navigationTitle("Krypto")
         .padding()
-        
         .onAppear {
             fetchExchangeRates()
         }
     }
     
     func fetchExchangeRates() {
-                   let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
-                   
-                   URLSession.shared.dataTask(with: url) { data, response, error in
-                       if let data = data {
-                           do {
-                               if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                                   if let bitcoinData = json["bitcoin"] as? [String: Any],
-                                      let ethereumData = json["ethereum"] as? [String: Any] {
-                                       DispatchQueue.main.async {
-                                           self.exchangeRates["USD"] = 1
-                                           self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
-                                           self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
-                                           
-                                       }
-                                   }
-                               }
-                           } catch {
-                               print("Fel vid JSON-parsing")
-                           }
-                       }
-                   }.resume()
-               }
-           
+        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        if let bitcoinData = json["bitcoin"] as? [String: Any],
+                           let ethereumData = json["ethereum"] as? [String: Any] {
+                            DispatchQueue.main.async {
+                                self.exchangeRates["USD"] = 1
+                                self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
+                                self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
+                                
+                                let normalizedValue = useSwedishDecimal ? self.inputValue.replacingOccurrences(of: ",", with: ".") : self.inputValue
+                                if let inputDouble = Double(normalizedValue) {
+                                    self.updateOutputValue(inputDouble: inputDouble)
+                                }
+                            }
+                        }
+                    }
+                } catch {
+                    print("Fel vid JSON-parsing")
+                }
+            }
+        }.resume()
+    }
+
     func updateOutputValue(inputDouble: Double) {
         guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
               let toRate = exchangeRates[selectedToUnit ?? ""] else {
@@ -183,13 +187,9 @@ struct Krypto: View {
             return
         }
 
-        // Konvertera till USD basenhet
         let valueInUSD = inputDouble * fromRate
-
-        // Konvertera från USD till den valda mål-enheten
         let convertedValue = valueInUSD / toRate
 
-        outputValue = FormatterHelper.shared.formatResult(convertedValue)
+        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal)
     }
-
 }

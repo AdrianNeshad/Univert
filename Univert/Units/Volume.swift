@@ -187,10 +187,11 @@ struct Volym: View {
     
     func updateOutputValue(inputDouble: Double) {
         if let result = convertVolume(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 
 }

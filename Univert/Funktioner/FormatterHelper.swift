@@ -18,15 +18,24 @@ class FormatterHelper {
         formatter.maximumFractionDigits = 4
         formatter.numberStyle = .decimal
         
-        formatter.decimalSeparator = ","              // decimaltecken
-        formatter.groupingSeparator = " "             // mellanrum istället för komma
-        formatter.usesGroupingSeparator = true        // aktivera tusentalsavgränsare
+        // Ta bort dessa ↓ så vi sätter dem dynamiskt istället:
+        // formatter.decimalSeparator = ","
+        formatter.groupingSeparator = " "
+        formatter.usesGroupingSeparator = true
         
         self.numberFormatter = formatter
     }
     
-    func formatResult(_ value: Double) -> String {
+    func formatResult(_ value: Double, useSwedishDecimal: Bool) -> String {
+        numberFormatter.decimalSeparator = useSwedishDecimal ? "," : "."
         return numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
+    func formatResult(_ value: Double, useSwedishDecimal: Bool, maximumFractionDigits: Int) -> String {
+        numberFormatter.decimalSeparator = useSwedishDecimal ? "," : "."
+        numberFormatter.maximumFractionDigits = maximumFractionDigits
+        return numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+
 }
+
 

@@ -16,7 +16,7 @@ struct ShoeSizeRow {
 }
 
 struct Skostorlek: View {
-    
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "EU"
     @State private var selectedToUnit: String? = "EU"
     @State private var inputValue = ""
@@ -176,8 +176,6 @@ struct Skostorlek: View {
             outputValue = ""
             return
         }
-        
-        // Hitta den raden som ligger närmast inputvärdet i inputenheten
         let nearestRow = shoeSizeTable.min(by: { abs(value(for: fromUnit, in: $0) - inputDouble) < abs(value(for: fromUnit, in: $1) - inputDouble) })
         
         guard let row = nearestRow else {
@@ -187,12 +185,8 @@ struct Skostorlek: View {
         
         let output = value(for: toUnit, in: row)
         
-        // Formatera resultatet
-        if toUnit == "cm" || toUnit == "in" {
-            outputValue = String(format: "%.1f", output).replacingOccurrences(of: ".", with: ",")
-        } else {
-            outputValue = String(format: "%.1f", output).replacingOccurrences(of: ".", with: ",")
-        }
+        // Använd FormatterHelper
+        outputValue = FormatterHelper.shared.formatResult(output, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 1)
     }
     
     func value(for unit: String, in row: ShoeSizeRow) -> Double {

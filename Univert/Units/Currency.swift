@@ -14,7 +14,7 @@ struct ExchangeResponse: Codable {
 }
 
 struct Valuta: View {
-
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "USD"
     @State private var selectedToUnit: String? = "USD"
     @State private var inputValue = ""
@@ -23,38 +23,38 @@ struct Valuta: View {
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     
     let currencyNames: [String: String] = [
-            "USD": "US Dollar",
-            "EUR": "Euro",
-            "SEK": "Swedish Krona",
-            "GBP": "British Pound",
-            "AUD": "Australian Dollar",
-            "BGN": "Bulgarian Lev",
-            "BRL": "Brazilian Real",
-            "CAD": "Canadian Dollar",
-            "CHF": "Swiss Franc",
-            "CNY": "Chinese Yuan",
-            "CZK": "Czech Koruna",
-            "DKK": "Danish Krone",
-            "HKD": "Hong Kong Dollar",
-            "HUF": "Hungarian Forint",
-            "IDR": "Indonesian Rupiah",
-            "ILS": "Israeli New Shekel",
-            "INR": "Indian Rupee",
-            "ISK": "Icelandic Króna",
-            "JPY": "Japanese Yen",
-            "KRW": "South Korean Won",
-            "MXN": "Mexican Peso",
-            "MYR": "Malaysian Ringgit",
-            "NOK": "Norwegian Krone",
-            "NZD": "New Zealand Dollar",
-            "PHP": "Philippine Peso",
-            "PLN": "Polish Zloty",
-            "RON": "Romanian Leu",
-            "SGD": "Singapore Dollar",
-            "THB": "Thai Baht",
-            "TRY": "Turkish Lira",
-            "ZAR": "South African Rand"
-        ]
+        "USD": "US Dollar",
+        "EUR": "Euro",
+        "SEK": "Swedish Krona",
+        "GBP": "British Pound",
+        "AUD": "Australian Dollar",
+        "BGN": "Bulgarian Lev",
+        "BRL": "Brazilian Real",
+        "CAD": "Canadian Dollar",
+        "CHF": "Swiss Franc",
+        "CNY": "Chinese Yuan",
+        "CZK": "Czech Koruna",
+        "DKK": "Danish Krone",
+        "HKD": "Hong Kong Dollar",
+        "HUF": "Hungarian Forint",
+        "IDR": "Indonesian Rupiah",
+        "ILS": "Israeli New Shekel",
+        "INR": "Indian Rupee",
+        "ISK": "Icelandic Króna",
+        "JPY": "Japanese Yen",
+        "KRW": "South Korean Won",
+        "MXN": "Mexican Peso",
+        "MYR": "Malaysian Ringgit",
+        "NOK": "Norwegian Krone",
+        "NZD": "New Zealand Dollar",
+        "PHP": "Philippine Peso",
+        "PLN": "Polish Zloty",
+        "RON": "Romanian Leu",
+        "SGD": "Singapore Dollar",
+        "THB": "Thai Baht",
+        "TRY": "Turkish Lira",
+        "ZAR": "South African Rand"
+    ]
     
     @State private var exchangeRates: [String: Double] = [:]
     
@@ -122,16 +122,16 @@ struct Valuta: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(currencyNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(currencyNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 0)
-                        }
+                Text("(\(selectedFromUnit ?? "")) \(currencyNames[selectedFromUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
+                
+                Text("(\(selectedToUnit ?? "")) \(currencyNames[selectedToUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 0)
+            }
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
@@ -143,8 +143,8 @@ struct Valuta: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let formattedValue = newValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
                             outputValue = ""
@@ -154,7 +154,8 @@ struct Valuta: View {
                         fetchExchangeRates()
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        if let inputDouble = Double(inputValue) {
+                        let normalizedValue = useSwedishDecimal ? inputValue.replacingOccurrences(of: ",", with: ".") : inputValue
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
@@ -174,48 +175,48 @@ struct Valuta: View {
         Spacer()
         .navigationTitle("Valuta")
         .padding()
-        
         .onAppear {
             fetchExchangeRates()
         }
     }
     
     func fetchExchangeRates() {
-            guard let fromUnit = selectedFromUnit else { return }
-            let urlString = "https://api.frankfurter.app/latest?from=\(fromUnit)"
-            
-            guard let url = URL(string: urlString) else {
-                print("Ogiltig URL")
+        guard let fromUnit = selectedFromUnit else { return }
+        let urlString = "https://api.frankfurter.app/latest?from=\(fromUnit)"
+        
+        guard let url = URL(string: urlString) else {
+            print("Ogiltig URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Fel vid hämtning: \(error.localizedDescription)")
                 return
             }
             
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    print("Fel vid hämtning: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = data else {
-                    print("Ingen data")
-                    return
-                }
-                
-                do {
-                    let decoded = try JSONDecoder().decode(ExchangeResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.exchangeRates = decoded.rates
-                        self.exchangeRates[fromUnit] = 1.0
-                        print("Hämtade växelkurser: \(self.exchangeRates)")
-                        
-                        if let inputDouble = Double(self.inputValue.replacingOccurrences(of: ",", with: ".")) {
-                            self.updateOutputValue(inputDouble: inputDouble)
-                        }
+            guard let data = data else {
+                print("Ingen data")
+                return
+            }
+            
+            do {
+                let decoded = try JSONDecoder().decode(ExchangeResponse.self, from: data)
+                DispatchQueue.main.async {
+                    self.exchangeRates = decoded.rates
+                    self.exchangeRates[fromUnit] = 1.0
+                    print("Hämtade växelkurser: \(self.exchangeRates)")
+                    
+                    let normalizedValue = useSwedishDecimal ? self.inputValue.replacingOccurrences(of: ",", with: ".") : self.inputValue
+                    if let inputDouble = Double(normalizedValue) {
+                        self.updateOutputValue(inputDouble: inputDouble)
                     }
-                } catch {
-                    print("Fel vid JSON-parsing: \(error)")
                 }
-            }.resume()
-        }
+            } catch {
+                print("Fel vid JSON-parsing: \(error)")
+            }
+        }.resume()
+    }
  
     func updateOutputValue(inputDouble: Double) {
         guard let toRate = exchangeRates[selectedToUnit ?? ""] else {
@@ -224,7 +225,6 @@ struct Valuta: View {
         }
         
         let convertedValue = inputDouble * toRate
-        outputValue = FormatterHelper.shared.formatResult(convertedValue)
+        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal)
     }
 }
-    

@@ -178,11 +178,11 @@ struct Enhetsmall: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            let formatted = FormatterHelper.shared.formatResult(result)
-            outputValue = useSwedishDecimal ? formatted.replacingOccurrences(of: ".", with: ",") : formatted
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 
 }
