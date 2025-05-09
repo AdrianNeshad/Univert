@@ -14,13 +14,14 @@ struct Vikt: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["mg", "g", "hg", "kg", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz", "lbs"]
+    let units = ["mg", "g", "hg", "kg", "lbs", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
     
     let fullNames: [String: String] = [
         "mg": "Milligram",
         "g": "Gram",
         "hg": "Hektogram",
         "kg": "Kilogram",
+        "lbs": "Pounds",
         "m ton": "Metric Ton",
         "N": "Newton",
         "kN": "Kilonewton",
@@ -28,8 +29,7 @@ struct Vikt: View {
         "t oz": "Troy Ounce",
         "t lb": "Troy Pound",
         "stone": "Stone",
-        "oz": "Ounce",
-        "lbs": "Pounds"
+        "oz": "Ounce"
     ]
     
     var body: some View {
