@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Datastorlek: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "b"
     @State private var selectedToUnit: String? = "b"
     @State private var inputValue = ""

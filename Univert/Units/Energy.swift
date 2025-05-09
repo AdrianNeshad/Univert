@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Energi: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "J"
     @State private var selectedToUnit: String? = "J"
     @State private var inputValue = ""

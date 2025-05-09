@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Hastighet: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "km/h"
     @State private var selectedToUnit: String? = "km/h"
     @State private var inputValue = ""

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Yta: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "m²"
     @State private var selectedToUnit: String? = "m²"
     @State private var inputValue = ""

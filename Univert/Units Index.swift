@@ -45,13 +45,13 @@ struct UnitsListView: View {
             .navigationTitle("Enheter")
             .searchable(text: $searchTerm, prompt: "Sök enheter")
             .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Toggle(isOn: $isDarkMode) {
-                                    Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
-                                }
-                                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                            }
-                        }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: Inställningar()) {
+                        Image(systemName: "gearshape.fill")
+                    }
+                }
+            }
+
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
@@ -90,6 +90,8 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.name {
+    case "Inställningar":
+        Inställningar()
     case "Hastighet":
         Hastighet()
     case "Vikt":

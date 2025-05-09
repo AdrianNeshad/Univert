@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Volym: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "L"
     @State private var selectedToUnit: String? = "L"
     @State private var inputValue = ""

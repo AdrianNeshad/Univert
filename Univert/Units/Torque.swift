@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Vridmoment: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "N m"
     @State private var selectedToUnit: String? = "N m"
     @State private var inputValue = ""

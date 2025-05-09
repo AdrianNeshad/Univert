@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct Längd: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "m"
     @State private var selectedToUnit: String? = "m"
     @State private var inputValue = ""

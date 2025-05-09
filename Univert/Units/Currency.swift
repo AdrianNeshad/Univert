@@ -14,6 +14,7 @@ struct ExchangeResponse: Codable {
 }
 
 struct Valuta: View {
+
     @State private var selectedFromUnit: String? = "USD"
     @State private var selectedToUnit: String? = "USD"
     @State private var inputValue = ""

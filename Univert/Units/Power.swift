@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Effekt: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "W"
     @State private var selectedToUnit: String? = "W"
     @State private var inputValue = ""

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Tryck: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "bar"
     @State private var selectedToUnit: String? = "bar"
     @State private var inputValue = ""

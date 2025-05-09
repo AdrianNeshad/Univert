@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Temperatur: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "°C"
     @State private var selectedToUnit: String? = "°C"
     @State private var inputValue = ""

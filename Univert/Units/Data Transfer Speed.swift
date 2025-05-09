@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Dataöverföringshastighet: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "bit/s"
     @State private var selectedToUnit: String? = "bit/s"
     @State private var inputValue = ""

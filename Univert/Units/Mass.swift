@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Vikt: View {
+    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @State private var selectedFromUnit: String? = "mg"
     @State private var selectedToUnit: String? = "mg"
     @State private var inputValue = ""

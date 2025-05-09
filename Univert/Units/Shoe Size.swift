@@ -16,6 +16,7 @@ struct ShoeSizeRow {
 }
 
 struct Skostorlek: View {
+    
     @State private var selectedFromUnit: String? = "EU"
     @State private var selectedToUnit: String? = "EU"
     @State private var inputValue = ""

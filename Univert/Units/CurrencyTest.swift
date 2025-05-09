@@ -14,6 +14,7 @@ struct ExchangeResponse2: Codable {
 }
 
 struct Krypto: View {
+    
     @State private var selectedFromUnit: String? = "BTC"
     @State private var selectedToUnit: String? = "BTC"
     @State private var inputValue = ""
