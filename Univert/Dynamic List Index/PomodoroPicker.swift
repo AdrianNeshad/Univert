@@ -20,7 +20,9 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
     
     let content: (Item) -> Content
     
-    private let feedbackGenerator = UISelectionFeedbackGenerator()  // 🟢 Feedback generator
+    /* private let feedbackGenerator = UISelectionFeedbackGenerator() */ // 🟢 Feedback generator
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+
     
     func itemWidthOverride(_ geometry: GeometryProxy) -> CGFloat {
         return itemWidth ?? geometry.size.height * 0.15
@@ -100,7 +102,8 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         selection = option
         
         // 🟢 Haptic feedback vid tap
-        feedbackGenerator.selectionChanged()
+     /*    feedbackGenerator.selectionChanged()  */
+        feedbackGenerator.impactOccurred()
         feedbackGenerator.prepare()
         
         previousSelection = option
@@ -140,7 +143,8 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         
         // 🟢 Haptic feedback vid ny selection under scroll
         if selection != previousSelection {
-            feedbackGenerator.selectionChanged()
+          /*  feedbackGenerator.selectionChanged()  */
+            feedbackGenerator.impactOccurred()
             feedbackGenerator.prepare()
             previousSelection = selection
         }
@@ -174,7 +178,8 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         
         // 🟢 Haptic feedback på end? (frivilligt, kan tas bort)
         if selection != previousSelection {
-            feedbackGenerator.selectionChanged()
+        /*    feedbackGenerator.selectionChanged()    */
+            feedbackGenerator.impactOccurred()
             feedbackGenerator.prepare()
             previousSelection = selection
         }
