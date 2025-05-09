@@ -13,8 +13,7 @@ struct Units {
     var isFavorite: Bool
     
     static func preview() -> [Units] {
-        [Units(name: "Inställningar", icon: "🏎", isFavorite: false),
-         Units(name: "Hastighet", icon: "🏎", isFavorite: false),
+        [Units(name: "Hastighet", icon: "🏎", isFavorite: false),
          Units(name: "Vikt", icon: "⚖️", isFavorite: false),
          Units(name: "Längd", icon: "📐", isFavorite: false),
          Units(name: "Tid", icon: "⏰", isFavorite: false),
@@ -25,7 +24,7 @@ struct Units {
          Units(name: "Dataöverföringshastighet", icon: "🔁", isFavorite: false),
          Units(name: "Tryck", icon: "🧭", isFavorite: false),
          Units(name: "Effekt", icon: "⚡️", isFavorite: false),
-         Units(name: "Vridmoment", icon: "⚙️", isFavorite: false),
+         Units(name: "Vridmoment", icon: "🔩", isFavorite: false),
          Units(name: "Valuta", icon: "💲", isFavorite: false),
          Units(name: "Yta", icon: "🗺️", isFavorite: false),
          Units(name: "Krypto", icon: "💲", isFavorite: false),

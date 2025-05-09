@@ -47,12 +47,16 @@ struct UnitsListView: View {
             .searchable(text: $searchTerm, prompt: "Sök enheter")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: Favoriter()) {
+                        Image(systemName: "star")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: Inställningar()) {
                         Image(systemName: "gearshape")
                     }
                 }
             }
-
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
@@ -91,8 +95,6 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.name {
-    case "Inställningar":
-        Inställningar()
     case "Hastighet":
         Hastighet()
     case "Vikt":
