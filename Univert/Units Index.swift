@@ -33,8 +33,9 @@ struct UnitsListView: View {
                     EmptyView()
                 } footer: {
                     VStack(spacing: 4) {
-                        Text("© 2025 Univert App - Adrian Neshad")
+                        Text("© 2025 Univert App")
                         Text("Github.com/AdrianNeshad")
+                        Text("Linkedin.com/in/adrian-neshad")
                     }
                     .font(.caption)
                     .foregroundColor(.gray)
@@ -47,7 +48,7 @@ struct UnitsListView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: Inställningar()) {
-                        Image(systemName: "gearshape.fill")
+                        Image(systemName: "gearshape")
                     }
                 }
             }
