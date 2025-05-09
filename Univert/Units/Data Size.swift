@@ -177,7 +177,7 @@ struct Datastorlek: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertDataSize(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }

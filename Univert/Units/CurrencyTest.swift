@@ -190,6 +190,6 @@ struct Krypto: View {
         let valueInUSD = inputDouble * fromRate
         let convertedValue = valueInUSD / toRate
 
-        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal)
+        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
     }
 }

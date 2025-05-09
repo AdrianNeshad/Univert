@@ -225,6 +225,6 @@ struct Valuta: View {
         }
         
         let convertedValue = inputDouble * toRate
-        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal)
+        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
     }
 }

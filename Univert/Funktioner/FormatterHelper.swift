@@ -26,10 +26,6 @@ class FormatterHelper {
         self.numberFormatter = formatter
     }
     
-    func formatResult(_ value: Double, useSwedishDecimal: Bool) -> String {
-        numberFormatter.decimalSeparator = useSwedishDecimal ? "," : "."
-        return numberFormatter.string(from: NSNumber(value: value)) ?? "\(value)"
-    }
     func formatResult(_ value: Double, useSwedishDecimal: Bool, maximumFractionDigits: Int) -> String {
         numberFormatter.decimalSeparator = useSwedishDecimal ? "," : "."
         numberFormatter.maximumFractionDigits = maximumFractionDigits
