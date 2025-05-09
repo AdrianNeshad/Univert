@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Units {
+struct Units: Codable {
     var name: String
     var icon: String
     var isFavorite: Bool
