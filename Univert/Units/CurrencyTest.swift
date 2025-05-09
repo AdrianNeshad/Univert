@@ -20,14 +20,19 @@ struct Krypto: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["BTC", "USD", "ETH"]
-    
-    let fullNames: [String: String] = [
-        "BTC": "Bitcoin",
-        "USD": "US Dollar",
-        "ETH": "Ethereum"
-    ]
-
+    let units = ["BTC", "USD", "ETH", "USDT", "BNB", "SOL", "XRP", "ADA", "DOGE"]
+       
+       let fullNames: [String: String] = [
+           "BTC": "Bitcoin",
+           "USD": "US Dollar",
+           "ETH": "Ethereum",
+           "USDT": "Tether",
+           "BNB": "Binance Coin",
+           "SOL": "Solana",
+           "XRP": "XRP",
+           "ADA": "Cardano",
+           "DOGE": "Dogecoin",
+       ]
     @State private var exchangeRates: [String: Double] = [:]
     
     var body: some View {
@@ -153,19 +158,32 @@ struct Krypto: View {
     }
     
     func fetchExchangeRates() {
-        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd")!
+        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin,solana,ripple,cardano,dogecoin&vs_currencies=usd")!
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
                 do {
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let bitcoinData = json["bitcoin"] as? [String: Any],
-                           let ethereumData = json["ethereum"] as? [String: Any] {
+                           let ethereumData = json["ethereum"] as? [String: Any],
+                            let tetherData = json["tether"] as? [String: Any],
+                            let binancecoinData = json["binancecoin"] as? [String: Any],
+                            let solanaData = json["solana"] as? [String: Any],
+                            let rippleData = json["ripple"] as? [String: Any],
+                            let cardanoData = json["cardano"] as? [String: Any],
+                            let dogecoinData = json["dogecoin"] as? [String: Any]
+                        {
                             DispatchQueue.main.async {
                                 self.exchangeRates["USD"] = 1
                                 self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
                                 self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
-                                
+                                self.exchangeRates["USDT"] = tetherData["usd"] as? Double
+                                self.exchangeRates["BNB"] = binancecoinData["usd"] as? Double
+                                self.exchangeRates["SOL"] = solanaData["usd"] as? Double
+                                self.exchangeRates["XRP"] = rippleData["usd"] as? Double
+                                self.exchangeRates["ADA"] = cardanoData["usd"] as? Double
+                                self.exchangeRates["DOGE"] = dogecoinData["usd"] as? Double
+                       
                                 let normalizedValue = useSwedishDecimal ? self.inputValue.replacingOccurrences(of: ",", with: ".") : self.inputValue
                                 if let inputDouble = Double(normalizedValue) {
                                     self.updateOutputValue(inputDouble: inputDouble)
@@ -190,6 +208,6 @@ struct Krypto: View {
         let valueInUSD = inputDouble * fromRate
         let convertedValue = valueInUSD / toRate
 
-        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
+        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 8)
     }
 }
