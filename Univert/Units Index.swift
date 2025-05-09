@@ -10,6 +10,7 @@ struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var units = Units.preview()
     @State private var searchTerm = ""
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
     
     var filteredUnits: [Units] {
         guard !searchTerm.isEmpty else { return units }
@@ -22,12 +23,19 @@ struct UnitsListView: View {
                 // Huvudinnehåll
                 ForEach(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
                     NavigationLink(destination: destinationView(for: unit)) {
-                        HStack {
-                            Text(unit.icon)
-                            Text(unit.name)
-                        }
-                    }
-                }
+                                            HStack {
+                                                Text(unit.icon)
+                                                Text(unit.name)
+                                                Spacer()
+                                                Button(action: {
+                                                    toggleFavorite(unit)
+                                                }) {
+                                                    Image(systemName: unit.isFavorite ? "star.fill" : "star")
+                                                        .foregroundColor(.yellow)
+                                                }
+                                                .buttonStyle(BorderlessButtonStyle())
+                                            }
+                                        }                }
 
                 Section {
                     EmptyView()
@@ -59,7 +67,24 @@ struct UnitsListView: View {
             }
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
+        .onAppear {
+                    if let data = savedUnitsData,
+                       let decoded = try? JSONDecoder().decode([Units].self, from: data) {
+                        units = decoded
+                    } else {
+                        units = Units.preview()
+                    }
+                }
+
     }
+    func toggleFavorite(_ unit: Units) {
+            if let index = units.firstIndex(where: { $0.name == unit.name }) {
+                units[index].isFavorite.toggle()
+                if let data = try? JSONEncoder().encode(units) {
+                    savedUnitsData = data
+                }
+            }
+        }
 }
 
 struct UnitsDetailView: View {

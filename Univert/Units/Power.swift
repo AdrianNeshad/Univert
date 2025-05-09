@@ -175,7 +175,7 @@ struct Effekt: View {
     // Uppdaterar outputvärdet
     func updateOutputValue(inputDouble: Double) {
         if let result = convertPower(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
         } else {
             outputValue = "Ogiltig enhet"
         }

@@ -152,8 +152,8 @@ struct Datastorlek: View {
     
     func convertDataSize(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "bit": 1,
-            "byte": 8, // 1 byte = 8 bits
+            "b": 1,
+            "B": 8, // 1 byte = 8 bits
             "KB": 8 * 1024,
             "MB": 8 * 1024 * 1024, // 1 MB = 1024 KB
             "GB": 8 * 1024 * 1024 * 1024, // 1 GB = 1024 MB
@@ -177,7 +177,7 @@ struct Datastorlek: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertDataSize(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }

@@ -6,26 +6,40 @@
 //
 
 import SwiftUI
-import SwiftUI
 
 struct Favoriter: View {
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var favoriter: [Units] = []
+    
     var body: some View {
-        Form {
-            Text("Favoriter-funktion kommer snart")
-            Section {
-                EmptyView()
-            } footer: {
-                VStack(spacing: 4) {
-                    Text("© 2025 Univert App")
-                    Text("Github.com/AdrianNeshad")
-                    Text("Linkedin.com/in/adrian-neshad")
+        List {
+            if favoriter.isEmpty {
+                VStack(spacing: 10) {
+                    Image(systemName: "star")
+                        .font(.largeTitle)
+                        .foregroundColor(.gray)
+                    Text("Du har inte lagt till favoriter ännu")
+                        .font(.body)
+                        .foregroundColor(.gray)
                 }
-                .font(.caption)
-                .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, -100)
+                .padding(.vertical, 50)
+            } else {
+                ForEach(favoriter, id: \.name) { unit in
+                    NavigationLink(destination: destinationView(for: unit)) {
+                        HStack {
+                            Text(unit.icon)
+                            Text(unit.name)
+                        }
+                    }
+                }
+            }        }
+        .navigationTitle("Favoriter")
+        .onAppear {
+            if let data = savedUnitsData,
+               let decoded = try? JSONDecoder().decode([Units].self, from: data) {
+                favoriter = decoded.filter { $0.isFavorite }
             }
         }
-        .navigationTitle("Favoriter")
     }
 }

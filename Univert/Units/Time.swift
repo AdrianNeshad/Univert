@@ -156,10 +156,10 @@ struct Tid: View {
             "ms": 0.001, // millisekunder till sekunder
             "min": 60, // minuter till sekunder
             "h": 3600, // timmar till sekunder
-            "dag": 86400, // dagar till sekunder
-            "vecka": 604800, // veckor till sekunder
-            "månad": 2592000, // månad (genomsnittlig månad) till sekunder
-            "år": 31536000 // år till sekunder (genomsnittligt år)
+            "d": 86400, // dagar till sekunder
+            "w": 604800, // veckor till sekunder
+            "m": 2592000, // månad (genomsnittlig månad) till sekunder
+            "yr": 31536000 // år till sekunder (genomsnittligt år)
         ]
         
         // Kontrollera att enheterna finns i conversionFactors
@@ -177,7 +177,7 @@ struct Tid: View {
 
     func updateOutputValue(inputDouble: Double) {
         if let result = convertTime(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal)
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
         } else {
             outputValue = "Ogiltig enhet"
         }
