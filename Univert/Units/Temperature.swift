@@ -150,13 +150,13 @@ struct Temperatur: View {
             return (value * 9/5) + 32
         case ("°F", "°C"):
             return (value - 32) * 5/9
-        case ("°C", "Kelvin"):
+        case ("°C", "K"):
             return value + 273.15
-        case ("Kelvin", "°C"):
+        case ("K", "°C"):
             return value - 273.15
-        case ("°F", "Kelvin"):
+        case ("°F", "K"):
             return (value - 32) * 5/9 + 273.15
-        case ("Kelvin", "°F"):
+        case ("K", "°F"):
             return (value - 273.15) * 9/5 + 32
         default:
             return value
