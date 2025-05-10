@@ -8,12 +8,12 @@ import SwiftUI
 
 struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
-    @State private var units = Units.preview()
+    @State private var units: [Units] = []
     @State private var searchTerm = ""
     @AppStorage("savedUnits") private var savedUnitsData: Data?
-    
+
     var filteredUnits: [Units] {
-        guard !searchTerm.isEmpty else { return units }
+        guard !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return units }
         return units.filter { $0.name.localizedCaseInsensitiveContains(searchTerm)}
     }
 
@@ -23,25 +23,26 @@ struct UnitsListView: View {
                 // Huvudinnehåll
                 ForEach(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
                     NavigationLink(destination: destinationView(for: unit)) {
-                                            HStack {
-                                                Text(unit.icon)
-                                                Text(unit.name)
-                                                Spacer()
-                                                Button(action: {
-                                                    toggleFavorite(unit)
-                                                }) {
-                                                    Image(systemName: unit.isFavorite ? "star.fill" : "star")
-                                                        .foregroundColor(.yellow)
-                                                }
-                                                .buttonStyle(BorderlessButtonStyle())
-                                            }
-                                        }                }
+                        HStack {
+                            Text(unit.icon)
+                            Text(unit.name)
+                            Spacer()
+                            Button(action: {
+                                toggleFavorite(unit)
+                            }) {
+                                Image(systemName: unit.isFavorite ? "star.fill" : "star")
+                                    .foregroundColor(.yellow)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                        }
+                    }
+                }
 
                 Section {
                     EmptyView()
                 } footer: {
                     VStack(spacing: 4) {
-                        Text("© 2025 Univert App")
+                        Text("© 2025 Univert App - \(appVersion)")
                         Text("Github.com/AdrianNeshad")
                         Text("Linkedin.com/in/adrian-neshad")
                     }
@@ -68,24 +69,38 @@ struct UnitsListView: View {
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .onAppear {
-                    if let data = savedUnitsData,
-                       let decoded = try? JSONDecoder().decode([Units].self, from: data) {
-                        units = decoded
-                    } else {
-                        units = Units.preview()
-                    }
-                }
-
+            loadUnits() // 👈 Använder nya funktionen
+        }
     }
-    func toggleFavorite(_ unit: Units) {
-            if let index = units.firstIndex(where: { $0.name == unit.name }) {
-                units[index].isFavorite.toggle()
-                if let data = try? JSONEncoder().encode(units) {
-                    savedUnitsData = data
+
+    func loadUnits() {
+        var currentUnits = Units.preview() // starta med default
+        if let data = savedUnitsData,
+           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+            for i in 0..<currentUnits.count {
+                if let savedUnit = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
+                    currentUnits[i].isFavorite = savedUnit.isFavorite
                 }
             }
         }
+        units = currentUnits
+    }
+
+    func toggleFavorite(_ unit: Units) {
+        if let index = units.firstIndex(where: { $0.name == unit.name }) {
+            units[index].isFavorite.toggle()
+            if let data = try? JSONEncoder().encode(units) {
+                savedUnitsData = data
+            }
+        }
+    }
 }
+
+private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+        return "Version \(version) (\(build))"
+    }
 
 struct UnitsDetailView: View {
     let unit: Units
@@ -107,15 +122,13 @@ struct UnitsListView_Previews: PreviewProvider {
             UnitsListView()
                 .preferredColorScheme(.light)
                 .previewDisplayName("Ljust läge")
-            
+
             UnitsListView()
                 .preferredColorScheme(.dark)
                 .previewDisplayName("Mörkt läge")
         }
     }
 }
-
-
 
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
@@ -154,6 +167,10 @@ func destinationView(for unit: Units) -> some View {
         Energi()
     case "Andelar":
         Andelar()
+    case "Viskositet (dynamisk)":
+        ViskositetD()
+    case "Viskositet (kinematisk)":
+        ViskositetK()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

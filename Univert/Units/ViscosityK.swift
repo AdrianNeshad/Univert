@@ -7,32 +7,21 @@
 
 import SwiftUI
 
-struct Andelar: View {
+struct ViskositetK: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "%"
-    @State private var selectedToUnit: String? = "%"
+    @State private var selectedFromUnit: String? = "XXX"
+    @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["%", "mg/Kg", "mg/g", "g/Kg", "ug/Kg", "ug/g", "ppm", "ppb", "ppt", "pptr", "ppth", "ppq", "pg/g", "ng/g", "ng/Kg"]
-        
-        let fullNames: [String: String] = [
-            "%": "Percent",
-            "mg/Kg": "Milligram per Kilogram",
-            "mg/g": "Milligram per Gram",
-            "g/Kg": "Gram per Kilogram",
-            "ug/Kg": "Microgram per Kilogram",
-            "ug/g": "Microgram per Gram",
-            "ppm": "Parts Per Million",
-            "ppb": "Parts Per Billion",
-            "ppt": "Parts Per Trillion",
-            "pptr": "Parts Per Trillion (pptr)",
-            "ppth": "Parts Per Thousand (ppth)",
-            "ppq": "Parts Per Quadrillion (ppq)",
-            "pg/g": "Picogram per Gram",
-            "ng/g": "Nanogram per Gram",
-            "ng/Kg": "Nanogram per Kilogram"
+    let units = ["XXX", "YYY", "ZZZ"]
+    
+    let fullNames: [String: String] = [
+            "XXX": "XXX",
+            "YYY": "YYY",
+            "ZZZ": "ZZZ",
         ]
+    
     
     var body: some View {
         VStack {
@@ -162,47 +151,43 @@ struct Andelar: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Andelar")
+        .navigationTitle("Viskositet (kinematisk)")
         .padding()
     }
     
-    func convertShares(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertViscosityK(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "%": 1.0,                // 1% = 1% (identitet)
-            "mg/Kg": 0.0001,         // 1 mg/Kg = 1 ppm = 0.0001%
-            "mg/g": 0.1,             // 1 mg/g = 1000 ppm = 0.1%
-            "g/Kg": 0.1,             // 1 g/Kg = 1000 mg/Kg = 0.1%
-            "ug/Kg": 1e-7,           // 1 µg/Kg = 1 ppb = 0.0000001%
-            "ug/g": 0.0001,          // 1 µg/g = 1 ppm = 0.0001%
-            "ppm": 0.0001,           // 1 ppm = 0.0001%
-            "ppb": 1e-7,             // 1 ppb = 0.0000001%
-            "ppt": 1e-10,            // 1 ppt = 0.0000000001%
-            "pptr": 1e-10,           // 1 pptr = 1 ppt = 0.0000000001%
-            "ppth": 0.1,             // 1 ppth = 0.1% (per thousand)
-            "ppq": 1e-13,            // 1 ppq = 0.0000000000001%
-            "pg/g": 1e-10,           // 1 pg/g = 1 ppt = 0.0000000001%
-            "ng/g": 0.0001,          // 1 ng/g = 1 ppm = 0.0001%
-            "ng/Kg": 1e-7            // 1 ng/Kg = 1 ppb = 0.0000001%
+            "mg": 0.001,
+            "g": 1, // utgångspunkt för uträkning
+            "hg": 100,
+            "kg": 1000,
+            "m ton": 1000000,
+            "carat": 0.2,
+            "t oz": 31.1035,
+            "t lb": 373.2417,
+            "stone": 6350,
+            "oz": 28.3495,
+            "lbs": 453.59237,
+            "N": 9.81,
+            "kN": 9810
         ]
         
-        // Kontrollera att enheterna finns
-        guard let fromFactor = conversionFactors[fromUnit],
-              let toFactor = conversionFactors[toUnit] else {
-            return nil
+        // Kontrollera att enheterna finns i conversionFactors
+        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+            return nil // Om någon enhet inte finns i listan, returnera nil
         }
+
+        // Omvandla till gram (basenhet)
+        let valueInGrams = value * fromFactor / conversionFactors["g"]!
         
-        // Omvandla till procent (basenhet)
-        let valueInPercent = value * fromFactor
-        
-        // Omvandla från procent till mål-enhet
-        let convertedValue = valueInPercent / toFactor
-        
+        // Omvandla från gram till mål-enhet
+        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertShares(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
+        if let result = convertViscosityK(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }
@@ -210,3 +195,4 @@ struct Andelar: View {
 
 
 }
+

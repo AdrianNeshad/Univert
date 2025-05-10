@@ -30,6 +30,8 @@ struct Units: Codable {
          Units(name: "Krypto", icon: "💲", isFavorite: false),
          Units(name: "Energi", icon: "🔋", isFavorite: false),
          Units(name: "Andelar", icon: "➗", isFavorite: false),
+         Units(name: "Viskositet (dynamisk)", icon: "💧", isFavorite: false),
+         Units(name: "Viskositet (kinematisk)", icon: "💧", isFavorite: false),
         ]
     }
 }
