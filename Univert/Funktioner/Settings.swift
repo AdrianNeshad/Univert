@@ -24,6 +24,7 @@ struct Inställningar: View {
                     Text("© 2025 Univert App")
                     Text("Github.com/AdrianNeshad")
                     Text("Linkedin.com/in/adrian-neshad")
+                    Text(appVersion)
                 }
                 .font(.caption)
                 .foregroundColor(.gray)
@@ -33,4 +34,10 @@ struct Inställningar: View {
         }
         .navigationTitle("Inställningar")
     }
+    
+    private var appVersion: String {
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+            return "Version \(version) (\(build))"
+        }
 }
