@@ -143,7 +143,13 @@ struct Skostorlek: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { _ in
+                    .onChange(of: inputValue) { newValue in
+                        if !useSwedishDecimal {
+                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                            if replaced != newValue {
+                                inputValue = replaced  
+                            }
+                        }
                         convertUsingTable()
                     }
                     .onChange(of: selectedFromUnit) { _ in
@@ -152,6 +158,7 @@ struct Skostorlek: View {
                     .onChange(of: selectedToUnit) { _ in
                         convertUsingTable()
                     }
+
 
                 Text(outputValue)
                     .padding(10)

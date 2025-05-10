@@ -135,30 +135,39 @@ struct Valuta: View {
             
             HStack(spacing: 10) {
                 TextField("Värde", text: $inputValue)
-                    .keyboardType(.decimalPad)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { newValue in
-                        let normalizedValue = newValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        } else {
-                            outputValue = ""
-                        }
-                    }
-                    .onChange(of: selectedFromUnit) { _ in
-                        fetchExchangeRates()
-                    }
-                    .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        }
-                    }
+                                    .keyboardType(.decimalPad)
+                                    .padding(10)
+                                    .frame(height: 50)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.gray.opacity(0.1))
+                                    .cornerRadius(5)
+                                    .multilineTextAlignment(.leading)
+                                    .onChange(of: inputValue) { newValue in
+                                        var updatedValue = newValue
+                                        if !useSwedishDecimal {
+                                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                                            if replaced != newValue {
+                                                updatedValue = replaced
+                                                inputValue = replaced
+                                            }
+                                        }
+                                        
+                                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
+                                        if let inputDouble = Double(normalizedValue) {
+                                            updateOutputValue(inputDouble: inputDouble)
+                                        } else {
+                                            outputValue = ""
+                                        }
+                                    }
+                                    .onChange(of: selectedFromUnit) { _ in
+                                        fetchExchangeRates()
+                                    }
+                                    .onChange(of: selectedToUnit) { _ in
+                                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                                        if let inputDouble = Double(normalizedValue) {
+                                            updateOutputValue(inputDouble: inputDouble)
+                                        }
+                                    }
                 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
