@@ -108,7 +108,16 @@ struct Enhetsmall: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        var updatedValue = newValue
+                        if !useSwedishDecimal {
+                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                            if replaced != newValue {
+                                updatedValue = replaced
+                                inputValue = replaced
+                            }
+                        }
+                        
+                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
@@ -116,13 +125,13 @@ struct Enhetsmall: View {
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }

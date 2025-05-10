@@ -112,23 +112,31 @@ struct Tid: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        // Omvandla komma till punkt och försök att konvertera till Double
-                        let formattedValue = newValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        var updatedValue = newValue
+                        if !useSwedishDecimal {
+                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                            if replaced != newValue {
+                                updatedValue = replaced
+                                inputValue = replaced
+                            }
+                        }
+                        
+                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
                             outputValue = ""
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let formattedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(formattedValue) {
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }

@@ -95,12 +95,12 @@ struct Vikt: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -117,7 +117,16 @@ struct Vikt: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        var updatedValue = newValue
+                        if !useSwedishDecimal {
+                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                            if replaced != newValue {
+                                updatedValue = replaced
+                                inputValue = replaced
+                            }
+                        }
+                        
+                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
@@ -125,13 +134,13 @@ struct Vikt: View {
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? (inputValue.replacingOccurrences(of: ",", with: ".")) : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
