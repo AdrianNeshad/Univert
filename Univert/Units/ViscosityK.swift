@@ -9,18 +9,39 @@ import SwiftUI
 
 struct ViskositetK: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "XXX"
-    @State private var selectedToUnit: String? = "XXX"
+    @State private var selectedFromUnit: String? = "m²/s"
+    @State private var selectedToUnit: String? = "m²/s"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["XXX", "YYY", "ZZZ"]
-    
+    let units = ["m²/s", "m²/h", "cm²/s", "mm²/s", "ft²/s", "ft²/h", "in²/s", "St", "ESt", "PSt", "TSt", "GSt", "MSt", "kSt", "hSt", "daSt", "dSt", "cSt", "mSt", "µSt", "nSt", "pSt", "fSt", "aSt"]
+
     let fullNames: [String: String] = [
-            "XXX": "XXX",
-            "YYY": "YYY",
-            "ZZZ": "ZZZ",
-        ]
+        "m²/s": "Square meter per second",
+        "m²/h": "Square meter per hour",
+        "cm²/s": "Square centimeter per second",
+        "mm²/s": "Square millimeter per second",
+        "ft²/s": "Square foot per second",
+        "ft²/h": "Square foot per hour",
+        "in²/s": "Square inch per second",
+        "St": "Stokes",
+        "ESt": "Exastokes",
+        "PSt": "Petastokes",
+        "TSt": "Terastokes",
+        "GSt": "Gigastokes",
+        "MSt": "Megastokes",
+        "kSt": "Kilostokes",
+        "hSt": "Hectostokes",
+        "daSt": "Dekastokes",
+        "dSt": "Decistokes",
+        "cSt": "Centistokes",
+        "mSt": "Millistokes",
+        "µSt": "Microstokes",
+        "nSt": "Nanostokes",
+        "pSt": "Picostokes",
+        "fSt": "Femtostokes",
+        "aSt": "Attostokes"
+    ]
     
     
     var body: some View {
@@ -157,32 +178,45 @@ struct ViskositetK: View {
     
     func convertViscosityK(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "mg": 0.001,
-            "g": 1, // utgångspunkt för uträkning
-            "hg": 100,
-            "kg": 1000,
-            "m ton": 1000000,
-            "carat": 0.2,
-            "t oz": 31.1035,
-            "t lb": 373.2417,
-            "stone": 6350,
-            "oz": 28.3495,
-            "lbs": 453.59237,
-            "N": 9.81,
-            "kN": 9810
+            "m²/s": 1.0, // utgångspunkt för uträkning
+            "m²/h": 0.0002777778,
+            "cm²/s": 0.0001,
+            "mm²/s": 1.0E-6,
+            "ft²/s": 0.09290304,
+            "ft²/h": 2.58064E-5,
+            "in²/s": 0.00064516,
+            "St": 0.0001,
+            "ESt": 1.0E+14,
+            "PSt": 1.0E+11,
+            "TSt": 1.0E+8,
+            "GSt": 1.0E+5,
+            "MSt": 100.0,
+            "kSt": 0.1,
+            "hSt": 0.01,
+            "daSt": 0.001,
+            "dSt": 1.0E-5,
+            "cSt": 1.0E-6,
+            "mSt": 1.0E-7,
+            "µSt": 1.0E-10,
+            "nSt": 1.0E-13,
+            "pSt": 1.0E-16,
+            "fSt": 1.0E-19,
+            "aSt": 1.0E-22
         ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
-        }
 
-        // Omvandla till gram (basenhet)
-        let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
-        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
-        return convertedValue
+        // Kontrollera att enheterna finns i conversionFactors
+        // Kontrollera att enheterna finns
+          guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+              return nil
+          }
+
+          // Omvandla till basenheten (m²/s)
+          let valueInBaseUnit = value * fromFactor
+
+          // Omvandla från basenhet till mål-enhet
+          let convertedValue = valueInBaseUnit / toFactor
+
+          return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {

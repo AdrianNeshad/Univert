@@ -9,19 +9,19 @@ import SwiftUI
 
 struct ViskositetD: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "Pa·s"
-    @State private var selectedToUnit: String? = "Pa·s"
+    @State private var selectedFromUnit: String? = "Pa s"
+    @State private var selectedToUnit: String? = "Pa s"
     @State private var inputValue = ""
     @State private var outputValue = ""
     
-    let units = ["Pa·s", "kgf·s/m²", "N·s/m²", "mN·s/m²", "dyne·s/cm²", "P", "EP", "PP", "TP", "GP", "MP", "kP", "hP", "daP", "dP", "cP", "mP", "µP", "nP", "pP", "fP", "aP", "lbf·s/in²", "lbf·s/ft²", "pdl·s/ft²", "g/cm/s", "slug/ft/s", "lb/ft/s", "lb/ft/h"]
+    let units = ["Pa s", "kgf s/m²", "N s/m²", "mN s/m²", "dyne s/cm²", "P", "EP", "PP", "TP", "GP", "MP", "kP", "hP", "daP", "dP", "cP", "mP", "µP", "nP", "pP", "fP", "aP", "lbf s/in²", "lbf s/ft²", "pdl s/ft²", "g/cm/s", "slug/ft/s", "lb/ft/s", "lb/ft/h"]
 
     let fullNames: [String: String] = [
-        "Pa·s": "Pascal-second",
-        "kgf·s/m²": "Kilogram-force second per square meter",
-        "N·s/m²": "Newton second per square meter",
-        "mN·s/m²": "Millinewton second per square meter",
-        "dyne·s/cm²": "Dyne second per square centimeter",
+        "Pa s": "Pascal-second",
+        "kgf s/m²": "Kilogram-force second per square meter",
+        "N s/m²": "Newton second per square meter",
+        "mN s/m²": "Millinewton second per square meter",
+        "dyne s/cm²": "Dyne second per square centimeter",
         "P": "Poise",
         "EP": "Exapoise",
         "PP": "Petapoise",
@@ -39,9 +39,9 @@ struct ViskositetD: View {
         "pP": "Picopoise",
         "fP": "Femtopoise",
         "aP": "Attopoise",
-        "lbf·s/in²": "Pound-force second per square inch",
-        "lbf·s/ft²": "Pound-force second per square foot",
-        "pdl·s/ft²": "Poundal second per square foot",
+        "lbf s/in²": "Pound-force second per square inch",
+        "lbf s/ft²": "Pound-force second per square foot",
+        "pdl s/ft²": "Poundal second per square foot",
         "g/cm/s": "Gram per centimeter per second",
         "slug/ft/s": "Slug per foot per second",
         "lb/ft/s": "Pound per foot per second",
@@ -183,11 +183,11 @@ struct ViskositetD: View {
     
     func convertViscosityD(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-                "Pa·s": 1.0,
-                "kgf·s/m²": 9.80665,
-                "N·s/m²": 1.0,
-                "mN·s/m²": 0.001,
-                "dyne·s/cm²": 0.1,
+                "Pa s": 1.0,
+                "kgf s/m²": 9.80665,
+                "N s/m²": 1.0,
+                "mN s/m²": 0.001,
+                "dyne s/cm²": 0.1,
                 "P": 0.1,
                 "EP": 1.0E+17,
                 "PP": 1.0E+14,
@@ -205,9 +205,9 @@ struct ViskositetD: View {
                 "pP": 1.0E-13,
                 "fP": 1.0E-16,
                 "aP": 1.0E-19,
-                "lbf·s/in²": 6894.7572931684,
-                "lbf·s/ft²": 47.8802589802,
-                "pdl·s/ft²": 1.4881639436,
+                "lbf s/in²": 6894.7572931684,
+                "lbf s/ft²": 47.8802589802,
+                "pdl s/ft²": 1.4881639436,
                 "g/cm/s": 0.1,
                 "slug/ft/s": 47.8802589802,
                 "lb/ft/s": 1.4881639436,
@@ -216,15 +216,16 @@ struct ViskositetD: View {
         
         // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
-        }
+                return nil // Om någon enhet inte finns i listan, returnera nil
+            }
 
-        // Omvandla till gram (basenhet)
-        let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
-        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
-        return convertedValue
+            // Omvandla till basenheten (Pa·s)
+            let valueInBaseUnit = value * fromFactor
+
+            // Omvandla från basenhet till mål-enhet
+            let convertedValue = valueInBaseUnit / toFactor
+
+            return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
