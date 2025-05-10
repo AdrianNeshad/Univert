@@ -120,7 +120,7 @@ struct Krypto: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        let normalizedValue = newValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
@@ -131,7 +131,7 @@ struct Krypto: View {
                         fetchExchangeRates()
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? inputValue.replacingOccurrences(of: ",", with: ".") : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
@@ -184,9 +184,9 @@ struct Krypto: View {
                                 self.exchangeRates["ADA"] = cardanoData["usd"] as? Double
                                 self.exchangeRates["DOGE"] = dogecoinData["usd"] as? Double
                        
-                                let normalizedValue = useSwedishDecimal ? self.inputValue.replacingOccurrences(of: ",", with: ".") : self.inputValue
-                                if let inputDouble = Double(normalizedValue) {
-                                    self.updateOutputValue(inputDouble: inputDouble)
+                                let normalizedValue = self.inputValue.replacingOccurrences(of: ",", with: ".")
+                                                                if let inputDouble = Double(normalizedValue) {
+                                                                    self.updateOutputValue(inputDouble: inputDouble)
                                 }
                             }
                         }

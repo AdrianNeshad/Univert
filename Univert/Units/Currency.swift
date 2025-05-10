@@ -143,7 +143,7 @@ struct Valuta: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .onChange(of: inputValue) { newValue in
-                        let normalizedValue = useSwedishDecimal ? newValue.replacingOccurrences(of: ",", with: ".") : newValue
+                        let normalizedValue = newValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         } else {
@@ -154,7 +154,7 @@ struct Valuta: View {
                         fetchExchangeRates()
                     }
                     .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = useSwedishDecimal ? inputValue.replacingOccurrences(of: ",", with: ".") : inputValue
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
                         }
@@ -207,7 +207,7 @@ struct Valuta: View {
                     self.exchangeRates[fromUnit] = 1.0
                     print("Hämtade växelkurser: \(self.exchangeRates)")
                     
-                    let normalizedValue = useSwedishDecimal ? self.inputValue.replacingOccurrences(of: ",", with: ".") : self.inputValue
+                    let normalizedValue = self.inputValue.replacingOccurrences(of: ",", with: ".")
                     if let inputDouble = Double(normalizedValue) {
                         self.updateOutputValue(inputDouble: inputDouble)
                     }
