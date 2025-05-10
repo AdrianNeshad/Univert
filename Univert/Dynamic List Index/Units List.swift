@@ -29,6 +29,7 @@ struct Units: Codable {
          Units(name: "Yta", icon: "🗺️", isFavorite: false),
          Units(name: "Krypto", icon: "💲", isFavorite: false),
          Units(name: "Energi", icon: "🔋", isFavorite: false),
+         Units(name: "Andelar", icon: "➗", isFavorite: false),
         ]
     }
 }

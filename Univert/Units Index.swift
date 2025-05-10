@@ -152,6 +152,8 @@ func destinationView(for unit: Units) -> some View {
         Krypto()
     case "Energi":
         Energi()
+    case "Andelar":
+        Andelar()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }
