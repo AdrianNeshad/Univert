@@ -13,28 +13,32 @@ struct Units: Codable {
     var isFavorite: Bool
     
     static func preview() -> [Units] {
-        [Units(name: "Hastighet", icon: "🏎", isFavorite: false),
-         Units(name: "Vikt", icon: "⚖️", isFavorite: false),
-         Units(name: "Längd", icon: "📏", isFavorite: false),
-         Units(name: "Tid", icon: "⏰", isFavorite: false),
-         Units(name: "Temperatur", icon: "🌡", isFavorite: false),
-         Units(name: "Volym", icon: "🍷", isFavorite: false),
-         Units(name: "Skostorlek", icon: "👟", isFavorite: false),
-         Units(name: "Datastorlek", icon: "💾", isFavorite: false),
-         Units(name: "Dataöverföringshastighet", icon: "🔁", isFavorite: false),
-         Units(name: "Tryck", icon: "🧭", isFavorite: false),
-         Units(name: "Effekt", icon: "⚡️", isFavorite: false),
-         Units(name: "Vridmoment", icon: "🔩", isFavorite: false),
-         Units(name: "Valuta", icon: "💲", isFavorite: false),
-         Units(name: "Yta", icon: "🗺️", isFavorite: false),
-         Units(name: "Krypto", icon: "💲", isFavorite: false),
-         Units(name: "Energi", icon: "🔋", isFavorite: false),
-         Units(name: "Andelar", icon: "➗", isFavorite: false),
-         Units(name: "Viskositet (dynamisk)", icon: "💧", isFavorite: false),
-         Units(name: "Viskositet (kinematisk)", icon: "💧", isFavorite: false),
-         Units(name: "Vinklar", icon: "📐", isFavorite: false),
-         Units(name: "Elektrisk ström", icon: "⚡️", isFavorite: false),
-         Units(name: "Elektrisk resistans", icon: "⚡️", isFavorite: false),
+        let lang = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
+        
+        return [
+            Units(name: lang == "sv" ? "Hastighet" : "Speed", icon: "🏎", isFavorite: false),
+            Units(name: lang == "sv" ? "Vikt" : "Weight", icon: "⚖️", isFavorite: false),
+            Units(name: lang == "sv" ? "Längd" : "Length", icon: "📏", isFavorite: false),
+            Units(name: lang == "sv" ? "Tid" : "Time", icon: "⏰", isFavorite: false),
+            Units(name: lang == "sv" ? "Temperatur" : "Temperature", icon: "🌡", isFavorite: false),
+            Units(name: lang == "sv" ? "Volym" : "Volume", icon: "🍷", isFavorite: false),
+            Units(name: lang == "sv" ? "Skostorlek" : "Shoe Size", icon: "👟", isFavorite: false),
+            Units(name: lang == "sv" ? "Datastorlek" : "Data Size", icon: "💾", isFavorite: false),
+            Units(name: lang == "sv" ? "Dataöverföringshastighet" : "Data Transfer Speed", icon: "🔁", isFavorite: false),
+            Units(name: lang == "sv" ? "Tryck" : "Pressure", icon: "🧭", isFavorite: false),
+            Units(name: lang == "sv" ? "Effekt" : "Power", icon: "⚡️", isFavorite: false),
+            Units(name: lang == "sv" ? "Vridmoment" : "Torque", icon: "🔩", isFavorite: false),
+            Units(name: lang == "sv" ? "Valuta" : "Currency", icon: "💲", isFavorite: false),
+            Units(name: lang == "sv" ? "Yta" : "Area", icon: "🗺️", isFavorite: false),
+            Units(name: lang == "sv" ? "Krypto" : "Crypto", icon: "💲", isFavorite: false),
+            Units(name: lang == "sv" ? "Energi" : "Energy", icon: "🔋", isFavorite: false),
+            Units(name: lang == "sv" ? "Andelar" : "Shares", icon: "➗", isFavorite: false),
+            Units(name: lang == "sv" ? "Viskositet (dynamisk)" : "Viscosity (dynamic)", icon: "💧", isFavorite: false),
+            Units(name: lang == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)", icon: "💧", isFavorite: false),
+            Units(name: lang == "sv" ? "Vinklar" : "Angles", icon: "📐", isFavorite: false),
+            Units(name: lang == "sv" ? "Elektrisk ström" : "Electric Current", icon: "⚡️", isFavorite: false),
+            Units(name: lang == "sv" ? "Elektrisk resistans" : "Electric Resistance", icon: "⚡️", isFavorite: false)
         ]
     }
+
 }

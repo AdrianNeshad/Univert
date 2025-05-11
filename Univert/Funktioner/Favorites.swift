@@ -12,6 +12,31 @@ struct Favoriter: View {
     @State private var favoriter: [Units] = []
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
     
+    let unitNamePairs: [String: String] = [
+        "Hastighet": "Speed",
+        "Vikt": "Weight",
+        "Längd": "Length",
+        "Tid": "Time",
+        "Temperatur": "Temperature",
+        "Volym": "Volume",
+        "Skostorlek": "Shoe Size",
+        "Datastorlek": "Data Size",
+        "Dataöverföringshastighet": "Data Transfer Speed",
+        "Tryck": "Pressure",
+        "Effekt": "Power",
+        "Vridmoment": "Torque",
+        "Valuta": "Currency",
+        "Yta": "Area",
+        "Krypto": "Crypto",
+        "Energi": "Energy",
+        "Andelar": "Shares",
+        "Viskositet (dynamisk)": "Viscosity (dynamic)",
+        "Viskositet (kinematisk)": "Viscosity (kinematic)",
+        "Vinklar": "Angles",
+        "Elektrisk ström": "Electric Current",
+        "Elektrisk resistans": "Electric Resistance"
+    ]
+    
     var body: some View {
         List {
             if favoriter.isEmpty {
@@ -38,10 +63,24 @@ struct Favoriter: View {
             }        }
         .navigationTitle(appLanguage == "sv" ? "Favoriter" : "Favorites")
         .onAppear {
+            let previewUnits = Units.preview() // rätt språk just nu
+            
             if let data = savedUnitsData,
-               let decoded = try? JSONDecoder().decode([Units].self, from: data) {
-                favoriter = decoded.filter { $0.isFavorite }
+               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                
+                favoriter = previewUnits.filter { previewUnit in
+                    savedUnits.contains { saved in
+                        // Jämför både svenska och engelska namn
+                        let savedName = saved.name
+                        let translated = unitNamePairs[savedName] ?? unitNamePairs.first(where: { $0.value == savedName })?.key
+                        return (saved.isFavorite && (
+                            savedName == previewUnit.name ||
+                            translated == previewUnit.name
+                        ))
+                    }
+                }
             }
         }
+
     }
 }

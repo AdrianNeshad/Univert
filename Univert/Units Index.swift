@@ -65,8 +65,12 @@ struct UnitsListView: View {
         .onAppear {
             loadUnits()
         }
-    }
+        .onChange(of: appLanguage) { _ in
+            loadUnits()
+        }
 
+    }
+    
     func loadUnits() {
         var currentUnits = Units.preview() // starta med default
         if let data = savedUnitsData,
@@ -126,52 +130,53 @@ struct UnitsListView_Previews: PreviewProvider {
 
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
+    let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
-    case "Hastighet":
-        Hastighet()
-    case "Vikt":
-        Vikt()
-    case "Längd":
-        Längd()
-    case "Tid":
-        Tid()
-    case "Temperatur":
-        Temperatur()
-    case "Volym":
-        Volym()
-    case "Skostorlek":
-        Skostorlek()
-    case "Datastorlek":
-        Datastorlek()
-    case "Dataöverföringshastighet":
-        Dataöverföringshastighet()
-    case "Tryck":
-        Tryck()
-    case "Effekt":
-        Effekt()
-    case "Vridmoment":
-        Vridmoment()
-    case "Valuta":
-        Valuta()
-    case "Yta":
-        Yta()
-    case "Krypto":
-        Krypto()
-    case "Energi":
-        Energi()
-    case "Andelar":
-        Andelar()
-    case "Viskositet (dynamisk)":
-        ViskositetD()
-    case "Viskositet (kinematisk)":
-        ViskositetK()
-    case "Vinklar":
-        Vinklar()
-    case "Elektrisk ström":
-        ElektriskStröm()
-    case "Elektrisk resistans":
-        ElektriskResistans()
-    default:
-        UnitsDetailView(unit: unit) // fallback om ingen matchar
+        case appLanguage == "sv" ? "Hastighet" : "Speed":
+            Hastighet()
+        case appLanguage == "sv" ? "Vikt" : "Weight":
+            Vikt()
+        case appLanguage == "sv" ? "Längd" : "Length":
+            Längd()
+        case appLanguage == "sv" ? "Tid" : "Time":
+            Tid()
+        case appLanguage == "sv" ? "Temperatur" : "Temperature":
+            Temperatur()
+        case appLanguage == "sv" ? "Volym" : "Volume":
+            Volym()
+        case appLanguage == "sv" ? "Skostorlek" : "Shoe Size":
+            Skostorlek()
+        case appLanguage == "sv" ? "Datastorlek" : "Data Size":
+            Datastorlek()
+        case appLanguage == "sv" ? "Dataöverföringshastighet" : "Data Transfer Speed":
+            Dataöverföringshastighet()
+        case appLanguage == "sv" ? "Tryck" : "Pressure":
+            Tryck()
+        case appLanguage == "sv" ? "Effekt" : "Power":
+            Effekt()
+        case appLanguage == "sv" ? "Vridmoment" : "Torque":
+            Vridmoment()
+        case appLanguage == "sv" ? "Valuta" : "Currency":
+            Valuta()
+        case appLanguage == "sv" ? "Yta" : "Area":
+            Yta()
+        case appLanguage == "sv" ? "Krypto" : "Crypto":
+            Krypto()
+        case appLanguage == "sv" ? "Energi" : "Energy":
+            Energi()
+        case appLanguage == "sv" ? "Andelar" : "Shares":
+            Andelar()
+        case appLanguage == "sv" ? "Viskositet (dynamisk)" : "Viscosity (dynamic)":
+            ViskositetD()
+        case appLanguage == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)":
+            ViskositetK()
+        case appLanguage == "sv" ? "Vinklar" : "Angles":
+            Vinklar()
+        case appLanguage == "sv" ? "Elektrisk ström" : "Electric Current":
+            ElektriskStröm()
+        case appLanguage == "sv" ? "Elektrisk resistans" : "Electric Resistance":
+            ElektriskResistans()
+        default:
+            UnitsDetailView(unit: unit)
+        }
     }
-}
