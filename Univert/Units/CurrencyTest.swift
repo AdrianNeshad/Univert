@@ -118,7 +118,7 @@ struct Krypto: View {
             }
             
             HStack(spacing: 10) {
-                TextField("Värde", text: $inputValue)
+                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
                     .padding(10)
                     .frame(height: 50)

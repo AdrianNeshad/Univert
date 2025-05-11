@@ -104,7 +104,7 @@ struct Enhetsmall: View {
                         }
             
             HStack(spacing: 10) {
-                TextField("Värde", text: $inputValue)
+                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
@@ -157,7 +157,7 @@ struct Enhetsmall: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Mall")
+        .navigationTitle(appLanguage == "sv" ? "Mall" : "Template")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

@@ -125,7 +125,7 @@ struct ViskositetK: View {
                         }
             
             HStack(spacing: 10) {
-                TextField("Värde", text: $inputValue)
+                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
