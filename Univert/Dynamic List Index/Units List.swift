@@ -17,6 +17,9 @@ struct Units: Codable {
         let lang = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
         
         return [
+            
+            Units(name: lang == "sv" ? "Enhetsmall" : "Template", icon: "❌", isFavorite: false, category: "monetär"),
+            
             Units(name: lang == "sv" ? "Hastighet" : "Speed", icon: "🏎", isFavorite: false, category: "vanlig"),
             Units(name: lang == "sv" ? "Vikt" : "Weight", icon: "⚖️", isFavorite: false, category: "vanlig"),
             Units(name: lang == "sv" ? "Längd" : "Length", icon: "📏", isFavorite: false, category: "vanlig"),

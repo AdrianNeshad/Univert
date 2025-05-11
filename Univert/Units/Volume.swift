@@ -216,8 +216,8 @@ struct Volym: View {
             "dl": 0.1, // deciliter till liter
             "gal": 0.264172, // gallon till liter
             "cup": 0.236588,
-            "UK pint": 0.56826125, // pint till liter
-            "quart": 1.05669, // quart till liter
+            "pint": 0.56826125, // pint till liter
+            "qrt": 1.05669, // quart till liter
             "fl oz": 33.814, // fluid ounce till liter
             "cm³": 0.001, // kubikcentimeter till liter
             "dm³": 1,

@@ -149,6 +149,10 @@ struct UnitsListView_Previews: PreviewProvider {
 func destinationView(for unit: Units) -> some View {
     let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
+        
+        case appLanguage == "sv" ? "Enhetsmall" : "Template":
+        Enhetsmall()
+        
         case appLanguage == "sv" ? "Hastighet" : "Speed":
             Hastighet()
         case appLanguage == "sv" ? "Vikt" : "Weight":
