@@ -159,7 +159,7 @@ struct Tryck: View {
         }
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Tryck")
+        .navigationTitle(appLanguage == "sv" ? "Tryck" : "Pressure")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

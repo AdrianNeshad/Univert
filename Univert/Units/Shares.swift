@@ -169,7 +169,7 @@ struct Andelar: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Andelar")
+        .navigationTitle(appLanguage == "sv" ? "Andelar" : "Shares")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

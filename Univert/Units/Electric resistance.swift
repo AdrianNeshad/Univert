@@ -165,7 +165,7 @@ struct ElektriskResistans: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Elektrisk resistans")
+        .navigationTitle(appLanguage == "sv" ? "Elektrisk resistans" : "Electric Resistance")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

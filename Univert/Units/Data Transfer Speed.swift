@@ -162,7 +162,7 @@ struct Dataöverföringshastighet: View {
         }
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Dataöverföringshastighet")
+        .navigationTitle(appLanguage == "sv" ? "Dataöverföringshastighet" : "Data Transfer Speed")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

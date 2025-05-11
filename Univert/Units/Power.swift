@@ -159,7 +159,7 @@ struct Effekt: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Effekt")
+        .navigationTitle(appLanguage == "sv" ? "Effekt" : "Power")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

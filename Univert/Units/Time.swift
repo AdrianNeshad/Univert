@@ -160,7 +160,7 @@ struct Tid: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Tid")
+        .navigationTitle(appLanguage == "sv" ? "Tid" : "Time")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

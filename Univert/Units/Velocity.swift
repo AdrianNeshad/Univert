@@ -192,7 +192,7 @@ struct Hastighet: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Hastighet")
+        .navigationTitle(appLanguage == "sv" ? "Hastighet" : "Speed")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

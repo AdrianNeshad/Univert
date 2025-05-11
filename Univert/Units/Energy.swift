@@ -159,7 +159,7 @@ struct Energi: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Energi")
+        .navigationTitle(appLanguage == "sv" ? "Energi" : "Energy")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

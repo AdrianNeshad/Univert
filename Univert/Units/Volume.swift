@@ -165,7 +165,7 @@ struct Volym: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-            .navigationTitle("Volym")
+            .navigationTitle(appLanguage == "sv" ? "Volym" : "Volume")
             .padding()
             .onAppear {
                 if let data = savedUnitsData,

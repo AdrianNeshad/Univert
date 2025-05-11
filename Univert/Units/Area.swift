@@ -162,7 +162,7 @@ struct Yta: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Yta")
+        .navigationTitle(appLanguage == "sv" ? "Yta" : "Area")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

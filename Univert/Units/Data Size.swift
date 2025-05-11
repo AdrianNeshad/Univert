@@ -160,7 +160,7 @@ struct Datastorlek: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Datastorlek")
+        .navigationTitle(appLanguage == "sv" ? "Datastorlek" : "Data Size")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

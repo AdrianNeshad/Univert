@@ -165,7 +165,7 @@ struct ElektriskStröm: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Elektrisk ström")
+        .navigationTitle(appLanguage == "sv" ? "Elektrisk ström" : "Electric Current")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

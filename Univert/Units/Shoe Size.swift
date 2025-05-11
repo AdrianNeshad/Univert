@@ -178,7 +178,7 @@ struct Skostorlek: View {
         }
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Skostorlekar")
+        .navigationTitle(appLanguage == "sv" ? "Skostorlek" : "Shoe Size")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

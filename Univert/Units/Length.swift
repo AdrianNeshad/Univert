@@ -162,7 +162,7 @@ struct Längd: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Längd")
+        .navigationTitle(appLanguage == "sv" ? "Längd" : "Length")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

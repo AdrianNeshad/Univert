@@ -178,7 +178,7 @@ struct ViskositetK: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Viskositet (kinematisk)")
+        .navigationTitle(appLanguage == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

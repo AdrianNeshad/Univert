@@ -156,7 +156,7 @@ struct Vridmoment: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Vridmoment")
+        .navigationTitle(appLanguage == "sv" ? "Vridmoment" : "Torque")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

@@ -165,7 +165,7 @@ struct Krypto: View {
         .padding(.top, 20)
         
         Spacer()
-        .navigationTitle("Krypto")
+        .navigationTitle(appLanguage == "sv" ? "Krypto" : "Crypto")
         .padding()
         .onAppear {
             fetchExchangeRates()

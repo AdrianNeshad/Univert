@@ -165,7 +165,7 @@ struct Vikt: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Vikt")
+        .navigationTitle(appLanguage == "sv" ? "Vikt" : "Weight")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

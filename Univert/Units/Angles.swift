@@ -166,7 +166,7 @@ struct Vinklar: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Vinklar")
+        .navigationTitle(appLanguage == "sv" ? "Vinklar" : "Angles")
         .padding()
         .onAppear {
             if let data = savedUnitsData,

@@ -154,7 +154,7 @@ struct Temperatur: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Temperatur")
+        .navigationTitle(appLanguage == "sv" ? "Temperatur" : "Temperature")
         .padding()
         .onAppear {
             if let data = savedUnitsData,
