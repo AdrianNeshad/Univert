@@ -10,13 +10,30 @@ import SwiftUI
 struct Inställningar: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
 
     var body: some View {
         Form {
-            Toggle("Mörkt läge", isOn: $isDarkMode)
+            Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
                 .toggleStyle(SwitchToggleStyle(tint: .blue))
-            Toggle("Använd svensk decimal (,)", isOn: $useSwedishDecimal)
-                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+
+            Picker("Språk / Language", selection: $appLanguage) {
+                Text("Svenska").tag("sv")
+                Text("English").tag("en")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .onChange(of: appLanguage) { newLang in
+                if newLang == "sv" {
+                    useSwedishDecimal = true
+                } else {
+                    useSwedishDecimal = false
+                }
+            }
+
+            Toggle(appLanguage == "sv" ? "Svensk decimalseparator" : "Swedish decimal separator", isOn: $useSwedishDecimal)
+                .toggleStyle(SwitchToggleStyle(tint: .blue))
+                .disabled(true) // gör den readonly – styrs nu av språket
+
             Section {
                 EmptyView()
             } footer: {
@@ -32,7 +49,8 @@ struct Inställningar: View {
                 .padding(.top, -100)
             }
         }
-        .navigationTitle("Inställningar")
+        .navigationTitle(appLanguage == "sv" ? "Inställningar" : "Settings")
+
     }
     
     private var appVersion: String {

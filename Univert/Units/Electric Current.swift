@@ -1,16 +1,16 @@
 //
-//  Enhetsmall.swift
+//  Electric Current.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-05.
+//  Created by Adrian Neshad on 2025-05-11.
 //
 
 import SwiftUI
 
-struct ViskositetD: View {
+struct ElektriskStröm: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "Pa s"
-    @State private var selectedToUnit: String? = "Pa s"
+    @State private var selectedFromUnit: String? = "A"
+    @State private var selectedToUnit: String? = "A"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
@@ -18,42 +18,24 @@ struct ViskositetD: View {
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 
-    let unitName = "ViskositetD"
+    let unitName = "Elektrisk ström"
     
-    let units = ["Pa s", "kgf s/m²", "N s/m²", "mN s/m²", "dyne s/cm²", "P", "EP", "PP", "TP", "GP", "MP", "kP", "hP", "daP", "dP", "cP", "mP", "µP", "nP", "pP", "fP", "aP", "lbf s/in²", "lbf s/ft²", "pdl s/ft²", "g/cm/s", "slug/ft/s", "lb/ft/s", "lb/ft/h"]
+    let units = ["A", "kA", "mA", "Bi", "abA", "emuI", "statA", "esuI", "CGSem", "CGSes"]
 
     let fullNames: [String: String] = [
-        "Pa s": "Pascal-second",
-        "kgf s/m²": "Kilogram-force second per square meter",
-        "N s/m²": "Newton second per square meter",
-        "mN s/m²": "Millinewton second per square meter",
-        "dyne s/cm²": "Dyne second per square centimeter",
-        "P": "Poise",
-        "EP": "Exapoise",
-        "PP": "Petapoise",
-        "TP": "Terapoise",
-        "GP": "Gigapoise",
-        "MP": "Megapoise",
-        "kP": "Kilopoise",
-        "hP": "Hectopoise",
-        "daP": "Dekapoise",
-        "dP": "Decipoise",
-        "cP": "Centipoise",
-        "mP": "Millipoise",
-        "µP": "Micropoise",
-        "nP": "Nanopoise",
-        "pP": "Picopoise",
-        "fP": "Femtopoise",
-        "aP": "Attopoise",
-        "lbf s/in²": "Pound-force second per square inch",
-        "lbf s/ft²": "Pound-force second per square foot",
-        "pdl s/ft²": "Poundal second per square foot",
-        "g/cm/s": "Gram per centimeter per second",
-        "slug/ft/s": "Slug per foot per second",
-        "lb/ft/s": "Pound per foot per second",
-        "lb/ft/h": "Pound per foot per hour"
+        "A": "ampere",
+        "kA": "kiloampere",
+        "mA": "milliampere",
+        "Bi": "biot",
+        "abA": "abampere",
+        "emuI": "EMU of current",
+        "statA": "statampere",
+        "esuI": "ESU of current",
+        "CGSem": "CGS e.m. unit",
+        "CGSes": "CGS e.s. unit"
     ]
 
+    
     
     var body: some View {
         VStack {
@@ -183,7 +165,7 @@ struct ViskositetD: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Viskositet (dynamisk)")
+        .navigationTitle("Elektrisk ström")
         .padding()
         .onAppear {
             if let data = savedUnitsData,
@@ -202,6 +184,7 @@ struct ViskositetD: View {
             }
         }
     }
+    
     func toggleFavorite() {
         var currentUnits = Units.preview()
         
@@ -226,58 +209,39 @@ struct ViskositetD: View {
         }
     }
     
-    func convertViscosityD(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertCurrent(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-                "Pa s": 1.0,
-                "kgf s/m²": 9.80665,
-                "N s/m²": 1.0,
-                "mN s/m²": 0.001,
-                "dyne s/cm²": 0.1,
-                "P": 0.1,
-                "EP": 1.0E+17,
-                "PP": 1.0E+14,
-                "TP": 1.0E+11,
-                "GP": 1.0E+8,
-                "MP": 1.0E+5,
-                "kP": 100,
-                "hP": 10,
-                "daP": 1,
-                "dP": 0.01,
-                "cP": 0.001,
-                "mP": 0.0001,
-                "µP": 1.0E-7,
-                "nP": 1.0E-10,
-                "pP": 1.0E-13,
-                "fP": 1.0E-16,
-                "aP": 1.0E-19,
-                "lbf s/in²": 6894.7572931684,
-                "lbf s/ft²": 47.8802589802,
-                "pdl s/ft²": 1.4881639436,
-                "g/cm/s": 0.1,
-                "slug/ft/s": 47.8802589802,
-                "lb/ft/s": 1.4881639436,
-                "lb/ft/h": 0.0004133789
-            ]
+            "A": 1.0,
+            "kA": 1000.0,
+            "mA": 0.001,
+            "Bi": 10.0,
+            "abA": 10.0,
+            "emuI": 10.0,
+            "statA": 3.335641e-10,
+            "esuI": 3.335641e-10,
+            "CGSem": 10.0,
+            "CGSes": 3.335641e-10
+        ]
         
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-                return nil // Om någon enhet inte finns i listan, returnera nil
-            }
-
-            // Omvandla till basenheten (Pa·s)
-            let valueInBaseUnit = value * fromFactor
-
-            // Omvandla från basenhet till mål-enhet
-            let convertedValue = valueInBaseUnit / toFactor
-
-            return convertedValue
+        guard let fromFactor = conversionFactors[fromUnit],
+              let toFactor = conversionFactors[toUnit] else {
+            return nil
+        }
+        
+        let valueInAmperes = value * fromFactor
+        let convertedValue = valueInAmperes / toFactor
+        return convertedValue
     }
 
+
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertViscosityD(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+        if let result = convertCurrent(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
+
 }
+

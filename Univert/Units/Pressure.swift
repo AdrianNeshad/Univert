@@ -13,7 +13,8 @@ struct Tryck: View {
     @State private var selectedToUnit: String? = "bar"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    
+    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 

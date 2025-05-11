@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ViskositetD: View {
+struct ElektriskResistans: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "Pa s"
-    @State private var selectedToUnit: String? = "Pa s"
+    @State private var selectedFromUnit: String? = "Ω"
+    @State private var selectedToUnit: String? = "Ω"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
@@ -18,42 +18,24 @@ struct ViskositetD: View {
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 
-    let unitName = "ViskositetD"
+    let unitName = "Elektrisk resistans"
     
-    let units = ["Pa s", "kgf s/m²", "N s/m²", "mN s/m²", "dyne s/cm²", "P", "EP", "PP", "TP", "GP", "MP", "kP", "hP", "daP", "dP", "cP", "mP", "µP", "nP", "pP", "fP", "aP", "lbf s/in²", "lbf s/ft²", "pdl s/ft²", "g/cm/s", "slug/ft/s", "lb/ft/s", "lb/ft/h"]
+    let units = ["Ω", "MΩ", "µΩ", "V/A", "S⁻¹", "abΩ", "emuR", "statΩ", "esuR", "RH"]
 
     let fullNames: [String: String] = [
-        "Pa s": "Pascal-second",
-        "kgf s/m²": "Kilogram-force second per square meter",
-        "N s/m²": "Newton second per square meter",
-        "mN s/m²": "Millinewton second per square meter",
-        "dyne s/cm²": "Dyne second per square centimeter",
-        "P": "Poise",
-        "EP": "Exapoise",
-        "PP": "Petapoise",
-        "TP": "Terapoise",
-        "GP": "Gigapoise",
-        "MP": "Megapoise",
-        "kP": "Kilopoise",
-        "hP": "Hectopoise",
-        "daP": "Dekapoise",
-        "dP": "Decipoise",
-        "cP": "Centipoise",
-        "mP": "Millipoise",
-        "µP": "Micropoise",
-        "nP": "Nanopoise",
-        "pP": "Picopoise",
-        "fP": "Femtopoise",
-        "aP": "Attopoise",
-        "lbf s/in²": "Pound-force second per square inch",
-        "lbf s/ft²": "Pound-force second per square foot",
-        "pdl s/ft²": "Poundal second per square foot",
-        "g/cm/s": "Gram per centimeter per second",
-        "slug/ft/s": "Slug per foot per second",
-        "lb/ft/s": "Pound per foot per second",
-        "lb/ft/h": "Pound per foot per hour"
+        "Ω": "ohm",
+        "MΩ": "megohm",
+        "µΩ": "microhm",
+        "V/A": "volt/ampere",
+        "S⁻¹": "reciprocal siemens",
+        "abΩ": "abohm",
+        "emuR": "EMU of resistance",
+        "statΩ": "statohm",
+        "esuR": "ESU of resistance",
+        "RH": "Quantized Hall resistance"
     ]
 
+    
     
     var body: some View {
         VStack {
@@ -183,7 +165,7 @@ struct ViskositetD: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle("Viskositet (dynamisk)")
+        .navigationTitle("Elektrisk resistans")
         .padding()
         .onAppear {
             if let data = savedUnitsData,
@@ -202,6 +184,7 @@ struct ViskositetD: View {
             }
         }
     }
+    
     func toggleFavorite() {
         var currentUnits = Units.preview()
         
@@ -226,58 +209,38 @@ struct ViskositetD: View {
         }
     }
     
-    func convertViscosityD(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertResistance(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-                "Pa s": 1.0,
-                "kgf s/m²": 9.80665,
-                "N s/m²": 1.0,
-                "mN s/m²": 0.001,
-                "dyne s/cm²": 0.1,
-                "P": 0.1,
-                "EP": 1.0E+17,
-                "PP": 1.0E+14,
-                "TP": 1.0E+11,
-                "GP": 1.0E+8,
-                "MP": 1.0E+5,
-                "kP": 100,
-                "hP": 10,
-                "daP": 1,
-                "dP": 0.01,
-                "cP": 0.001,
-                "mP": 0.0001,
-                "µP": 1.0E-7,
-                "nP": 1.0E-10,
-                "pP": 1.0E-13,
-                "fP": 1.0E-16,
-                "aP": 1.0E-19,
-                "lbf s/in²": 6894.7572931684,
-                "lbf s/ft²": 47.8802589802,
-                "pdl s/ft²": 1.4881639436,
-                "g/cm/s": 0.1,
-                "slug/ft/s": 47.8802589802,
-                "lb/ft/s": 1.4881639436,
-                "lb/ft/h": 0.0004133789
-            ]
+            "Ω": 1.0,
+            "MΩ": 1_000_000.0,
+            "µΩ": 1e-6,
+            "V/A": 1.0,
+            "S⁻¹": 1.0,
+            "abΩ": 1e-9,
+            "emuR": 1e-9,
+            "statΩ": 8.98755179e11,
+            "esuR": 8.98755179e11,
+            "RH": 25812.80745
+        ]
         
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-                return nil // Om någon enhet inte finns i listan, returnera nil
-            }
+        guard let fromFactor = conversionFactors[fromUnit],
+              let toFactor = conversionFactors[toUnit] else {
+            return nil
+        }
 
-            // Omvandla till basenheten (Pa·s)
-            let valueInBaseUnit = value * fromFactor
-
-            // Omvandla från basenhet till mål-enhet
-            let convertedValue = valueInBaseUnit / toFactor
-
-            return convertedValue
+        let valueInOhms = value * fromFactor
+        let convertedValue = valueInOhms / toFactor
+        return convertedValue
     }
 
+
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertViscosityD(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+        if let result = convertResistance(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
+
 }

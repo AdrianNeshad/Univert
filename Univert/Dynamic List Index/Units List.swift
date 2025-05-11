@@ -33,6 +33,8 @@ struct Units: Codable {
          Units(name: "Viskositet (dynamisk)", icon: "💧", isFavorite: false),
          Units(name: "Viskositet (kinematisk)", icon: "💧", isFavorite: false),
          Units(name: "Vinklar", icon: "📐", isFavorite: false),
+         Units(name: "Elektrisk ström", icon: "⚡️", isFavorite: false),
+         Units(name: "Elektrisk resistans", icon: "⚡️", isFavorite: false),
         ]
     }
 }

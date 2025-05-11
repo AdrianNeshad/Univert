@@ -13,7 +13,8 @@ struct Andelar: View {
     @State private var selectedToUnit: String? = "%"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    
+    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 

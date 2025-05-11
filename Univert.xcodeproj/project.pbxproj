@@ -31,6 +31,9 @@
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
 		3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A780DEF2DCD59DB00A8A435 /* Energy.swift */; };
 		3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */; };
+		3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */; };
+		3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */; };
+		3A832FD32DD0C0E10058D0F8 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FD22DD0C0E10058D0F8 /* Language.swift */; };
 		3AAD79C02DCBB59800319189 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79BF2DCBB59700319189 /* Currency.swift */; };
 		3AAD79C22DCBB78300319189 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79C12DCBB78300319189 /* Area.swift */; };
 		3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */; };
@@ -87,6 +90,9 @@
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
 		3A780DEF2DCD59DB00A8A435 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angles.swift; sourceTree = "<group>"; };
+		3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric Current.swift"; sourceTree = "<group>"; };
+		3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric resistance.swift"; sourceTree = "<group>"; };
+		3A832FD22DD0C0E10058D0F8 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		3AAD79BF2DCBB59700319189 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		3AAD79C12DCBB78300319189 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
@@ -208,6 +214,8 @@
 				3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */,
 				3AC141F22DCF763500CD7922 /* ViscosityK.swift */,
 				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
+				3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */,
+				3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -227,6 +235,7 @@
 				3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */,
 				3AE560682DCDF49A00CC4450 /* Settings.swift */,
 				3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */,
+				3A832FD22DD0C0E10058D0F8 /* Language.swift */,
 			);
 			path = Funktioner;
 			sourceTree = "<group>";
@@ -367,6 +376,7 @@
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
 				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
+				3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */,
 				3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */,
 				3A21D7492DC78B2000B37E2D /* Power.swift in Sources */,
 				3AC141F02DCF761D00CD7922 /* ViscosityD.swift in Sources */,
@@ -382,6 +392,7 @@
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
 				3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */,
 				3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */,
+				3A832FD32DD0C0E10058D0F8 /* Language.swift in Sources */,
 				3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */,
 				3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */,
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
@@ -389,6 +400,7 @@
 				3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,
+				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +571,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Univert/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -602,6 +615,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Univert/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

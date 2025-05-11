@@ -13,6 +13,7 @@ struct Enhetsmall: View {
     @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
+    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
     
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
@@ -31,7 +32,7 @@ struct Enhetsmall: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Från")
+                Text(appLanguage == "sv" ? "Från" : "From")
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -48,7 +49,7 @@ struct Enhetsmall: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text("Till")
+                Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())

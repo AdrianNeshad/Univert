@@ -11,6 +11,7 @@ struct UnitsListView: View {
     @State private var units: [Units] = []
     @State private var searchTerm = ""
     @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
 
     var filteredUnits: [Units] {
         guard !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return units }
@@ -45,8 +46,8 @@ struct UnitsListView: View {
                     .padding(.top, -100)
                 }
             }
-            .navigationTitle("Enheter")
-            .searchable(text: $searchTerm, prompt: "Sök enheter")
+            .navigationTitle(appLanguage == "sv" ? "Enheter" : "Units")
+            .searchable(text: $searchTerm, prompt: appLanguage == "sv" ? "Sök enheter" : "Search Units")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: Favoriter()) {
@@ -166,6 +167,10 @@ func destinationView(for unit: Units) -> some View {
         ViskositetK()
     case "Vinklar":
         Vinklar()
+    case "Elektrisk ström":
+        ElektriskStröm()
+    case "Elektrisk resistans":
+        ElektriskResistans()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }
