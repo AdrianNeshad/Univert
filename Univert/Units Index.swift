@@ -21,16 +21,26 @@ struct UnitsListView: View {
     var body: some View {
         NavigationView {
             List {
-                // Huvudinnehåll
-                ForEach(filteredUnits.sorted(by: { $0.name < $1.name }), id: \.name) { unit in
-                    NavigationLink(destination: destinationView(for: unit)) {
-                        HStack {
-                            Text(unit.icon)
-                            Text(unit.name)
-                            Spacer()
+                let groupedUnits = Dictionary(grouping: filteredUnits) { $0.category }
+                let categoryOrder = ["monetär", "vanlig", "avancerad"]
+
+                ForEach(groupedUnits.keys.sorted { lhs, rhs in
+                    categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
+                }, id: \.self) { category in
+                    Section(header: Text(titleForCategory(category)).font(.caption).foregroundColor(.gray)) {
+                        ForEach(groupedUnits[category] ?? [], id: \.name) { unit in
+                            NavigationLink(destination: destinationView(for: unit)) {
+                                HStack {
+                                    Text(unit.icon)
+                                    Text(unit.name)
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }
+
+
 
                 Section {
                     EmptyView()
@@ -68,7 +78,6 @@ struct UnitsListView: View {
         .onChange(of: appLanguage) { _ in
             loadUnits()
         }
-
     }
     
     func loadUnits() {
@@ -90,6 +99,14 @@ struct UnitsListView: View {
             if let data = try? JSONEncoder().encode(units) {
                 savedUnitsData = data
             }
+        }
+    }
+    func titleForCategory(_ key: String) -> String {
+        switch key {
+        case "vanlig": return appLanguage == "sv" ? "Vanliga enheter" : "Common Units"
+        case "monetär": return appLanguage == "sv" ? "Monetära enheter" : "Monetary Units"
+        case "avancerad": return appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units"
+        default: return ""
         }
     }
 }
@@ -156,7 +173,7 @@ func destinationView(for unit: Units) -> some View {
             Effekt()
         case appLanguage == "sv" ? "Vridmoment" : "Torque":
             Vridmoment()
-        case appLanguage == "sv" ? "Valuta" : "Currency":
+        case appLanguage == "sv" ? "Valutor" : "Currency":
             Valuta()
         case appLanguage == "sv" ? "Yta" : "Area":
             Yta()

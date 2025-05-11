@@ -24,7 +24,7 @@ struct Valuta: View {
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 
-    let unitName = "Valuta"
+    let unitName = "Valutor"
     
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     
@@ -189,7 +189,7 @@ struct Valuta: View {
         .padding(.top, 20)
         
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Valuta" : "Currency")
+        .navigationTitle(appLanguage == "sv" ? "Valutor" : "Currency")
         .padding()
         .onAppear {
             fetchExchangeRates()
