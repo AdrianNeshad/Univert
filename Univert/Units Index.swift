@@ -27,13 +27,6 @@ struct UnitsListView: View {
                             Text(unit.icon)
                             Text(unit.name)
                             Spacer()
-                            Button(action: {
-                                toggleFavorite(unit)
-                            }) {
-                                Image(systemName: unit.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor(.yellow)
-                            }
-                            .buttonStyle(BorderlessButtonStyle())
                         }
                     }
                 }
@@ -69,7 +62,7 @@ struct UnitsListView: View {
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .onAppear {
-            loadUnits() // 👈 Använder nya funktionen
+            loadUnits()
         }
     }
 

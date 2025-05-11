@@ -20,6 +20,11 @@ struct Valuta: View {
     @State private var inputValue = ""
     @State private var outputValue = ""
     
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var isFavorite = false
+
+    let unitName = "Valuta"
+    
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     
     let currencyNames: [String: String] = [
@@ -186,6 +191,45 @@ struct Valuta: View {
         .padding()
         .onAppear {
             fetchExchangeRates()
+        }
+        .onAppear {
+            if let data = savedUnitsData,
+               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
+               let match = savedUnits.first(where: { $0.name == unitName }) {
+                isFavorite = match.isFavorite
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    Image(systemName: isFavorite ? "star.fill" : "star")
+                }
+            }
+        }
+    }
+    func toggleFavorite() {
+        var currentUnits = Units.preview()
+        
+        // Ladda in sparade favoritstatusar
+        if let data = savedUnitsData,
+           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+            for i in 0..<currentUnits.count {
+                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
+                    currentUnits[i].isFavorite = saved.isFavorite
+                }
+            }
+        }
+        
+        // Toggla favoritstatus för "Andelar"
+        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+            currentUnits[index].isFavorite.toggle()
+            isFavorite = currentUnits[index].isFavorite
+            
+            if let data = try? JSONEncoder().encode(currentUnits) {
+                savedUnitsData = data
+            }
         }
     }
     
