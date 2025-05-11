@@ -15,7 +15,7 @@ struct Units: Codable {
     static func preview() -> [Units] {
         [Units(name: "Hastighet", icon: "🏎", isFavorite: false),
          Units(name: "Vikt", icon: "⚖️", isFavorite: false),
-         Units(name: "Längd", icon: "📐", isFavorite: false),
+         Units(name: "Längd", icon: "📏", isFavorite: false),
          Units(name: "Tid", icon: "⏰", isFavorite: false),
          Units(name: "Temperatur", icon: "🌡", isFavorite: false),
          Units(name: "Volym", icon: "🍷", isFavorite: false),
@@ -32,6 +32,7 @@ struct Units: Codable {
          Units(name: "Andelar", icon: "➗", isFavorite: false),
          Units(name: "Viskositet (dynamisk)", icon: "💧", isFavorite: false),
          Units(name: "Viskositet (kinematisk)", icon: "💧", isFavorite: false),
+         Units(name: "Vinklar", icon: "📐", isFavorite: false),
         ]
     }
 }

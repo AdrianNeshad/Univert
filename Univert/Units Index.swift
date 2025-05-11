@@ -164,6 +164,8 @@ func destinationView(for unit: Units) -> some View {
         ViskositetD()
     case "Viskositet (kinematisk)":
         ViskositetK()
+    case "Vinklar":
+        Vinklar()
     default:
         UnitsDetailView(unit: unit) // fallback om ingen matchar
     }

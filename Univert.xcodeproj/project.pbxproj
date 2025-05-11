@@ -30,6 +30,7 @@
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
 		3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A780DEF2DCD59DB00A8A435 /* Energy.swift */; };
+		3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */; };
 		3AAD79C02DCBB59800319189 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79BF2DCBB59700319189 /* Currency.swift */; };
 		3AAD79C22DCBB78300319189 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79C12DCBB78300319189 /* Area.swift */; };
 		3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */; };
@@ -85,6 +86,7 @@
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
 		3A780DEF2DCD59DB00A8A435 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
+		3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angles.swift; sourceTree = "<group>"; };
 		3AAD79BF2DCBB59700319189 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		3AAD79C12DCBB78300319189 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				3AC141ED2DCF6E6D00CD7922 /* Shares.swift */,
 				3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */,
 				3AC141F22DCF763500CD7922 /* ViscosityK.swift */,
+				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */,
 				3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */,
 				3AC141EE2DCF6E6D00CD7922 /* Shares.swift in Sources */,
+				3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */,
 				3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */,
 				3AAD79C02DCBB59800319189 /* Currency.swift in Sources */,
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
