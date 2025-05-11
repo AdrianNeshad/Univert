@@ -23,7 +23,7 @@ struct UnitsListView: View {
             List {
                 let groupedUnits = Dictionary(grouping: filteredUnits) { $0.category }
                 let categoryOrder = ["monetär", "vanlig", "avancerad"]
-
+                
                 ForEach(groupedUnits.keys.sorted { lhs, rhs in
                     categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
                 }, id: \.self) { category in
@@ -39,21 +39,21 @@ struct UnitsListView: View {
                         }
                     }
                 }
-
-
-
-                Section {
-                    EmptyView()
-                } footer: {
-                    VStack(spacing: 4) {
-                        Text("© 2025 Univert App - \(appVersion)")
-                        Text("Github.com/AdrianNeshad")
-                        Text("Linkedin.com/in/adrian-neshad")
+                
+                if searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    Section {
+                        EmptyView()
+                    } footer: {
+                        VStack(spacing: 4) {
+                            Text("© 2025 Univert App - \(appVersion)")
+                            Text("Github.com/AdrianNeshad")
+                            Text("Linkedin.com/in/adrian-neshad")
+                        }
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, -100)
                     }
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, -100)
                 }
             }
             .navigationTitle(appLanguage == "sv" ? "Enheter" : "Units")
