@@ -12,31 +12,11 @@ class StringManager {
     @AppStorage("appLanguage") var language: String = "sv"
     
     private let sv: [String: String] = [
-        "settings_title": "Inställningar",
-        "dark_mode": "Mörkt läge",
-        "language": "Språk",
-        "decimal_setting": "Använd svensk decimal (,)",
-        "units_title": "Enheter",
-        "from": "Från",
-        "to": "Till",
-        "favorites": "Favoriter",
-        "search_units": "Sök enheter",
-        "value": "Värde",
-        "you_have_no_favorites": "Du har inte lagt till favoriter ännu"
+        "X": "X",
     ]
 
     private let en: [String: String] = [
-        "settings_title": "Settings",
-        "dark_mode": "Dark mode",
-        "language": "Language",
-        "decimal_setting": "Use Swedish decimal (,)",
-        "units_title": "Units",
-        "from": "From",
-        "to": "To",
-        "favorites": "Favorites",
-        "search_units": "Search units",
-        "value": "Value",
-        "you_have_no_favorites": "You have not added any favorites yet"
+        "X": "X",
     ]
 
     func get(_ key: String) -> String {

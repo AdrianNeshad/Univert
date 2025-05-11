@@ -58,7 +58,7 @@ struct ViskositetD: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Från")
+                Text(appLanguage == "sv" ? "Från" : "From")
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -75,7 +75,7 @@ struct ViskositetD: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text("Till")
+                Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())

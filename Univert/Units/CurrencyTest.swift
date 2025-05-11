@@ -44,9 +44,10 @@ struct Krypto: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Från")
+                Text(appLanguage == "sv" ? "Från" : "From")
                     .font(.title)
                     .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
@@ -60,7 +61,7 @@ struct Krypto: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text("Till")
+                Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
                     .padding(10)
