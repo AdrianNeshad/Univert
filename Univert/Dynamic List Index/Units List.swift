@@ -32,7 +32,7 @@ struct Units: Codable {
             Units(name: lang == "sv" ? "Tryck" : "Pressure", icon: "🧭", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Effekt" : "Power", icon: "⚡️", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Vridmoment" : "Torque", icon: "🔩", isFavorite: false, category: "avancerad"),
-            Units(name: lang == "sv" ? "Valutor" : "Currency", icon: "💲", isFavorite: false, category: "monetär"),
+            Units(name: lang == "sv" ? "Valuta" : "Currency", icon: "💲", isFavorite: false, category: "monetär"),
             Units(name: lang == "sv" ? "Yta" : "Area", icon: "🗺️", isFavorite: false, category: "vanlig"),
             Units(name: lang == "sv" ? "Krypto (beta)" : "Crypto (beta)", icon: "💲", isFavorite: false, category: "monetär"),
             Units(name: lang == "sv" ? "Energi" : "Energy", icon: "🔋", isFavorite: false, category: "avancerad"),

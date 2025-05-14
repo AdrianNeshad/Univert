@@ -200,7 +200,7 @@ struct Valuta: View {
         .padding(.top, 20)
         
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Valutor" : "Currency")
+        .navigationTitle(appLanguage == "sv" ? "Valuta" : "Currency")
         .padding()
         .onAppear {
             fetchExchangeRates()

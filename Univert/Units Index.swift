@@ -177,7 +177,7 @@ func destinationView(for unit: Units) -> some View {
             Effekt()
         case appLanguage == "sv" ? "Vridmoment" : "Torque":
             Vridmoment()
-        case appLanguage == "sv" ? "Valutor" : "Currency":
+        case appLanguage == "sv" ? "Valuta" : "Currency":
             Valuta()
         case appLanguage == "sv" ? "Yta" : "Area":
             Yta()
