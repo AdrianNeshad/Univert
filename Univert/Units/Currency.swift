@@ -25,7 +25,7 @@ struct Valuta: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Valutor"
+    let unitName = "Valuta"
     
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     

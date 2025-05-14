@@ -19,7 +19,7 @@ struct ViskositetD: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "ViskositetD"
+    let unitName = "Viskositet (dynamisk)"
     
     let units = ["Pa s", "kgf s/m²", "N s/m²", "mN s/m²", "dyne s/cm²", "P", "EP", "PP", "TP", "GP", "MP", "kP", "hP", "daP", "dP", "cP", "mP", "µP", "nP", "pP", "fP", "aP", "lbf s/in²", "lbf s/ft²", "pdl s/ft²", "g/cm/s", "slug/ft/s", "lb/ft/s", "lb/ft/h"]
 

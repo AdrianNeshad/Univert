@@ -19,7 +19,7 @@ struct MagnetiskFältstyrka: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "MagnetiskFältstyrka"
+    let unitName = "Magnetisk fältstyrka"
     
     let units = ["A/m", "At/m", "kA/m", "Oe"]
     

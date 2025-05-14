@@ -19,7 +19,7 @@ struct ViskositetK: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "ViskositetK"
+    let unitName = "Viskositet (kinematisk)"
     
     let units = ["m²/s", "m²/h", "cm²/s", "mm²/s", "ft²/s", "ft²/h", "in²/s", "St", "ESt", "PSt", "TSt", "GSt", "MSt", "kSt", "hSt", "daSt", "dSt", "cSt", "mSt", "µSt", "nSt", "pSt", "fSt", "aSt"]
 

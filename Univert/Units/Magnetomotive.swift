@@ -19,7 +19,7 @@ struct Magnetomotorisk: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Magnetomotorisk"
+    let unitName = "Magnetomotorisk kraft"
     
     let units = ["At", "kAt", "mAt", "abAt", "Gb"]
 
