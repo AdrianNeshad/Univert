@@ -25,7 +25,7 @@ struct Krypto: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Krypto"
+    let unitName = "Krypto (beta)"
     
     let units = ["BTC", "USD", "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE"]
        

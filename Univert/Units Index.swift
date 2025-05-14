@@ -80,17 +80,43 @@ struct UnitsListView: View {
         }
     }
     
-    func loadUnits() {
-        var currentUnits = Units.preview() // starta med default
+    func migrateSavedUnitsIfNeeded() {
+        let previewUnits = Units.preview()
+        
+        // Ladda sparad data
+        var savedUnits: [Units] = []
         if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let savedUnit = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = savedUnit.isFavorite
-                }
+           let decoded = try? JSONDecoder().decode([Units].self, from: data) {
+            savedUnits = decoded
+        }
+        
+        // Filtrera bort sparade enheter som inte finns i preview längre
+        savedUnits = savedUnits.filter { saved in
+            previewUnits.contains(where: { $0.name == saved.name })
+        }
+        
+        // Lägg till nya enheter som saknas i sparad data
+        for unit in previewUnits {
+            if !savedUnits.contains(where: { $0.name == unit.name }) {
+                savedUnits.append(unit)
             }
         }
-        units = currentUnits
+        
+        // Spara om listan ändrats
+        if savedUnits.count != previewUnits.count {
+            if let encoded = try? JSONEncoder().encode(savedUnits) {
+                savedUnitsData = encoded
+            }
+        }
+        
+        // Uppdatera state
+        units = savedUnits
+    }
+
+
+    
+    func loadUnits() {
+        migrateSavedUnitsIfNeeded()
     }
 
     func toggleFavorite(_ unit: Units) {
