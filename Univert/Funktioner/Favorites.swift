@@ -27,7 +27,7 @@ struct Favoriter: View {
         "Vridmoment": "Torque",
         "Valuta": "Currency",
         "Yta": "Area",
-        "Krypto": "Crypto",
+        "Krypto (beta)": "Crypto (beta)",
         "Energi": "Energy",
         "Andelar": "Shares",
         "Viskositet (dynamisk)": "Viscosity (dynamic)",
@@ -35,7 +35,9 @@ struct Favoriter: View {
         "Vinklar": "Angles",
         "Elektrisk ström": "Electric Current",
         "Elektrisk resistans": "Electric Resistance",
-        "Talsystem": "Numeral System"
+        "Talsystem": "Numeral System",
+        "Magnetomotorisk kraft": "Magnetomotive Force",
+        "Magnetisk fältstyrka": "Magnetic Field Strength"
     ]
     
     var body: some View {

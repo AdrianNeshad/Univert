@@ -150,8 +150,8 @@ func destinationView(for unit: Units) -> some View {
     let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
         
-        case appLanguage == "sv" ? "Enhetsmall" : "Template":
-        Enhetsmall()
+     /*   case appLanguage == "sv" ? "Enhetsmall" : "Template":
+        Enhetsmall()  */
         
         case appLanguage == "sv" ? "Hastighet" : "Speed":
             Hastighet()
@@ -181,7 +181,7 @@ func destinationView(for unit: Units) -> some View {
             Valuta()
         case appLanguage == "sv" ? "Yta" : "Area":
             Yta()
-        case appLanguage == "sv" ? "Krypto" : "Crypto":
+        case appLanguage == "sv" ? "Krypto (beta)" : "Crypto (beta)":
             Krypto()
         case appLanguage == "sv" ? "Energi" : "Energy":
             Energi()
@@ -199,6 +199,10 @@ func destinationView(for unit: Units) -> some View {
             ElektriskResistans()
         case appLanguage == "sv" ? "Talsystem" : "Numeral System":
             Talsystem()
+        case appLanguage == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force":
+            Magnetomotorisk()
+        case appLanguage == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength":
+            MagnetiskFältstyrka()
         default:
             UnitsDetailView(unit: unit)
         }

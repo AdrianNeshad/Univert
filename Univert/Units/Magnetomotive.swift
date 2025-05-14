@@ -1,44 +1,35 @@
 //
-//  CurrencyTest.swift
+//  Magnetomotive.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-07.
+//  Created by Adrian Neshad on 2025-05-14.
 //
 
 import SwiftUI
 
-struct ExchangeResponse2: Codable {
-    let rates: [String: Double]
-    let base: String
-    let date: String
-}
-
-struct Krypto: View {
+struct Magnetomotorisk: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "BTC"
-    @State private var selectedToUnit: String? = "BTC"
+    @State private var selectedFromUnit: String? = "At"
+    @State private var selectedToUnit: String? = "At"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
-
+    
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
 
-    let unitName = "Krypto"
+    let unitName = "Magnetomotorisk"
     
-    let units = ["BTC", "USD", "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE"]
-       
-       let fullNames: [String: String] = [
-           "BTC": "Bitcoin",
-           "USD": "US Dollar",
-           "ETH": "Ethereum",
-           "BNB": "Binance Coin",
-           "SOL": "Solana",
-           "XRP": "XRP",
-           "ADA": "Cardano",
-           "DOGE": "Dogecoin",
-       ]
-    @State private var exchangeRates: [String: Double] = [:]
+    let units = ["At", "kAt", "mAt", "abAt", "Gb"]
+
+    let fullNames: [String: String] = [
+        "At": "Ampere-turn",
+        "kAt": "Kiloampere-turn",
+        "mAt": "Milliampere-turn",
+        "abAt": "Abampere-turn",
+        "Gb": "Gilbert"
+    ]
+    
     
     var body: some View {
         VStack {
@@ -63,18 +54,18 @@ struct Krypto: View {
                 Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            }
+            } //HStack
             
             HStack {
                 Text("►")
                     .font(.title)
                     .frame(width: 50)
-                
                 PomodoroPicker(
                     selection: $selectedFromUnit,
                     options: units
@@ -85,7 +76,6 @@ struct Krypto: View {
                         .frame(width: 100)
                         .padding(.leading, -90)
                 }
-                
                 PomodoroPicker(
                     selection: $selectedToUnit,
                     options: units
@@ -96,29 +86,29 @@ struct Krypto: View {
                         .frame(width: 100)
                         .padding(.trailing, -90)
                 }
-                
                 Text("◄")
                     .font(.title)
                     .frame(width: 50)
-            }
+            } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
             HStack {
-                Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 10)
-                
-                Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 0)
-            }
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 0)
+                        }
             
             HStack(spacing: 10) {
                 TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
+                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .frame(maxWidth: .infinity)
@@ -134,6 +124,7 @@ struct Krypto: View {
                                 inputValue = replaced
                             }
                         }
+                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -142,7 +133,10 @@ struct Krypto: View {
                         }
                     }
                     .onChange(of: selectedFromUnit) { _ in
-                        fetchExchangeRates()
+                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                        if let inputDouble = Double(normalizedValue) {
+                            updateOutputValue(inputDouble: inputDouble)
+                        }
                     }
                     .onChange(of: selectedToUnit) { _ in
                         let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
@@ -151,6 +145,8 @@ struct Krypto: View {
                         }
                     }
 
+                
+
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -158,17 +154,13 @@ struct Krypto: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
-            }
+            } //HStack
             .padding([.leading, .trailing], 10)
-        }
+        } //VStack
         .padding(.top, 20)
-        
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Krypto (beta)" : "Crypto (beta)")
+        .navigationTitle(appLanguage == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force")
         .padding()
-        .onAppear {
-            fetchExchangeRates()
-        }
         .onAppear {
             if let data = savedUnitsData,
                let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
@@ -186,6 +178,7 @@ struct Krypto: View {
             }
         }
     }
+    
     func toggleFavorite() {
         var currentUnits = Units.preview()
         
@@ -210,55 +203,34 @@ struct Krypto: View {
         }
     }
     
-    func fetchExchangeRates() {
-        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,dogecoin&vs_currencies=usd")!
+    func convertMagnetomotive(value: Double, fromUnit: String, toUnit: String) -> Double? {
+        let conversionFactors: [String: Double] = [
+            "At": 1.0,                    // Ampere-turn (referens)
+            "kAt": 1000.0,                // Kiloampere-turn
+            "mAt": 0.001,                 // Milliampere-turn
+            "abAt": 10.0,                 // Abampere-turn
+            "Gb": 0.7957747154595         // Gilbert
+        ]
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        if let bitcoinData = json["bitcoin"] as? [String: Any],
-                           let ethereumData = json["ethereum"] as? [String: Any],
-                            let binancecoinData = json["binancecoin"] as? [String: Any],
-                            let solanaData = json["solana"] as? [String: Any],
-                            let rippleData = json["ripple"] as? [String: Any],
-                            let cardanoData = json["cardano"] as? [String: Any],
-                            let dogecoinData = json["dogecoin"] as? [String: Any]
-                        {
-                            DispatchQueue.main.async {
-                                self.exchangeRates["USD"] = 1
-                                self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
-                                self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
-                                self.exchangeRates["BNB"] = binancecoinData["usd"] as? Double
-                                self.exchangeRates["SOL"] = solanaData["usd"] as? Double
-                                self.exchangeRates["XRP"] = rippleData["usd"] as? Double
-                                self.exchangeRates["ADA"] = cardanoData["usd"] as? Double
-                                self.exchangeRates["DOGE"] = dogecoinData["usd"] as? Double
-                       
-                                let normalizedValue = self.inputValue.replacingOccurrences(of: ",", with: ".")
-                                                                if let inputDouble = Double(normalizedValue) {
-                                                                    self.updateOutputValue(inputDouble: inputDouble)
-                                }
-                            }
-                        }
-                    }
-                } catch {
-                    print("Fel vid JSON-parsing")
-                }
-            }
-        }.resume()
+        // Kontrollera att enheterna finns i conversionFactors
+        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+            return nil // Om någon enhet inte finns i listan, returnera nil
+        }
+
+        // Omvandla till Ampere-turn (basenhet)
+        let valueInBase = value * fromFactor / conversionFactors["At"]!
+
+        // Omvandla från bas till mål-enhet
+        let convertedValue = valueInBase * conversionFactors["At"]! / toFactor
+        return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        guard let fromRate = exchangeRates[selectedFromUnit ?? ""],
-              let toRate = exchangeRates[selectedToUnit ?? ""] else {
+        if let result = convertMagnetomotive(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
+        } else {
             outputValue = "Ogiltig enhet"
-            return
         }
-
-        let valueInUSD = inputDouble * fromRate
-        let convertedValue = valueInUSD / toRate
-
-        outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 8)
     }
+
 }
