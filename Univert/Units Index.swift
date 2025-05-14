@@ -45,7 +45,7 @@ struct UnitsListView: View {
                         EmptyView()
                     } footer: {
                         VStack(spacing: 4) {
-                            Text("© 2025 Univert App - \(appVersion)")
+                            Text("© 2025 Univert App")
                             Text("Github.com/AdrianNeshad")
                             Text("Linkedin.com/in/adrian-neshad")
                         }
@@ -197,6 +197,8 @@ func destinationView(for unit: Units) -> some View {
             ElektriskStröm()
         case appLanguage == "sv" ? "Elektrisk resistans" : "Electric Resistance":
             ElektriskResistans()
+        case appLanguage == "sv" ? "Talsystem" : "Numeral System":
+            Talsystem()
         default:
             UnitsDetailView(unit: unit)
         }

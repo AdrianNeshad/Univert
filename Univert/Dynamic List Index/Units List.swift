@@ -41,7 +41,8 @@ struct Units: Codable {
             Units(name: lang == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)", icon: "💧", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Vinklar" : "Angles", icon: "📐", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Elektrisk ström" : "Electric Current", icon: "⚡️", isFavorite: false, category: "avancerad"),
-            Units(name: lang == "sv" ? "Elektrisk resistans" : "Electric Resistance", icon: "⚡️", isFavorite: false, category: "avancerad")
+            Units(name: lang == "sv" ? "Elektrisk resistans" : "Electric Resistance", icon: "⚡️", isFavorite: false, category: "avancerad"),
+            Units(name: lang == "sv" ? "Talsystem" : "Numeral System", icon: "🔢", isFavorite: false, category: "avancerad")
         ]
     }
 

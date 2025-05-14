@@ -20,7 +20,7 @@ struct Vikt: View {
 
     let unitName = "Vikt"
     
-    let units = ["mg", "g", "hg", "kg", "lbs", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
+    let units = ["mg", "g", "hg", "kg", "lbs", "μg", "mcg", "ng", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
     
     let fullNames: [String: String] = [
         "mg": "Milligram",
@@ -28,6 +28,9 @@ struct Vikt: View {
         "hg": "Hektogram",
         "kg": "Kilogram",
         "lbs": "Pounds",
+        "μg": "Microgram",
+        "mcg": "Microgram (mcg)",
+        "ng": "Nanogram",
         "m ton": "Metric Ton",
         "N": "Newton",
         "kN": "Kilonewton",
@@ -222,7 +225,10 @@ struct Vikt: View {
             "oz": 28.3495,
             "lbs": 453.59237,
             "N": 9.81,
-            "kN": 9810
+            "kN": 9810,
+            "μg": 0.000001,         // 1 μg = 0.000001 g
+            "mcg": 0.000001,        // 1 mcg = 0.000001 g
+            "ng": 0.000000001,
         ]
         
         // Kontrollera att enheterna finns i conversionFactors

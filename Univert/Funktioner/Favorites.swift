@@ -34,7 +34,8 @@ struct Favoriter: View {
         "Viskositet (kinematisk)": "Viscosity (kinematic)",
         "Vinklar": "Angles",
         "Elektrisk ström": "Electric Current",
-        "Elektrisk resistans": "Electric Resistance"
+        "Elektrisk resistans": "Electric Resistance",
+        "Talsystem": "Numeral System"
     ]
     
     var body: some View {

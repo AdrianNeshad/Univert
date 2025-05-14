@@ -29,6 +29,7 @@
 		3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */; };
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
+		3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18912DD50E3C00FB6E4D /* Base.swift */; };
 		3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A780DEF2DCD59DB00A8A435 /* Energy.swift */; };
 		3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */; };
 		3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */; };
@@ -88,6 +89,7 @@
 		3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTest.swift; sourceTree = "<group>"; };
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
+		3A4D18912DD50E3C00FB6E4D /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		3A780DEF2DCD59DB00A8A435 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angles.swift; sourceTree = "<group>"; };
 		3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric Current.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
 				3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */,
 				3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */,
+				3A4D18912DD50E3C00FB6E4D /* Base.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */,
 				3AAD79C22DCBB78300319189 /* Area.swift in Sources */,
 				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
 				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
