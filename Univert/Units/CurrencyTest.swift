@@ -180,19 +180,18 @@ struct Krypto: View {
         .padding()
         .onAppear {
             fetchExchangeRates()
+            
+            if let data = savedUnitsData,
+               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                currentUnits = savedUnits
+            } else {
+                currentUnits = Units.preview()
+            }
+            
+            if let match = currentUnits.first(where: { $0.name == unitName }) {
+                isFavorite = match.isFavorite
+            }
         }
-        .onAppear {
-                    if let data = savedUnitsData,
-                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-                        currentUnits = savedUnits
-                    } else {
-                        currentUnits = Units.preview()
-                    }
-                    
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
-                }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
