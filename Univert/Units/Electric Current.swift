@@ -17,7 +17,8 @@ struct ElektriskStröm: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
+    @State private var currentUnits: [Units] = []
+    
     let unitName = "Elektrisk ström"
     
     let units = ["A", "kA", "mA", "Bi", "abA", "emuI", "statA", "esuI", "CGSem", "CGSes"]
@@ -168,12 +169,17 @@ struct ElektriskStröm: View {
         .navigationTitle(appLanguage == "sv" ? "Elektrisk ström" : "Electric Current")
         .padding()
         .onAppear {
-            if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-               let match = savedUnits.first(where: { $0.name == unitName }) {
-                isFavorite = match.isFavorite
-            }
-        }
+                    if let data = savedUnitsData,
+                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                        currentUnits = savedUnits
+                    } else {
+                        currentUnits = Units.preview()
+                    }
+                    
+                    if let match = currentUnits.first(where: { $0.name == unitName }) {
+                        isFavorite = match.isFavorite
+                    }
+                }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -186,19 +192,6 @@ struct ElektriskStröm: View {
     }
     
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
