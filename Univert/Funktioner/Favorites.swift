@@ -37,7 +37,8 @@ struct Favoriter: View {
         "Elektrisk resistans": "Electric Resistance",
         "Talsystem": "Numeral System",
         "Magnetomotorisk kraft": "Magnetomotive Force",
-        "Magnetisk fältstyrka": "Magnetic Field Strength"
+        "Magnetisk fältstyrka": "Magnetic Field Strength",
+        "Magnetflöde": "Magnetic Flux",
     ]
     
     var body: some View {

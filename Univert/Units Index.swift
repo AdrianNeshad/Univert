@@ -229,6 +229,8 @@ func destinationView(for unit: Units) -> some View {
             Magnetomotorisk()
         case appLanguage == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength":
             MagnetiskFältstyrka()
+        case appLanguage == "sv" ? "Magnetflöde" : "Magnetic Flux":
+            Magnetflöde()
         default:
             UnitsDetailView(unit: unit)
         }

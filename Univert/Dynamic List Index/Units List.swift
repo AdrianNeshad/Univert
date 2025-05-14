@@ -44,7 +44,8 @@ struct Units: Codable {
             Units(name: lang == "sv" ? "Elektrisk resistans" : "Electric Resistance", icon: "⚡️", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Talsystem" : "Numeral System", icon: "🔢", isFavorite: false, category: "avancerad"),
             Units(name: lang == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force", icon: "🧲", isFavorite: false, category: "avancerad"),
-            Units(name: lang == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength", icon: "🧲", isFavorite: false, category: "avancerad")
+            Units(name: lang == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength", icon: "🧲", isFavorite: false, category: "avancerad"),
+            Units(name: lang == "sv" ? "Magnetflöde" : "Magnetic Flux", icon: "🧲", isFavorite: false, category: "avancerad")
         ]
     }
 
