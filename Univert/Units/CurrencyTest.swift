@@ -116,48 +116,59 @@ struct Krypto: View {
                     .padding(.leading, 0)
             }
             
-            HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
-                    .keyboardType(.decimalPad)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { newValue in
-                        var updatedValue = newValue
-                        if !useSwedishDecimal {
-                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                            if replaced != newValue {
-                                updatedValue = replaced
-                                inputValue = replaced
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 10) {
+                    TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                        .onChange(of: inputValue) { newValue in
+                            var updatedValue = newValue
+                            if !useSwedishDecimal {
+                                let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                                if replaced != newValue {
+                                    updatedValue = replaced
+                                    inputValue = replaced
+                                }
+                            }
+                            
+                            let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            } else {
+                                outputValue = ""
                             }
                         }
-                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        } else {
-                            outputValue = ""
+                        .onChange(of: selectedFromUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
                         }
-                    }
-                    .onChange(of: selectedFromUnit) { _ in
-                        fetchExchangeRates()
-                    }
-                    .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
+                        .onChange(of: selectedToUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
                         }
-                    }
 
-                Text(outputValue.isEmpty ? "" : outputValue)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
+                    Text(outputValue.isEmpty ? "" : outputValue)
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                }
+                Text(appLanguage == "sv" ? "Källa: CoinGecko" : "Source: CoinGecko")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 10)
             }
             .padding([.leading, .trailing], 10)
         }
