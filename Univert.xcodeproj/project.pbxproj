@@ -44,6 +44,7 @@
 		3AC141EE2DCF6E6D00CD7922 /* Shares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141ED2DCF6E6D00CD7922 /* Shares.swift */; };
 		3AC141F02DCF761D00CD7922 /* ViscosityD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */; };
 		3AC141F32DCF763500CD7922 /* ViscosityK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141F22DCF763500CD7922 /* ViscosityK.swift */; };
+		3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */; };
 		3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE560682DCDF49A00CC4450 /* Settings.swift */; };
 		3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */; };
 		3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */; };
@@ -107,6 +108,7 @@
 		3AC141ED2DCF6E6D00CD7922 /* Shares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shares.swift; sourceTree = "<group>"; };
 		3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViscosityD.swift; sourceTree = "<group>"; };
 		3AC141F22DCF763500CD7922 /* ViscosityK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViscosityK.swift; sourceTree = "<group>"; };
+		3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3AE560682DCDF49A00CC4450 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enhetsmall.swift; sourceTree = "<group>"; };
 		3AEDDFD72DC901BE00FC5897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				3AEDDFD72DC901BE00FC5897 /* Info.plist */,
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
 				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
+				3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
 				3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */,
 				3AF3788F2DCD06000024BFA9 /* Funktioner */,
@@ -356,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */,
 				3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */,
 				3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */,
 			);
@@ -580,7 +584,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Univert/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U4LPX7NYV2;
@@ -591,7 +595,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = black;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -600,7 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.Univert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -624,7 +628,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Univert/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = U4LPX7NYV2;
@@ -635,7 +639,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = black;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -644,7 +648,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.Univert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
