@@ -44,6 +44,12 @@
 		3AC141EE2DCF6E6D00CD7922 /* Shares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141ED2DCF6E6D00CD7922 /* Shares.swift */; };
 		3AC141F02DCF761D00CD7922 /* ViscosityD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */; };
 		3AC141F32DCF763500CD7922 /* ViscosityK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141F22DCF763500CD7922 /* ViscosityK.swift */; };
+		3AD707822DD680A300B5D6EC /* StoreKitConfig.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */; };
+		3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD707852DD6812700B5D6EC /* StoreManager.swift */; };
+		3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD707872DD6813600B5D6EC /* PurchaseView.swift */; };
+		3AD7078A2DD681C800B5D6EC /* AppFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD707892DD681C800B5D6EC /* AppFooter.swift */; };
+		3AD7078C2DD681E400B5D6EC /* UnitRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7078B2DD681E400B5D6EC /* UnitRow.swift */; };
+		3AD7078E2DD6820100B5D6EC /* LockedUnitRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7078D2DD6820100B5D6EC /* LockedUnitRow.swift */; };
 		3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */; };
 		3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE560682DCDF49A00CC4450 /* Settings.swift */; };
 		3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */; };
@@ -108,6 +114,12 @@
 		3AC141ED2DCF6E6D00CD7922 /* Shares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shares.swift; sourceTree = "<group>"; };
 		3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViscosityD.swift; sourceTree = "<group>"; };
 		3AC141F22DCF763500CD7922 /* ViscosityK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViscosityK.swift; sourceTree = "<group>"; };
+		3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
+		3AD707852DD6812700B5D6EC /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		3AD707872DD6813600B5D6EC /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
+		3AD707892DD681C800B5D6EC /* AppFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFooter.swift; sourceTree = "<group>"; };
+		3AD7078B2DD681E400B5D6EC /* UnitRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitRow.swift; sourceTree = "<group>"; };
+		3AD7078D2DD6820100B5D6EC /* LockedUnitRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedUnitRow.swift; sourceTree = "<group>"; };
 		3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3AE560682DCDF49A00CC4450 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enhetsmall.swift; sourceTree = "<group>"; };
@@ -166,8 +178,10 @@
 				3AEDDFD72DC901BE00FC5897 /* Info.plist */,
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
 				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
+				3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */,
 				3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
+				3AD707842DD6810B00B5D6EC /* in-app purchase */,
 				3A21D72F2DC77A2B00B37E2D /* Dynamic List Index */,
 				3AF3788F2DCD06000024BFA9 /* Funktioner */,
 				3A21D7282DC7746A00B37E2D /* Units */,
@@ -240,8 +254,21 @@
 			children = (
 				3A21D72A2DC774C600B37E2D /* Units List.swift */,
 				3A2F60922DC816760013BF5E /* PomodoroPicker.swift */,
+				3AD707892DD681C800B5D6EC /* AppFooter.swift */,
+				3AD7078B2DD681E400B5D6EC /* UnitRow.swift */,
+				3AD7078D2DD6820100B5D6EC /* LockedUnitRow.swift */,
 			);
 			path = "Dynamic List Index";
+			sourceTree = "<group>";
+		};
+		3AD707842DD6810B00B5D6EC /* in-app purchase */ = {
+			isa = PBXGroup;
+			children = (
+				3AD707852DD6812700B5D6EC /* StoreManager.swift */,
+				3AD707872DD6813600B5D6EC /* PurchaseView.swift */,
+			);
+			name = "in-app purchase";
+			path = "../in-app purchase";
 			sourceTree = "<group>";
 		};
 		3AF3788F2DCD06000024BFA9 /* Funktioner */ = {
@@ -360,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */,
+				3AD707822DD680A300B5D6EC /* StoreKitConfig.storekit in Resources */,
 				3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */,
 				3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */,
 			);
@@ -391,6 +419,7 @@
 				3AAD79C22DCBB78300319189 /* Area.swift in Sources */,
 				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
 				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
+				3AD7078C2DD681E400B5D6EC /* UnitRow.swift in Sources */,
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
@@ -407,6 +436,9 @@
 				3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */,
 				3AAD79C02DCBB59800319189 /* Currency.swift in Sources */,
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
+				3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */,
+				3AD7078A2DD681C800B5D6EC /* AppFooter.swift in Sources */,
+				3AD7078E2DD6820100B5D6EC /* LockedUnitRow.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
 				3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */,
@@ -419,6 +451,7 @@
 				3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */,
 				3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
+				3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */,
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,
 				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
 			);

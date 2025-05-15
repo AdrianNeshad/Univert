@@ -1,21 +1,26 @@
 //
-//  Units Index.swift
+//  UnitsListView.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-05-04.
+//
 
 import SwiftUI
+import StoreKit
 
 struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var units: [Units] = []
     @State private var searchTerm = ""
     @AppStorage("savedUnits") private var savedUnitsData: Data?
-    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+    @AppStorage("appLanguage") private var appLanguage = "sv"
+    @State private var showPurchaseSheet = false
+    @StateObject private var storeManager = StoreManager()
+    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
 
     var filteredUnits: [Units] {
         guard !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return units }
-        return units.filter { $0.name.localizedCaseInsensitiveContains(searchTerm)}
+        return units.filter { $0.name.localizedCaseInsensitiveContains(searchTerm) }
     }
 
     var body: some View {
@@ -29,11 +34,13 @@ struct UnitsListView: View {
                 }, id: \.self) { category in
                     Section(header: Text(titleForCategory(category)).font(.caption).foregroundColor(.gray)) {
                         ForEach(groupedUnits[category] ?? [], id: \.name) { unit in
-                            NavigationLink(destination: destinationView(for: unit)) {
-                                HStack {
-                                    Text(unit.icon)
-                                    Text(unit.name)
-                                    Spacer()
+                            if category == "avancerad" && !advancedUnitsUnlocked {
+                                LockedUnitRow(unit: unit) {
+                                    showPurchaseSheet = true
+                                }
+                            } else {
+                                NavigationLink(destination: destinationView(for: unit)) {
+                                    UnitRow(unit: unit)
                                 }
                             }
                         }
@@ -41,19 +48,7 @@ struct UnitsListView: View {
                 }
                 
                 if searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    Section {
-                        EmptyView()
-                    } footer: {
-                        VStack(spacing: 4) {
-                            Text("© 2025 Univert App")
-                            Text("Github.com/AdrianNeshad")
-                            Text("Linkedin.com/in/adrian-neshad")
-                        }
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, -100)
-                    }
+                    AppFooter()
                 }
             }
             .navigationTitle(appLanguage == "sv" ? "Enheter" : "Units")
@@ -70,10 +65,14 @@ struct UnitsListView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showPurchaseSheet) {
+                PurchaseView(storeManager: storeManager, isUnlocked: $advancedUnitsUnlocked)
+            }
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .onAppear {
             loadUnits()
+            storeManager.getProducts(productIDs: ["Univert.AdvancedUnits"])
         }
         .onChange(of: appLanguage) { _ in
             loadUnits()
@@ -83,37 +82,30 @@ struct UnitsListView: View {
     func migrateSavedUnitsIfNeeded() {
         let previewUnits = Units.preview()
         
-        // Ladda sparad data
         var savedUnits: [Units] = []
         if let data = savedUnitsData,
            let decoded = try? JSONDecoder().decode([Units].self, from: data) {
             savedUnits = decoded
         }
         
-        // Filtrera bort sparade enheter som inte finns i preview längre
         savedUnits = savedUnits.filter { saved in
             previewUnits.contains(where: { $0.name == saved.name })
         }
         
-        // Lägg till nya enheter som saknas i sparad data
         for unit in previewUnits {
             if !savedUnits.contains(where: { $0.name == unit.name }) {
                 savedUnits.append(unit)
             }
         }
         
-        // Spara om listan ändrats
         if savedUnits.count != previewUnits.count {
             if let encoded = try? JSONEncoder().encode(savedUnits) {
                 savedUnitsData = encoded
             }
         }
         
-        // Uppdatera state
         units = savedUnits
     }
-
-
     
     func loadUnits() {
         migrateSavedUnitsIfNeeded()
@@ -127,6 +119,7 @@ struct UnitsListView: View {
             }
         }
     }
+    
     func titleForCategory(_ key: String) -> String {
         switch key {
         case "vanlig": return appLanguage == "sv" ? "Vanliga enheter" : "Common Units"
@@ -136,12 +129,6 @@ struct UnitsListView: View {
         }
     }
 }
-
-private var appVersion: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
-        return "Version \(version) (\(build))"
-    }
 
 struct UnitsDetailView: View {
     let unit: Units
@@ -175,10 +162,6 @@ struct UnitsListView_Previews: PreviewProvider {
 func destinationView(for unit: Units) -> some View {
     let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
-        
-     /*   case appLanguage == "sv" ? "Enhetsmall" : "Template":
-        Enhetsmall()  */
-        
         case appLanguage == "sv" ? "Hastighet" : "Speed":
             Hastighet()
         case appLanguage == "sv" ? "Vikt" : "Weight":
