@@ -12,6 +12,8 @@ struct PurchaseView: View {
     @Binding var isUnlocked: Bool
     @Environment(\.presentationMode) var presentationMode
     @AppStorage("appLanguage") private var appLanguage = "sv" // Default to Swedish
+    @AppStorage("isDarkMode") private var isDarkMode = false
+
     
     var body: some View {
         VStack(spacing: 20) {
@@ -63,5 +65,6 @@ struct PurchaseView: View {
             }
         }
         .padding()
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
