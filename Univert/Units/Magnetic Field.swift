@@ -1,40 +1,35 @@
 //
-//  Length.swift
+//  Magnetic Field.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-14.
 //
+
 import SwiftUI
 
-struct Längd: View {
+struct MagnetiskFältstyrka: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "m"
-    @State private var selectedToUnit: String? = "m"
+    @State private var selectedFromUnit: String? = "A/m"
+    @State private var selectedToUnit: String? = "A/m"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
-
+    
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Längd"
+    let unitName = "Magnetisk fältstyrka"
     
-    let units = ["m", "cm", "km", "dm", "mm", "mi", "in", "ft", "yd", "µm", "nm"]
+    let units = ["A/m", "At/m", "kA/m", "Oe"]
     
     let fullNames: [String: String] = [
-        "m": "Meter",
-        "cm": "Centimeter",
-        "km": "Kilometer",
-        "dm": "Decimeter",
-        "mm": "Millimeter",
-        "mi": "Mile",
-        "in": "Inch",
-        "ft": "Foot",
-        "yd": "Yard",
-        "µm": "Micrometer",
-        "nm": "Nanometer"
-    ]
+        "A/m": "Ampere/meter",            // Basenhet
+        "At/m": "Ampetere-turn/meter",           // Ampere-turn per meter, samma som A/m här
+        "kA/m": "kiloampere/meter",        // 1 kA/m = 1000 A/m
+        "Oe": "Oersted"
+        ]
+    
     
     var body: some View {
         VStack {
@@ -150,6 +145,7 @@ struct Längd: View {
                         }
                     }
 
+                
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
@@ -163,7 +159,7 @@ struct Längd: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Längd" : "Length")
+        .navigationTitle(appLanguage == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength")
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
@@ -187,6 +183,7 @@ struct Längd: View {
             }
         }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
@@ -198,41 +195,36 @@ struct Längd: View {
         }
     }
     
-    func convertLength(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertMagneticFieldStrength(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m": 1, // basenhet
-            "cm": 0.01, // centimeter till meter
-            "km": 1000, // kilometer till meter
-            "dm": 0.1, // decimeter till meter
-            "mm": 0.001, // millimeter till meter
-            "mi": 1609.34, // miles till meter
-            "in": 0.0254, // inch till meter
-            "ft": 0.3048, // fot till meter
-            "yd": 0.9144, // yard till meter
-            "µm": 0.000001, // mikrometer till meter
-            "nm": 0.000000001 // nanometer till meter
+            "A/m": 1.0,            // Basenhet
+            "At/m": 1.0,           // Ampere-turn per meter, samma som A/m här
+            "kA/m": 1000.0,        // 1 kA/m = 1000 A/m
+            "Oe": 79.57747         // 1 Oersted = 79.57747 A/m
         ]
         
         // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+        guard let fromFactor = conversionFactors[fromUnit],
+              let toFactor = conversionFactors[toUnit] else {
             return nil // Om någon enhet inte finns i listan, returnera nil
         }
-
-        // Omvandla till meter (basenhet)
-        let valueInMeters = value * fromFactor
         
-        // Omvandla från meter till mål-enhet
-        let convertedValue = valueInMeters / toFactor
+        // Omvandla till A/m (basenhet)
+        let valueInBase = value * fromFactor
+        
+        // Omvandla från basenhet till mål-enhet
+        let convertedValue = valueInBase / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertLength(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
+        if let result = convertMagneticFieldStrength(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 
 
 }

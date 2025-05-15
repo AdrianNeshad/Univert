@@ -1,39 +1,36 @@
 //
-//  Length.swift
+//  Base.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-14.
 //
+
 import SwiftUI
 
-struct Längd: View {
+struct Talsystem: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "m"
-    @State private var selectedToUnit: String? = "m"
+    @State private var selectedFromUnit: String? = "B. 10"
+    @State private var selectedToUnit: String? = "B. 10"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
-
+    
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Längd"
+    let unitName = "Talsystem"
     
-    let units = ["m", "cm", "km", "dm", "mm", "mi", "in", "ft", "yd", "µm", "nm"]
-    
+    let units = ["B. 10", "B. 2", "B. 3", "B. 6", "B. 8", "B. 16"]
+
+
     let fullNames: [String: String] = [
-        "m": "Meter",
-        "cm": "Centimeter",
-        "km": "Kilometer",
-        "dm": "Decimeter",
-        "mm": "Millimeter",
-        "mi": "Mile",
-        "in": "Inch",
-        "ft": "Foot",
-        "yd": "Yard",
-        "µm": "Micrometer",
-        "nm": "Nanometer"
+        "B. 2": "Base 2 - Binary",
+        "B. 10": "Base 10 - Decimal",
+        "B. 8": "Base 8 - Octal",
+        "B. 16": "Base 16 - Hexadecimal",
+        "B. 6": "Base 6 - Heximal",
+        "B. 3": "Base 3 - Trinary"
     ]
     
     var body: some View {
@@ -150,6 +147,7 @@ struct Längd: View {
                         }
                     }
 
+                
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
@@ -163,7 +161,7 @@ struct Längd: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Längd" : "Length")
+        .navigationTitle(appLanguage == "sv" ? "Talsystem" : "Numeral System")
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
@@ -187,6 +185,7 @@ struct Längd: View {
             }
         }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
@@ -198,41 +197,27 @@ struct Längd: View {
         }
     }
     
-    func convertLength(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        let conversionFactors: [String: Double] = [
-            "m": 1, // basenhet
-            "cm": 0.01, // centimeter till meter
-            "km": 1000, // kilometer till meter
-            "dm": 0.1, // decimeter till meter
-            "mm": 0.001, // millimeter till meter
-            "mi": 1609.34, // miles till meter
-            "in": 0.0254, // inch till meter
-            "ft": 0.3048, // fot till meter
-            "yd": 0.9144, // yard till meter
-            "µm": 0.000001, // mikrometer till meter
-            "nm": 0.000000001 // nanometer till meter
+    func convertBase(value: String, fromUnit: String, toUnit: String) -> String {
+        let bases: [String: Int] = [
+            "B. 2": 2,
+            "B. 8": 8,
+            "B. 10": 10,
+            "B. 16": 16,
+            "B. 6": 6,
+            "B. 3": 3
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+        guard let fromBase = bases[fromUnit],
+              let toBase = bases[toUnit],
+              let number = Int(value, radix: fromBase) else {
+            return appLanguage == "sv" ? "Ogiltigt tal" : "Invalid input"
         }
-
-        // Omvandla till meter (basenhet)
-        let valueInMeters = value * fromFactor
         
-        // Omvandla från meter till mål-enhet
-        let convertedValue = valueInMeters / toFactor
-        return convertedValue
+        return String(number, radix: toBase).uppercased()
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertLength(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
-        } else {
-            outputValue = "Ogiltig enhet"
-        }
+        outputValue = convertBase(value: inputValue, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "")
     }
-
 
 }

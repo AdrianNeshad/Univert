@@ -23,8 +23,9 @@ struct Valuta: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
-    let unitName = "Valutor"
+    @State private var currentUnits: [Units] = []
+    
+    let unitName = "Valuta"
     
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     
@@ -140,64 +141,78 @@ struct Valuta: View {
                     .padding(.leading, 0)
             }
             
-            HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
-                                    .keyboardType(.decimalPad)
-                                    .padding(10)
-                                    .frame(height: 50)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.gray.opacity(0.1))
-                                    .cornerRadius(5)
-                                    .multilineTextAlignment(.leading)
-                                    .onChange(of: inputValue) { newValue in
-                                        var updatedValue = newValue
-                                        if !useSwedishDecimal {
-                                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                                            if replaced != newValue {
-                                                updatedValue = replaced
-                                                inputValue = replaced
-                                            }
-                                        }
-                                        
-                                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                                        if let inputDouble = Double(normalizedValue) {
-                                            updateOutputValue(inputDouble: inputDouble)
-                                        } else {
-                                            outputValue = ""
-                                        }
-                                    }
-                                    .onChange(of: selectedFromUnit) { _ in
-                                        fetchExchangeRates()
-                                    }
-                                    .onChange(of: selectedToUnit) { _ in
-                                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                                        if let inputDouble = Double(normalizedValue) {
-                                            updateOutputValue(inputDouble: inputDouble)
-                                        }
-                                    }
-                
-                Text(outputValue.isEmpty ? "" : outputValue)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 10) {
+                    TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                        .onChange(of: inputValue) { newValue in
+                            var updatedValue = newValue
+                            if !useSwedishDecimal {
+                                let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                                if replaced != newValue {
+                                    updatedValue = replaced
+                                    inputValue = replaced
+                                }
+                            }
+                            
+                            let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            } else {
+                                outputValue = ""
+                            }
+                        }
+                        .onChange(of: selectedFromUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
+                        }
+                        .onChange(of: selectedToUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
+                        }
+
+                    Text(outputValue.isEmpty ? "" : outputValue)
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                }
+                Text(appLanguage == "sv" ? "Källa: Europeiska Centralbanken (Frankfurter)" : "Source: European Central Bank (Frankfurter)")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 10)
             }
             .padding([.leading, .trailing], 10)
         }
         .padding(.top, 20)
         
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Valutor" : "Currency")
+        .navigationTitle(appLanguage == "sv" ? "Valuta" : "Currency")
         .padding()
         .onAppear {
             fetchExchangeRates()
-        }
-        .onAppear {
+            
             if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-               let match = savedUnits.first(where: { $0.name == unitName }) {
+               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                currentUnits = savedUnits
+            } else {
+                currentUnits = Units.preview()
+            }
+            
+            if let match = currentUnits.first(where: { $0.name == unitName }) {
                 isFavorite = match.isFavorite
             }
         }
@@ -212,19 +227,6 @@ struct Valuta: View {
         }
     }
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite

@@ -29,6 +29,10 @@
 		3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */; };
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
+		3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18912DD50E3C00FB6E4D /* Base.swift */; };
+		3A4D18942DD5124300FB6E4D /* Magnetomotive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */; };
+		3A4D18962DD514C500FB6E4D /* Magnetic Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */; };
+		3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */; };
 		3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A780DEF2DCD59DB00A8A435 /* Energy.swift */; };
 		3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */; };
 		3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */; };
@@ -88,6 +92,10 @@
 		3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTest.swift; sourceTree = "<group>"; };
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
+		3A4D18912DD50E3C00FB6E4D /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
+		3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetomotive.swift; sourceTree = "<group>"; };
+		3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Magnetic Field.swift"; sourceTree = "<group>"; };
+		3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Magnetic Flux.swift"; sourceTree = "<group>"; };
 		3A780DEF2DCD59DB00A8A435 /* Energy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
 		3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Angles.swift; sourceTree = "<group>"; };
 		3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric Current.swift"; sourceTree = "<group>"; };
@@ -216,6 +224,10 @@
 				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
 				3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */,
 				3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */,
+				3A4D18912DD50E3C00FB6E4D /* Base.swift */,
+				3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */,
+				3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */,
+				3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -370,10 +382,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */,
+				3A4D18942DD5124300FB6E4D /* Magnetomotive.swift in Sources */,
 				3AAD79C22DCBB78300319189 /* Area.swift in Sources */,
 				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
 				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
+				3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
 				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
 				3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */,
@@ -395,6 +410,7 @@
 				3A832FD32DD0C0E10058D0F8 /* Language.swift in Sources */,
 				3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */,
 				3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */,
+				3A4D18962DD514C500FB6E4D /* Magnetic Field.swift in Sources */,
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
 				3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */,
 				3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */,
@@ -584,7 +600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.Univert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -628,7 +644,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.Univert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

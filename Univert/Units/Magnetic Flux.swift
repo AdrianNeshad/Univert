@@ -1,40 +1,43 @@
 //
-//  Length.swift
+//  Magnetic Flux.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-04.
+//  Created by Adrian Neshad on 2025-05-14.
 //
+
 import SwiftUI
 
-struct Längd: View {
+struct Magnetflöde: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "m"
-    @State private var selectedToUnit: String? = "m"
+    @State private var selectedFromUnit: String? = "Wb"
+    @State private var selectedToUnit: String? = "Wb"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
-
+    
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Längd"
+    let unitName = "Magnetflöde"
     
-    let units = ["m", "cm", "km", "dm", "mm", "mi", "in", "ft", "yd", "µm", "nm"]
-    
+    let units = ["Wb", "mWb", "μWb", "V·s", "MΦ", "kΦ", "Φ", "Mx", "T·m²", "T·cm²", "G·cm²", "Φ₀"]
+
     let fullNames: [String: String] = [
-        "m": "Meter",
-        "cm": "Centimeter",
-        "km": "Kilometer",
-        "dm": "Decimeter",
-        "mm": "Millimeter",
-        "mi": "Mile",
-        "in": "Inch",
-        "ft": "Foot",
-        "yd": "Yard",
-        "µm": "Micrometer",
-        "nm": "Nanometer"
+        "Wb": "Weber",
+        "mWb": "Milliweber",
+        "μWb": "Mikroweber",
+        "V·s": "Volt-second",
+        "MΦ": "Megaline",
+        "kΦ": "Kiloline",
+        "Φ": "Line",
+        "Mx": "Maxwell",
+        "T·m²": "Tesla squaremeter",
+        "T·cm²": "Tesla squarecentimeter",
+        "G·cm²": "Gauss squarecentimeter",
+        "Φ₀": "Magnetic flux quantum"
     ]
+
     
     var body: some View {
         VStack {
@@ -150,6 +153,7 @@ struct Längd: View {
                         }
                     }
 
+                
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
@@ -163,7 +167,7 @@ struct Längd: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Längd" : "Length")
+        .navigationTitle(appLanguage == "sv" ? "Magnetflöde" : "Magnetic Flux")
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
@@ -187,6 +191,7 @@ struct Längd: View {
             }
         }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
@@ -198,41 +203,43 @@ struct Längd: View {
         }
     }
     
-    func convertLength(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertMagneticFlux(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m": 1, // basenhet
-            "cm": 0.01, // centimeter till meter
-            "km": 1000, // kilometer till meter
-            "dm": 0.1, // decimeter till meter
-            "mm": 0.001, // millimeter till meter
-            "mi": 1609.34, // miles till meter
-            "in": 0.0254, // inch till meter
-            "ft": 0.3048, // fot till meter
-            "yd": 0.9144, // yard till meter
-            "µm": 0.000001, // mikrometer till meter
-            "nm": 0.000000001 // nanometer till meter
+            "Wb": 1.0,
+            "mWb": 1e-3,
+            "μWb": 1e-6,
+            "V·s": 1.0,               // Volt-sekund är samma som Weber
+            "MΦ": 1e-2,               // 1 megaline = 10^-2 Weber (10^6 line * 10^-8 Weber/line)
+            "kΦ": 1e-5,               // 1 kiloline = 10^-5 Weber
+            "Φ": 1e-8,                // Line i CGS (maxwell)
+            "Mx": 1e-8,               // Maxwell = 10^-8 Weber
+            "T·m²": 1.0,              // Tesla kvadratmeter = Weber
+            "T·cm²": 1e-4,            // Tesla kvadratcentimeter = 10^-4 Weber
+            "G·cm²": 1e-8,            // Gauss kvadratcentimeter = 10^-8 Weber
+            "Φ₀": 2.067833848e-15     // Magnetic flux quantum (Weber)
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+        guard let fromFactor = conversionFactors[fromUnit],
+              let toFactor = conversionFactors[toUnit] else {
+            return nil
         }
-
-        // Omvandla till meter (basenhet)
-        let valueInMeters = value * fromFactor
         
-        // Omvandla från meter till mål-enhet
-        let convertedValue = valueInMeters / toFactor
+        // Omvandla till Weber (basenhet)
+        let valueInWebers = value * fromFactor
+        
+        // Omvandla från Weber till mål-enhet
+        let convertedValue = valueInWebers / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertLength(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+        if let result = convertMagneticFlux(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
         } else {
             outputValue = "Ogiltig enhet"
         }
     }
+
 
 
 }

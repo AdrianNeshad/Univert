@@ -17,7 +17,8 @@ struct Volym: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
+    @State private var currentUnits: [Units] = []
+    
     let unitName = "Volym"
     
     let units = ["L", "ml", "cl", "dl", "gal", "cup", "pint", "qrt", "fl oz", "cm³", "dm³", "m³", "mm³"]
@@ -168,12 +169,17 @@ struct Volym: View {
             .navigationTitle(appLanguage == "sv" ? "Volym" : "Volume")
             .padding()
             .onAppear {
-                if let data = savedUnitsData,
-                   let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-                   let match = savedUnits.first(where: { $0.name == unitName }) {
-                    isFavorite = match.isFavorite
-                }
-            }
+                        if let data = savedUnitsData,
+                           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                            currentUnits = savedUnits
+                        } else {
+                            currentUnits = Units.preview()
+                        }
+                        
+                        if let match = currentUnits.first(where: { $0.name == unitName }) {
+                            isFavorite = match.isFavorite
+                        }
+                    }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -185,19 +191,6 @@ struct Volym: View {
             }
     }
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
@@ -207,7 +200,6 @@ struct Volym: View {
             }
         }
     }
-    
     func convertVolume(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "L": 1, // basenhet (liter)
@@ -216,8 +208,8 @@ struct Volym: View {
             "dl": 0.1, // deciliter till liter
             "gal": 0.264172, // gallon till liter
             "cup": 0.236588,
-            "UK pint": 0.56826125, // pint till liter
-            "quart": 1.05669, // quart till liter
+            "pint": 0.56826125, // pint till liter
+            "qrt": 1.05669, // quart till liter
             "fl oz": 33.814, // fluid ounce till liter
             "cm³": 0.001, // kubikcentimeter till liter
             "dm³": 1,

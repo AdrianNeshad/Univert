@@ -23,16 +23,16 @@ struct Krypto: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
-    let unitName = "Krypto"
+    @State private var currentUnits: [Units] = []
     
-    let units = ["BTC", "USD", "ETH", "USDT", "BNB", "SOL", "XRP", "ADA", "DOGE"]
+    let unitName = "Krypto (beta)"
+    
+    let units = ["BTC", "USD", "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE"]
        
        let fullNames: [String: String] = [
            "BTC": "Bitcoin",
            "USD": "US Dollar",
            "ETH": "Ethereum",
-           "USDT": "Tether",
            "BNB": "Binance Coin",
            "SOL": "Solana",
            "XRP": "XRP",
@@ -117,63 +117,78 @@ struct Krypto: View {
                     .padding(.leading, 0)
             }
             
-            HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
-                    .keyboardType(.decimalPad)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { newValue in
-                        var updatedValue = newValue
-                        if !useSwedishDecimal {
-                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                            if replaced != newValue {
-                                updatedValue = replaced
-                                inputValue = replaced
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 10) {
+                    TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                        .keyboardType(.decimalPad)
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                        .onChange(of: inputValue) { newValue in
+                            var updatedValue = newValue
+                            if !useSwedishDecimal {
+                                let replaced = newValue.replacingOccurrences(of: ",", with: ".")
+                                if replaced != newValue {
+                                    updatedValue = replaced
+                                    inputValue = replaced
+                                }
+                            }
+                            
+                            let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            } else {
+                                outputValue = ""
                             }
                         }
-                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        } else {
-                            outputValue = ""
+                        .onChange(of: selectedFromUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
                         }
-                    }
-                    .onChange(of: selectedFromUnit) { _ in
-                        fetchExchangeRates()
-                    }
-                    .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
+                        .onChange(of: selectedToUnit) { _ in
+                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+                            if let inputDouble = Double(normalizedValue) {
+                                updateOutputValue(inputDouble: inputDouble)
+                            }
                         }
-                    }
 
-                Text(outputValue.isEmpty ? "" : outputValue)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
+                    Text(outputValue.isEmpty ? "" : outputValue)
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(5)
+                        .multilineTextAlignment(.leading)
+                }
+                Text(appLanguage == "sv" ? "Källa: CoinGecko" : "Source: CoinGecko")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 10)
             }
             .padding([.leading, .trailing], 10)
         }
         .padding(.top, 20)
         
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Krypto" : "Crypto")
+        .navigationTitle(appLanguage == "sv" ? "Krypto (beta)" : "Crypto (beta)")
         .padding()
         .onAppear {
             fetchExchangeRates()
-        }
-        .onAppear {
+            
             if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-               let match = savedUnits.first(where: { $0.name == unitName }) {
+               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                currentUnits = savedUnits
+            } else {
+                currentUnits = Units.preview()
+            }
+            
+            if let match = currentUnits.first(where: { $0.name == unitName }) {
                 isFavorite = match.isFavorite
             }
         }
@@ -187,20 +202,8 @@ struct Krypto: View {
             }
         }
     }
+    
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
@@ -212,7 +215,7 @@ struct Krypto: View {
     }
     
     func fetchExchangeRates() {
-        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin,solana,ripple,cardano,dogecoin&vs_currencies=usd")!
+        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,dogecoin&vs_currencies=usd")!
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
@@ -220,7 +223,6 @@ struct Krypto: View {
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let bitcoinData = json["bitcoin"] as? [String: Any],
                            let ethereumData = json["ethereum"] as? [String: Any],
-                            let tetherData = json["tether"] as? [String: Any],
                             let binancecoinData = json["binancecoin"] as? [String: Any],
                             let solanaData = json["solana"] as? [String: Any],
                             let rippleData = json["ripple"] as? [String: Any],
@@ -231,7 +233,6 @@ struct Krypto: View {
                                 self.exchangeRates["USD"] = 1
                                 self.exchangeRates["BTC"] = bitcoinData["usd"] as? Double
                                 self.exchangeRates["ETH"] = ethereumData["usd"] as? Double
-                                self.exchangeRates["USDT"] = tetherData["usd"] as? Double
                                 self.exchangeRates["BNB"] = binancecoinData["usd"] as? Double
                                 self.exchangeRates["SOL"] = solanaData["usd"] as? Double
                                 self.exchangeRates["XRP"] = rippleData["usd"] as? Double

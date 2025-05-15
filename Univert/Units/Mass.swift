@@ -17,10 +17,11 @@ struct Vikt: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
+    @State private var currentUnits: [Units] = []
+    
     let unitName = "Vikt"
     
-    let units = ["mg", "g", "hg", "kg", "lbs", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
+    let units = ["mg", "g", "hg", "kg", "lbs", "μg", "mcg", "ng", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
     
     let fullNames: [String: String] = [
         "mg": "Milligram",
@@ -28,6 +29,9 @@ struct Vikt: View {
         "hg": "Hektogram",
         "kg": "Kilogram",
         "lbs": "Pounds",
+        "μg": "Microgram",
+        "mcg": "Microgram (mcg)",
+        "ng": "Nanogram",
         "m ton": "Metric Ton",
         "N": "Newton",
         "kN": "Kilonewton",
@@ -168,12 +172,17 @@ struct Vikt: View {
         .navigationTitle(appLanguage == "sv" ? "Vikt" : "Weight")
         .padding()
         .onAppear {
-            if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-               let match = savedUnits.first(where: { $0.name == unitName }) {
-                isFavorite = match.isFavorite
-            }
-        }
+                    if let data = savedUnitsData,
+                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                        currentUnits = savedUnits
+                    } else {
+                        currentUnits = Units.preview()
+                    }
+                    
+                    if let match = currentUnits.first(where: { $0.name == unitName }) {
+                        isFavorite = match.isFavorite
+                    }
+                }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -185,19 +194,6 @@ struct Vikt: View {
         }
     }
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
@@ -222,7 +218,10 @@ struct Vikt: View {
             "oz": 28.3495,
             "lbs": 453.59237,
             "N": 9.81,
-            "kN": 9810
+            "kN": 9810,
+            "μg": 0.000001,         // 1 μg = 0.000001 g
+            "mcg": 0.000001,        // 1 mcg = 0.000001 g
+            "ng": 0.000000001,
         ]
         
         // Kontrollera att enheterna finns i conversionFactors

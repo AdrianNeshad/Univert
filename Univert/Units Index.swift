@@ -23,7 +23,7 @@ struct UnitsListView: View {
             List {
                 let groupedUnits = Dictionary(grouping: filteredUnits) { $0.category }
                 let categoryOrder = ["monetär", "vanlig", "avancerad"]
-
+                
                 ForEach(groupedUnits.keys.sorted { lhs, rhs in
                     categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
                 }, id: \.self) { category in
@@ -39,21 +39,21 @@ struct UnitsListView: View {
                         }
                     }
                 }
-
-
-
-                Section {
-                    EmptyView()
-                } footer: {
-                    VStack(spacing: 4) {
-                        Text("© 2025 Univert App - \(appVersion)")
-                        Text("Github.com/AdrianNeshad")
-                        Text("Linkedin.com/in/adrian-neshad")
+                
+                if searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    Section {
+                        EmptyView()
+                    } footer: {
+                        VStack(spacing: 4) {
+                            Text("© 2025 Univert App")
+                            Text("Github.com/AdrianNeshad")
+                            Text("Linkedin.com/in/adrian-neshad")
+                        }
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, -100)
                     }
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.top, -100)
                 }
             }
             .navigationTitle(appLanguage == "sv" ? "Enheter" : "Units")
@@ -80,17 +80,43 @@ struct UnitsListView: View {
         }
     }
     
-    func loadUnits() {
-        var currentUnits = Units.preview() // starta med default
+    func migrateSavedUnitsIfNeeded() {
+        let previewUnits = Units.preview()
+        
+        // Ladda sparad data
+        var savedUnits: [Units] = []
         if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let savedUnit = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = savedUnit.isFavorite
-                }
+           let decoded = try? JSONDecoder().decode([Units].self, from: data) {
+            savedUnits = decoded
+        }
+        
+        // Filtrera bort sparade enheter som inte finns i preview längre
+        savedUnits = savedUnits.filter { saved in
+            previewUnits.contains(where: { $0.name == saved.name })
+        }
+        
+        // Lägg till nya enheter som saknas i sparad data
+        for unit in previewUnits {
+            if !savedUnits.contains(where: { $0.name == unit.name }) {
+                savedUnits.append(unit)
             }
         }
-        units = currentUnits
+        
+        // Spara om listan ändrats
+        if savedUnits.count != previewUnits.count {
+            if let encoded = try? JSONEncoder().encode(savedUnits) {
+                savedUnitsData = encoded
+            }
+        }
+        
+        // Uppdatera state
+        units = savedUnits
+    }
+
+
+    
+    func loadUnits() {
+        migrateSavedUnitsIfNeeded()
     }
 
     func toggleFavorite(_ unit: Units) {
@@ -149,6 +175,10 @@ struct UnitsListView_Previews: PreviewProvider {
 func destinationView(for unit: Units) -> some View {
     let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
+        
+     /*   case appLanguage == "sv" ? "Enhetsmall" : "Template":
+        Enhetsmall()  */
+        
         case appLanguage == "sv" ? "Hastighet" : "Speed":
             Hastighet()
         case appLanguage == "sv" ? "Vikt" : "Weight":
@@ -173,11 +203,11 @@ func destinationView(for unit: Units) -> some View {
             Effekt()
         case appLanguage == "sv" ? "Vridmoment" : "Torque":
             Vridmoment()
-        case appLanguage == "sv" ? "Valutor" : "Currency":
+        case appLanguage == "sv" ? "Valuta" : "Currency":
             Valuta()
         case appLanguage == "sv" ? "Yta" : "Area":
             Yta()
-        case appLanguage == "sv" ? "Krypto" : "Crypto":
+        case appLanguage == "sv" ? "Krypto (beta)" : "Crypto (beta)":
             Krypto()
         case appLanguage == "sv" ? "Energi" : "Energy":
             Energi()
@@ -193,6 +223,14 @@ func destinationView(for unit: Units) -> some View {
             ElektriskStröm()
         case appLanguage == "sv" ? "Elektrisk resistans" : "Electric Resistance":
             ElektriskResistans()
+        case appLanguage == "sv" ? "Talsystem" : "Numeral System":
+            Talsystem()
+        case appLanguage == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force":
+            Magnetomotorisk()
+        case appLanguage == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength":
+            MagnetiskFältstyrka()
+        case appLanguage == "sv" ? "Magnetflöde" : "Magnetic Flux":
+            Magnetflöde()
         default:
             UnitsDetailView(unit: unit)
         }

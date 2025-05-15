@@ -17,14 +17,16 @@ struct Andelar: View {
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
-
+    @State private var currentUnits: [Units] = []
+    
     let unitName = "Andelar"
 
     
-    let units = ["%", "mg/Kg", "mg/g", "g/Kg", "ug/Kg", "ug/g", "ppm", "ppb", "ppt", "pptr", "ppth", "ppq", "pg/g", "ng/g", "ng/Kg"]
+    let units = ["%", "‰", "mg/Kg", "mg/g", "g/Kg", "ug/Kg", "ug/g", "ppm", "ppb", "ppt", "pptr", "ppth", "ppq", "pg/g", "ng/g", "ng/Kg"]
         
         let fullNames: [String: String] = [
             "%": "Percent",
+            "‰": "Per Mille",
             "mg/Kg": "Milligram per Kilogram",
             "mg/g": "Milligram per Gram",
             "g/Kg": "Gram per Kilogram",
@@ -172,12 +174,17 @@ struct Andelar: View {
         .navigationTitle(appLanguage == "sv" ? "Andelar" : "Shares")
         .padding()
         .onAppear {
-            if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data),
-               let match = savedUnits.first(where: { $0.name == unitName }) {
-                isFavorite = match.isFavorite
-            }
-        }
+                    if let data = savedUnitsData,
+                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                        currentUnits = savedUnits
+                    } else {
+                        currentUnits = Units.preview()
+                    }
+                    
+                    if let match = currentUnits.first(where: { $0.name == unitName }) {
+                        isFavorite = match.isFavorite
+                    }
+                }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -190,19 +197,6 @@ struct Andelar: View {
     }
     
     func toggleFavorite() {
-        var currentUnits = Units.preview()
-        
-        // Ladda in sparade favoritstatusar
-        if let data = savedUnitsData,
-           let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-            for i in 0..<currentUnits.count {
-                if let saved = savedUnits.first(where: { $0.name == currentUnits[i].name }) {
-                    currentUnits[i].isFavorite = saved.isFavorite
-                }
-            }
-        }
-        
-        // Toggla favoritstatus för "Andelar"
         if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
@@ -217,6 +211,7 @@ struct Andelar: View {
     func convertShares(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "%": 1.0,                // 1% = 1% (identitet)
+            "‰": 0.1,
             "mg/Kg": 0.0001,         // 1 mg/Kg = 1 ppm = 0.0001%
             "mg/g": 0.1,             // 1 mg/g = 1000 ppm = 0.1%
             "g/Kg": 0.1,             // 1 g/Kg = 1000 mg/Kg = 0.1%
