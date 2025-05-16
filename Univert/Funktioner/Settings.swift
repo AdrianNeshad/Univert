@@ -6,34 +6,110 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct Inställningar: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+    @AppStorage("appLanguage") private var appLanguage = "sv"
+    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
+    @StateObject private var storeManager = StoreManager()
+    @State private var showRestoreAlert = false
+    @State private var showPurchaseSheet = false
+    @State private var restoreStatus: RestoreStatus?
+    
+    enum RestoreStatus {
+        case success, failure
+    }
 
     var body: some View {
         Form {
-            Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-
-            Picker("Språk / Language", selection: $appLanguage) {
-                Text("Svenska").tag("sv")
-                Text("English").tag("en")
+            // Inställningar för utseende
+            Section(header: Text(appLanguage == "sv" ? "Utseende" : "Appearance")) {
+                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+                
+                Picker("Språk / Language", selection: $appLanguage) {
+                    Text("Svenska").tag("sv")
+                    Text("English").tag("en")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .onChange(of: appLanguage) { newLang in
+                    if newLang == "sv" {
+                        useSwedishDecimal = true
+                    } else {
+                        useSwedishDecimal = false
+                    }
+                }
+                
+                Toggle(appLanguage == "sv" ? "Kommatecken decimalseparator" : "Decimal separator comma",
+                       isOn: $useSwedishDecimal)
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+                    .disabled(true)
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .onChange(of: appLanguage) { newLang in
-                if newLang == "sv" {
-                    useSwedishDecimal = true
+            
+            // Köp-sektion
+            Section(header: Text(appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units")) {
+                if !advancedUnitsUnlocked {
+                    Button(action: {
+                        showPurchaseSheet = true
+                    }) {
+                        HStack {
+                            Image(systemName: "lock.open")
+                            Text(appLanguage == "sv" ? "Lås upp avancerade enheter" : "Unlock Advanced Units")
+                            Spacer()
+                            if let product = storeManager.products.first {
+                                Text(product.localizedPrice)
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showPurchaseSheet) {
+                        PurchaseView(storeManager: storeManager, isUnlocked: $advancedUnitsUnlocked)
+                    }
                 } else {
-                    useSwedishDecimal = false
+                    HStack {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(.green)
+                        Text(appLanguage == "sv" ? "Avancerade enheter upplåsta" : "Advanced Units Unlocked")
+                            .foregroundColor(.green)
+                    }
+                }
+                
+                Button(appLanguage == "sv" ? "Återställ köp" : "Restore Purchases") {
+                    storeManager.restorePurchases()
+                    showRestoreAlert = true
+                }
+                .alert(isPresented: $showRestoreAlert) {
+                    switch restoreStatus {
+                    case .success:
+                        return Alert(
+                            title: Text(appLanguage == "sv" ? "Köp återställda" : "Purchases Restored"),
+                            message: Text(appLanguage == "sv" ? "Dina köp har återställts." : "Your purchases have been restored."),
+                            dismissButton: .default(Text("OK")))
+                    case .failure:
+                        return Alert(
+                            title: Text(appLanguage == "sv" ? "Återställning misslyckades" : "Restore Failed"),
+                            message: Text(appLanguage == "sv" ? "Inga köp kunde återställas." : "No purchases could be restored."),
+                            dismissButton: .default(Text("OK")))
+                    default:
+                        return Alert(
+                            title: Text(appLanguage == "sv" ? "Bearbetar..." : "Processing..."),
+                            message: nil,
+                            dismissButton: .cancel())
+                    }
+                }
+                .onReceive(storeManager.$transactionState) { state in
+                    if state == .restored {
+                        restoreStatus = .success
+                        advancedUnitsUnlocked = true
+                    } else if state == .failed {
+                        restoreStatus = .failure
+                    }
                 }
             }
-
-            Toggle(appLanguage == "sv" ? "Svensk decimalseparator" : "Swedish decimal separator", isOn: $useSwedishDecimal)
-                .toggleStyle(SwitchToggleStyle(tint: .blue))
-                .disabled(true) // gör den readonly – styrs nu av språket
-
+            
+            // App-info
             Section {
                 EmptyView()
             } footer: {
@@ -50,12 +126,14 @@ struct Inställningar: View {
             }
         }
         .navigationTitle(appLanguage == "sv" ? "Inställningar" : "Settings")
-
+        .onAppear {
+            storeManager.getProducts(productIDs: ["Univert.AdvancedUnits"])
+        }
     }
     
     private var appVersion: String {
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
-            return "Version \(version) (\(build))"
-        }
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+        return "Version \(version) (\(build))"
+    }
 }

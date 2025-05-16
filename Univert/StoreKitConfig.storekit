@@ -1,0 +1,90 @@
+{
+  "identifier" : "08466F32",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6745975098",
+      "localizations" : [
+        {
+          "description" : "Konvertering av avancerade enheter",
+          "displayName" : "Avancerade enheter",
+          "locale" : "sv"
+        },
+        {
+          "description" : "Conversion of advanced units",
+          "displayName" : "Advanced Units",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "Univert.AdvancedUnits",
+      "referenceName" : "Advanced Units Access",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6745692591",
+    "_developerTeamID" : "U4LPX7NYV2",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 769032358.73606396,
+    "_locale" : "sv",
+    "_storefront" : "SWE",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
