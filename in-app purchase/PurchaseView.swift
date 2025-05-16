@@ -19,6 +19,7 @@ struct PurchaseView: View {
         VStack(spacing: 20) {
             Text(appLanguage == "sv" ? "Lås upp avancerade enheter" : "Unlock advanced units")
                 .font(.title)
+                .bold()
                 .padding(.top, 20)
             
             Text(appLanguage == "sv" ?
