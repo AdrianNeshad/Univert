@@ -42,7 +42,7 @@ struct Inställningar: View {
                     }
                 }
                 
-                Toggle(appLanguage == "sv" ? "Kommatecken decimalseparator" : "Decimal separator comma",
+                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma decimal separator",
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
