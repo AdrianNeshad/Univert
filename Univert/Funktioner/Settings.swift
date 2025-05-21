@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StoreKit
+import MessageUI
 
 struct Inställningar: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
@@ -17,6 +18,9 @@ struct Inställningar: View {
     @State private var showRestoreAlert = false
     @State private var showPurchaseSheet = false
     @State private var restoreStatus: RestoreStatus?
+    @Environment(\.requestReview) var requestReview
+    @State private var showMailFeedback = false
+    @State private var mailErrorAlert = false
     
     enum RestoreStatus {
         case success, failure
@@ -109,7 +113,25 @@ struct Inställningar: View {
                 }
             }
             
-            // App-info
+            Section(header: Text(appLanguage == "sv" ? "Feedback" : "Feedback")) {
+                Button(appLanguage == "sv" ? "Betygsätt appen" : "Rate the App") {
+                    requestReview()
+                }
+
+                Button(appLanguage == "sv" ? "Ge feedback" : "Give Feedback") {
+                    if MFMailComposeViewController.canSendMail() {
+                        showMailFeedback = true
+                    } else {
+                        mailErrorAlert = true
+                    }
+                }
+                .sheet(isPresented: $showMailFeedback) {
+                    MailFeedback(isShowing: $showMailFeedback,
+                                 recipientEmail: "Adrian.neshad1@gmail.com",
+                                 subject: appLanguage == "sv" ? "Univert feedback" : "Univert Feedback",
+                                 messageBody: "")
+                }
+            }            // App-info
             Section {
                 EmptyView()
             } footer: {
