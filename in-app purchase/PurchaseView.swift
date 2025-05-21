@@ -15,9 +15,11 @@ struct PurchaseView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
 
     
+    @available(iOS 16.0, *)
     var body: some View {
         VStack(spacing: 20) {
             Text(appLanguage == "sv" ? "Lås upp avancerade enheter" : "Unlock advanced units")
+                .multilineTextAlignment(.center)
                 .font(.title)
                 .bold()
                 .padding(.top, 20)
