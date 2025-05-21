@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A11B53D2DDE3F8600FF4D64 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A11B53C2DDE3F8600FF4D64 /* StoreKit.framework */; };
 		3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */; };
 		3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7022DC7721000B37E2D /* Assets.xcassets */; };
 		3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */; };
-		3A21D7102DC7721100B37E2D /* UnivertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D70F2DC7721100B37E2D /* UnivertTests.swift */; };
-		3A21D71A2DC7721100B37E2D /* UnivertUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7192DC7721100B37E2D /* UnivertUITests.swift */; };
-		3A21D71C2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D71B2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift */; };
 		3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D72A2DC774C600B37E2D /* Units List.swift */; };
 		3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7302DC77A4700B37E2D /* Units Index.swift */; };
 		3A21D7362DC7821100B37E2D /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7352DC7821100B37E2D /* Mass.swift */; };
@@ -56,31 +54,13 @@
 		3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3A21D70C2DC7721100B37E2D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A21D6F32DC7720A00B37E2D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A21D6FA2DC7720A00B37E2D;
-			remoteInfo = Univert;
-		};
-		3A21D7162DC7721100B37E2D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A21D6F32DC7720A00B37E2D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3A21D6FA2DC7720A00B37E2D;
-			remoteInfo = Univert;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		3A11B53C2DDE3F8600FF4D64 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3A21D6FB2DC7720A00B37E2D /* Univert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Univert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertApp.swift; sourceTree = "<group>"; };
 		3A21D7022DC7721000B37E2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3A21D70B2DC7721100B37E2D /* UnivertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D70F2DC7721100B37E2D /* UnivertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertTests.swift; sourceTree = "<group>"; };
-		3A21D7152DC7721100B37E2D /* UnivertUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnivertUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D7192DC7721100B37E2D /* UnivertUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertUITests.swift; sourceTree = "<group>"; };
 		3A21D71B2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3A21D72A2DC774C600B37E2D /* Units List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Units List.swift"; sourceTree = "<group>"; };
@@ -132,26 +112,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A21D7082DC7721100B37E2D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A21D7122DC7721100B37E2D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				3A11B53D2DDE3F8600FF4D64 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A11B53B2DDE3F8600FF4D64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A11B53C2DDE3F8600FF4D64 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3A21D6F22DC7720A00B37E2D = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +134,7 @@
 				3A21D70E2DC7721100B37E2D /* UnivertTests */,
 				3A21D7182DC7721100B37E2D /* UnivertUITests */,
 				3A21D6FC2DC7720A00B37E2D /* Products */,
+				3A11B53B2DDE3F8600FF4D64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,8 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				3A21D6FB2DC7720A00B37E2D /* Univert.app */,
-				3A21D70B2DC7721100B37E2D /* UnivertTests.xctest */,
-				3A21D7152DC7721100B37E2D /* UnivertUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,42 +276,6 @@
 			productReference = 3A21D6FB2DC7720A00B37E2D /* Univert.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3A21D70A2DC7721100B37E2D /* UnivertTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3A21D7222DC7721100B37E2D /* Build configuration list for PBXNativeTarget "UnivertTests" */;
-			buildPhases = (
-				3A21D7072DC7721100B37E2D /* Sources */,
-				3A21D7082DC7721100B37E2D /* Frameworks */,
-				3A21D7092DC7721100B37E2D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A21D70D2DC7721100B37E2D /* PBXTargetDependency */,
-			);
-			name = UnivertTests;
-			productName = UnivertTests;
-			productReference = 3A21D70B2DC7721100B37E2D /* UnivertTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		3A21D7142DC7721100B37E2D /* UnivertUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3A21D7252DC7721100B37E2D /* Build configuration list for PBXNativeTarget "UnivertUITests" */;
-			buildPhases = (
-				3A21D7112DC7721100B37E2D /* Sources */,
-				3A21D7122DC7721100B37E2D /* Frameworks */,
-				3A21D7132DC7721100B37E2D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3A21D7172DC7721100B37E2D /* PBXTargetDependency */,
-			);
-			name = UnivertUITests;
-			productName = UnivertUITests;
-			productReference = 3A21D7152DC7721100B37E2D /* UnivertUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -350,14 +288,6 @@
 				TargetAttributes = {
 					3A21D6FA2DC7720A00B37E2D = {
 						CreatedOnToolsVersion = 13.2.1;
-					};
-					3A21D70A2DC7721100B37E2D = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 3A21D6FA2DC7720A00B37E2D;
-					};
-					3A21D7142DC7721100B37E2D = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 3A21D6FA2DC7720A00B37E2D;
 					};
 				};
 			};
@@ -375,8 +305,6 @@
 			projectRoot = "";
 			targets = (
 				3A21D6FA2DC7720A00B37E2D /* Univert */,
-				3A21D70A2DC7721100B37E2D /* UnivertTests */,
-				3A21D7142DC7721100B37E2D /* UnivertUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -390,20 +318,6 @@
 				3AD707822DD680A300B5D6EC /* StoreKitConfig.storekit in Resources */,
 				3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */,
 				3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A21D7092DC7721100B37E2D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A21D7132DC7721100B37E2D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,37 +371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3A21D7072DC7721100B37E2D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A21D7102DC7721100B37E2D /* UnivertTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3A21D7112DC7721100B37E2D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A21D71C2DC7721100B37E2D /* UnivertUITestsLaunchTests.swift in Sources */,
-				3A21D71A2DC7721100B37E2D /* UnivertUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3A21D70D2DC7721100B37E2D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3A21D6FA2DC7720A00B37E2D /* Univert */;
-			targetProxy = 3A21D70C2DC7721100B37E2D /* PBXContainerItemProxy */;
-		};
-		3A21D7172DC7721100B37E2D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3A21D6FA2DC7720A00B37E2D /* Univert */;
-			targetProxy = 3A21D7162DC7721100B37E2D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3A21D71D2DC7721100B37E2D /* Debug */ = {
@@ -698,74 +582,6 @@
 			};
 			name = Release;
 		};
-		3A21D7232DC7721100B37E2D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.UnivertTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Univert.app/Univert";
-			};
-			name = Debug;
-		};
-		3A21D7242DC7721100B37E2D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.UnivertTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Univert.app/Univert";
-			};
-			name = Release;
-		};
-		3A21D7262DC7721100B37E2D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.UnivertUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Univert;
-			};
-			name = Debug;
-		};
-		3A21D7272DC7721100B37E2D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AdrianNeshad.UnivertUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Univert;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -783,24 +599,6 @@
 			buildConfigurations = (
 				3A21D7202DC7721100B37E2D /* Debug */,
 				3A21D7212DC7721100B37E2D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3A21D7222DC7721100B37E2D /* Build configuration list for PBXNativeTarget "UnivertTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3A21D7232DC7721100B37E2D /* Debug */,
-				3A21D7242DC7721100B37E2D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3A21D7252DC7721100B37E2D /* Build configuration list for PBXNativeTarget "UnivertUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3A21D7262DC7721100B37E2D /* Debug */,
-				3A21D7272DC7721100B37E2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
