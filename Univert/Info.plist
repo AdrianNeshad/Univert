@@ -6,6 +6,8 @@
 	<array>
 		<string>en</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIImageRespectsSafeAreaInsets</key>
