@@ -10,7 +10,7 @@ import StoreKit
 import MessageUI
 
 struct Inställningar: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @AppStorage("isDarkMode") private var isDarkMode = true
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("appLanguage") private var appLanguage = "sv"
     @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false

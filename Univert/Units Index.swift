@@ -9,7 +9,7 @@ import SwiftUI
 import StoreKit
 
 struct UnitsListView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @AppStorage("isDarkMode") private var isDarkMode = true
     @State private var units: [Units] = []
     @State private var searchTerm = ""
     @AppStorage("savedUnits") private var savedUnitsData: Data?

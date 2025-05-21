@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct UnivertApp: App {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @AppStorage("isDarkMode") private var isDarkMode = true
 
     var body: some Scene {
         WindowGroup {

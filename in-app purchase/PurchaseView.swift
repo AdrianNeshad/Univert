@@ -12,7 +12,7 @@ struct PurchaseView: View {
     @Binding var isUnlocked: Bool
     @Environment(\.presentationMode) var presentationMode
     @AppStorage("appLanguage") private var appLanguage = "sv" // Default to Swedish
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @AppStorage("isDarkMode") private var isDarkMode = true
 
     
     @available(iOS 16.0, *)
