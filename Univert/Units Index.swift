@@ -160,61 +160,61 @@ struct UnitsListView_Previews: PreviewProvider {
 
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
-    let appLanguage = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
     switch unit.name {
-        case appLanguage == "sv" ? "Hastighet" : "Speed":
-            Hastighet()
-        case appLanguage == "sv" ? "Vikt" : "Weight":
-            Vikt()
-        case appLanguage == "sv" ? "Längd" : "Length":
-            Längd()
-        case appLanguage == "sv" ? "Tid" : "Time":
-            Tid()
-        case appLanguage == "sv" ? "Temperatur" : "Temperature":
-            Temperatur()
-        case appLanguage == "sv" ? "Volym" : "Volume":
-            Volym()
-        case appLanguage == "sv" ? "Skostorlek" : "Shoe Size":
-            Skostorlek()
-        case appLanguage == "sv" ? "Datastorlek" : "Data Size":
-            Datastorlek()
-        case appLanguage == "sv" ? "Dataöverföringshastighet" : "Data Transfer Speed":
-            Dataöverföringshastighet()
-        case appLanguage == "sv" ? "Tryck" : "Pressure":
-            Tryck()
-        case appLanguage == "sv" ? "Effekt" : "Power":
-            Effekt()
-        case appLanguage == "sv" ? "Vridmoment" : "Torque":
-            Vridmoment()
-        case appLanguage == "sv" ? "Valuta" : "Currency":
-            Valuta()
-        case appLanguage == "sv" ? "Yta" : "Area":
-            Yta()
-        case appLanguage == "sv" ? "Krypto (beta)" : "Crypto (beta)":
-            Krypto()
-        case appLanguage == "sv" ? "Energi" : "Energy":
-            Energi()
-        case appLanguage == "sv" ? "Andelar" : "Shares":
-            Andelar()
-        case appLanguage == "sv" ? "Viskositet (dynamisk)" : "Viscosity (dynamic)":
-            ViskositetD()
-        case appLanguage == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)":
-            ViskositetK()
-        case appLanguage == "sv" ? "Vinklar" : "Angles":
-            Vinklar()
-        case appLanguage == "sv" ? "Elektrisk ström" : "Electric Current":
-            ElektriskStröm()
-        case appLanguage == "sv" ? "Elektrisk resistans" : "Electric Resistance":
-            ElektriskResistans()
-        case appLanguage == "sv" ? "Talsystem" : "Numeral System":
-            Talsystem()
-        case appLanguage == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force":
-            Magnetomotorisk()
-        case appLanguage == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength":
-            MagnetiskFältstyrka()
-        case appLanguage == "sv" ? "Magnetflöde" : "Magnetic Flux":
-            Magnetflöde()
-        default:
-            UnitsDetailView(unit: unit)
-        }
+    case "Hastighet", "Speed":
+        Hastighet()
+    case "Vikt", "Weight":
+        Vikt()
+    case "Längd", "Length":
+        Längd()
+    case "Tid", "Time":
+        Tid()
+    case "Temperatur", "Temperature":
+        Temperatur()
+    case "Volym", "Volume":
+        Volym()
+    case "Skostorlek", "Shoe Size":
+        Skostorlek()
+    case "Datastorlek", "Data Size":
+        Datastorlek()
+    case "Dataöverföringshastighet", "Data Transfer Speed":
+        Dataöverföringshastighet()
+    case "Tryck", "Pressure":
+        Tryck()
+    case "Effekt", "Power":
+        Effekt()
+    case "Vridmoment", "Torque":
+        Vridmoment()
+    case "Valuta", "Currency":
+        Valuta()
+    case "Yta", "Area":
+        Yta()
+    case "Krypto (beta)", "Crypto (beta)":
+        Krypto()
+    case "Energi", "Energy":
+        Energi()
+    case "Andelar", "Shares":
+        Andelar()
+    case "Viskositet (dynamisk)", "Viscosity (dynamic)":
+        ViskositetD()
+    case "Viskositet (kinematisk)", "Viscosity (kinematic)":
+        ViskositetK()
+    case "Vinklar", "Angles":
+        Vinklar()
+    case "Elektrisk ström", "Electric Current":
+        ElektriskStröm()
+    case "Elektrisk resistans", "Electric Resistance":
+        ElektriskResistans()
+    case "Talsystem", "Numeral System":
+        Talsystem()
+    case "Magnetomotorisk kraft", "Magnetomotive Force":
+        Magnetomotorisk()
+    case "Magnetisk fältstyrka", "Magnetic Field Strength":
+        MagnetiskFältstyrka()
+    case "Magnetflöde", "Magnetic Flux":
+        Magnetflöde()
+    default:
+        UnitsDetailView(unit: unit)
     }
+}
+

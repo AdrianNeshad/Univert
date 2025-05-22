@@ -11,6 +11,18 @@ import SwiftUI
 struct UnivertApp: App {
     @AppStorage("isDarkMode") private var isDarkMode = true
 
+    init() {
+        #if targetEnvironment(simulator)
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "savedUnits")
+        defaults.removeObject(forKey: "appLanguage")
+        defaults.removeObject(forKey: "advancedUnitsUnlocked")
+        defaults.removeObject(forKey: "isDarkMode")
+        defaults.synchronize()
+        print("UserDefaults reset in simulator")
+        #endif
+    }
+
     var body: some Scene {
         WindowGroup {
             UnitsListView()
