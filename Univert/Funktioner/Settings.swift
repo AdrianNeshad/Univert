@@ -21,6 +21,8 @@ struct Inställningar: View {
     @Environment(\.requestReview) var requestReview
     @State private var showMailFeedback = false
     @State private var mailErrorAlert = false
+    @State private var units: [Units] = []
+    @State private var showClearAlert = false
     
     enum RestoreStatus {
         case success, failure
@@ -52,6 +54,30 @@ struct Inställningar: View {
                     .disabled(true)
             }
             
+            Section(header: Text(appLanguage == "sv" ? "Favoriter" : "Favorites")) {
+                Button(action: {
+                    showClearAlert = true
+                }) {
+                    Text(appLanguage == "sv" ? "Rensa favoriter" : "Clear Favorites")
+                        .foregroundColor(.red)
+                }
+                .alert(isPresented: $showClearAlert) {
+                    Alert(
+                        title: Text(appLanguage == "sv" ? "Är du säker?" : "Are you sure?"),
+                        message: Text(appLanguage == "sv" ? "Vill du rensa dina sparade favoriter?" : "Do you want to clear your saved favorites?"),
+                        primaryButton: .destructive(Text(appLanguage == "sv" ? "Rensa" : "Clear")) {
+                            // Här rensar vi favoriterna
+                            let defaults = UserDefaults.standard
+                            defaults.removeObject(forKey: "savedUnits")
+                            defaults.synchronize()
+                            
+                            units = Units.preview()
+                        },
+                        secondaryButton: .cancel(Text(appLanguage == "sv" ? "Avbryt" : "Cancel"))
+                    )
+                }
+            }
+
             // Köp-sektion
             Section(header: Text(appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units")) {
                 if !advancedUnitsUnlocked {

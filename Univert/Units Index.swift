@@ -33,7 +33,7 @@ struct UnitsListView: View {
                     categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
                 }, id: \.self) { category in
                     Section(header: Text(titleForCategory(category)).font(.caption).foregroundColor(.gray)) {
-                        ForEach(groupedUnits[category] ?? [], id: \.name) { unit in
+                        ForEach(groupedUnits[category] ?? [], id: \.id) { unit in
                             if category == "avancerad" && !advancedUnitsUnlocked {
                                 LockedUnitRow(unit: unit) {
                                     showPurchaseSheet = true
@@ -89,11 +89,11 @@ struct UnitsListView: View {
         }
         
         savedUnits = savedUnits.filter { saved in
-            previewUnits.contains(where: { $0.name == saved.name })
+            previewUnits.contains(where: { $0.id == saved.id })
         }
         
         for unit in previewUnits {
-            if !savedUnits.contains(where: { $0.name == unit.name }) {
+            if !savedUnits.contains(where: { $0.id == unit.id }) {
                 savedUnits.append(unit)
             }
         }
@@ -160,58 +160,58 @@ struct UnitsListView_Previews: PreviewProvider {
 
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
-    switch unit.name {
-    case "Hastighet", "Speed":
+    switch unit.id {
+    case "speed":
         Hastighet()
-    case "Vikt", "Weight":
+    case "weight":
         Vikt()
-    case "Längd", "Length":
+    case "length":
         Längd()
-    case "Tid", "Time":
+    case "time":
         Tid()
-    case "Temperatur", "Temperature":
+    case "temperature":
         Temperatur()
-    case "Volym", "Volume":
+    case "volume":
         Volym()
-    case "Skostorlek", "Shoe Size":
+    case "shoe_size":
         Skostorlek()
-    case "Datastorlek", "Data Size":
+    case "data_size":
         Datastorlek()
-    case "Dataöverföringshastighet", "Data Transfer Speed":
+    case "data_transfer_speed":
         Dataöverföringshastighet()
-    case "Tryck", "Pressure":
+    case "pressure":
         Tryck()
-    case "Effekt", "Power":
+    case "power":
         Effekt()
-    case "Vridmoment", "Torque":
+    case "torque":
         Vridmoment()
-    case "Valuta", "Currency":
+    case "currency":
         Valuta()
-    case "Yta", "Area":
+    case "area":
         Yta()
-    case "Krypto (beta)", "Crypto (beta)":
+    case "crypto_beta":
         Krypto()
-    case "Energi", "Energy":
+    case "energy":
         Energi()
-    case "Andelar", "Shares":
+    case "shares":
         Andelar()
-    case "Viskositet (dynamisk)", "Viscosity (dynamic)":
+    case "viscosity_dynamic":
         ViskositetD()
-    case "Viskositet (kinematisk)", "Viscosity (kinematic)":
+    case "viscosity_kinematic":
         ViskositetK()
-    case "Vinklar", "Angles":
+    case "angles":
         Vinklar()
-    case "Elektrisk ström", "Electric Current":
+    case "electric_current":
         ElektriskStröm()
-    case "Elektrisk resistans", "Electric Resistance":
+    case "electric_resistance":
         ElektriskResistans()
-    case "Talsystem", "Numeral System":
+    case "numeral_system":
         Talsystem()
-    case "Magnetomotorisk kraft", "Magnetomotive Force":
+    case "magnetomotive_force":
         Magnetomotorisk()
-    case "Magnetisk fältstyrka", "Magnetic Field Strength":
+    case "magnetic_field_strength":
         MagnetiskFältstyrka()
-    case "Magnetflöde", "Magnetic Flux":
+    case "magnetic_flux":
         Magnetflöde()
     default:
         UnitsDetailView(unit: unit)

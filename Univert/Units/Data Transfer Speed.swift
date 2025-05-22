@@ -13,12 +13,12 @@ struct Dataöverföringshastighet: View {
     @State private var selectedToUnit: String? = "bit/s"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Dataöverföringshastighet"
+    let unitId = "data_transfer_speed"
     
     let units = ["bit/s", "Byte/s", "Kbit/s", "KB/s", "Mbit/s", "MB/s", "Gbit/s", "GB/s", "Tbit/s", "TB/s"]
     
@@ -172,9 +172,9 @@ struct Dataöverföringshastighet: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -187,7 +187,7 @@ struct Dataöverföringshastighet: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -196,6 +196,7 @@ struct Dataöverföringshastighet: View {
             }
         }
     }
+
     func convertDataTransferSpeed(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "bit/s": 1,

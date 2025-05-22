@@ -19,7 +19,7 @@ struct Tryck: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Tryck"
+    let unitId = "pressure"
     
     let units = ["bar", "psi", "kPa", "atm", "mbar", "MPa", "Pa"]
     
@@ -170,9 +170,9 @@ struct Tryck: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -185,7 +185,7 @@ struct Tryck: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -194,6 +194,7 @@ struct Tryck: View {
             }
         }
     }
+
     func convertPressure(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "bar": 100000,

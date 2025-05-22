@@ -18,7 +18,7 @@ struct Andelar: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Andelar"
+    let unitId = "shares"
 
     
     let units = ["%", "‰", "mg/Kg", "mg/g", "g/Kg", "ug/Kg", "ug/g", "ppm", "ppb", "ppt", "pptr", "ppth", "ppq", "pg/g", "ng/g", "ng/Kg"]
@@ -180,9 +180,9 @@ struct Andelar: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -196,7 +196,7 @@ struct Andelar: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -206,7 +206,6 @@ struct Andelar: View {
         }
     }
 
-    
     func convertShares(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "%": 1.0,                // 1% = 1% (identitet)

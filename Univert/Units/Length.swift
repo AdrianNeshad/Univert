@@ -18,7 +18,7 @@ struct Längd: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Längd"
+    let unitId = "length"
     
     let units = ["m", "cm", "km", "dm", "mm", "mi", "in", "ft", "yd", "µm", "nm"]
     
@@ -173,9 +173,9 @@ struct Längd: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -188,7 +188,7 @@ struct Längd: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             

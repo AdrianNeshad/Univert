@@ -18,7 +18,7 @@ struct ViskositetK: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Viskositet (kinematisk)"
+    let unitId = "viscosity_kinematic"
     
     let units = ["m²/s", "m²/h", "cm²/s", "mm²/s", "ft²/s", "ft²/h", "in²/s", "St", "ESt", "PSt", "TSt", "GSt", "MSt", "kSt", "hSt", "daSt", "dSt", "cSt", "mSt", "µSt", "nSt", "pSt", "fSt", "aSt"]
 
@@ -188,9 +188,9 @@ struct ViskositetK: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -203,7 +203,7 @@ struct ViskositetK: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -212,7 +212,7 @@ struct ViskositetK: View {
             }
         }
     }
-    
+
     func convertViscosityK(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "m²/s": 1.0, // utgångspunkt för uträkning

@@ -25,7 +25,7 @@ struct Krypto: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Krypto (beta)"
+    let unitId = "crypto_beta"
     
     let units = ["BTC", "USD", "ETH", "BNB", "SOL", "XRP", "ADA", "DOGE"]
        
@@ -188,7 +188,7 @@ struct Krypto: View {
                 currentUnits = Units.preview()
             }
             
-            if let match = currentUnits.first(where: { $0.name == unitName }) {
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
                 isFavorite = match.isFavorite
             }
         }
@@ -204,7 +204,7 @@ struct Krypto: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -213,7 +213,7 @@ struct Krypto: View {
             }
         }
     }
-    
+
     func fetchExchangeRates() {
         let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana,ripple,cardano,dogecoin&vs_currencies=usd")!
         

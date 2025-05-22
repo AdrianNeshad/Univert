@@ -18,7 +18,7 @@ struct ElektriskResistans: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Elektrisk resistans"
+    let unitId = "electric_resistance"
     
     let units = ["Ω", "MΩ", "µΩ", "V/A", "S⁻¹", "abΩ", "emuR", "statΩ", "esuR", "RH"]
 
@@ -175,9 +175,9 @@ struct ElektriskResistans: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -191,7 +191,7 @@ struct ElektriskResistans: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -200,7 +200,7 @@ struct ElektriskResistans: View {
             }
         }
     }
-    
+
     func convertResistance(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "Ω": 1.0,

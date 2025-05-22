@@ -18,7 +18,7 @@ struct Energi: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Energi"
+    let unitId = "energy"
     
     let units = ["J", "kJ", "kWh", "Wh", "cal", "kcal", "Btu"]
     
@@ -169,9 +169,9 @@ struct Energi: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -184,7 +184,7 @@ struct Energi: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -193,7 +193,7 @@ struct Energi: View {
             }
         }
     }
-    
+
     func convertEnergy(value: Double, fromUnit: String, toUnit: String) -> Double? {
             let conversionFactors: [String: Double] = [
                 "J": 1,           // Joule (basenhet)

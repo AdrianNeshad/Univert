@@ -19,7 +19,7 @@ struct Hastighet: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
 
-    let unitName = "Hastighet"
+    let unitId = "speed"
     
     let units = [
         "m/s", "km/h", "mph", "m/h", "m/min", "knot", "km/min", "km/s",
@@ -203,9 +203,9 @@ struct Hastighet: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -218,7 +218,7 @@ struct Hastighet: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             

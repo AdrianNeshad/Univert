@@ -18,7 +18,7 @@ struct ElektriskStröm: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Elektrisk ström"
+    let unitId = "electric_current"
     
     let units = ["A", "kA", "mA", "Bi", "abA", "emuI", "statA", "esuI", "CGSem", "CGSes"]
 
@@ -175,9 +175,9 @@ struct ElektriskStröm: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -191,7 +191,7 @@ struct ElektriskStröm: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -200,7 +200,7 @@ struct ElektriskStröm: View {
             }
         }
     }
-    
+
     func convertCurrent(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "A": 1.0,

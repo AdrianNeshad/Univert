@@ -19,7 +19,7 @@ struct Vikt: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Vikt"
+    let unitId = "weight"
     
     let units = ["mg", "g", "hg", "kg", "lbs", "μg", "mcg", "ng", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
     
@@ -179,9 +179,9 @@ struct Vikt: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -194,7 +194,7 @@ struct Vikt: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             

@@ -18,7 +18,7 @@ struct Talsystem: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Talsystem"
+    let unitId = "numeral_system"
     
     let units = ["B. 10", "B. 2", "B. 3", "B. 6", "B. 8", "B. 16"]
 
@@ -170,9 +170,9 @@ struct Talsystem: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -186,7 +186,7 @@ struct Talsystem: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -195,7 +195,7 @@ struct Talsystem: View {
             }
         }
     }
-    
+
     func convertBase(value: String, fromUnit: String, toUnit: String) -> String {
         let bases: [String: Int] = [
             "B. 2": 2,

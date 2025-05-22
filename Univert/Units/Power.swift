@@ -19,7 +19,7 @@ struct Effekt: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Effekt"
+    let unitId = "power"
     
  let units = ["W", "MW", "kW", "hp", "BTU/h", "ton/ref"]
  
@@ -170,9 +170,9 @@ struct Effekt: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -185,7 +185,7 @@ struct Effekt: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -194,6 +194,7 @@ struct Effekt: View {
             }
         }
     }
+
  func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "W": 1,           // Watt (basenhet)

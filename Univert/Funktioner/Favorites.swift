@@ -11,36 +11,7 @@ struct Favoriter: View {
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var favoriter: [Units] = []
     @AppStorage("appLanguage") private var appLanguage = "en"
-    
-    let unitNamePairs: [String: String] = [
-        "Hastighet": "Speed",
-        "Vikt": "Weight",
-        "Längd": "Length",
-        "Tid": "Time",
-        "Temperatur": "Temperature",
-        "Volym": "Volume",
-        "Skostorlek": "Shoe Size",
-        "Datastorlek": "Data Size",
-        "Dataöverföringshastighet": "Data Transfer Speed",
-        "Tryck": "Pressure",
-        "Effekt": "Power",
-        "Vridmoment": "Torque",
-        "Valuta": "Currency",
-        "Yta": "Area",
-        "Krypto (beta)": "Crypto (beta)",
-        "Energi": "Energy",
-        "Andelar": "Shares",
-        "Viskositet (dynamisk)": "Viscosity (dynamic)",
-        "Viskositet (kinematisk)": "Viscosity (kinematic)",
-        "Vinklar": "Angles",
-        "Elektrisk ström": "Electric Current",
-        "Elektrisk resistans": "Electric Resistance",
-        "Talsystem": "Numeral System",
-        "Magnetomotorisk kraft": "Magnetomotive Force",
-        "Magnetisk fältstyrka": "Magnetic Field Strength",
-        "Magnetflöde": "Magnetic Flux",
-    ]
-    
+        
     var body: some View {
         List {
             if favoriter.isEmpty {
@@ -56,7 +27,7 @@ struct Favoriter: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.vertical, 50)
             } else {
-                ForEach(favoriter, id: \.name) { unit in
+                ForEach(favoriter, id: \.id) { unit in
                     NavigationLink(destination: destinationView(for: unit)) {
                         HStack {
                             Text(unit.icon)
@@ -64,27 +35,27 @@ struct Favoriter: View {
                         }
                     }
                 }
-            }        }
-        .navigationTitle(appLanguage == "sv" ? "Favoriter" : "Favorites")
-        .onAppear {
-            let previewUnits = Units.preview() // rätt språk just nu
-            
-            if let data = savedUnitsData,
-               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-                
-                favoriter = previewUnits.filter { previewUnit in
-                    savedUnits.contains { saved in
-                        // Jämför både svenska och engelska namn
-                        let savedName = saved.name
-                        let translated = unitNamePairs[savedName] ?? unitNamePairs.first(where: { $0.value == savedName })?.key
-                        return (saved.isFavorite && (
-                            savedName == previewUnit.name ||
-                            translated == previewUnit.name
-                        ))
-                    }
-                }
             }
         }
-
+        .navigationTitle(appLanguage == "sv" ? "Favoriter" : "Favorites")
+        .onAppear {
+            loadFavorites()
+        }
+    }
+    
+    private func loadFavorites() {
+        let previewUnits = Units.preview() // enheter på aktuellt språk
+        
+        guard let data = savedUnitsData,
+              let savedUnits = try? JSONDecoder().decode([Units].self, from: data) else {
+            favoriter = []
+            return
+        }
+        
+        favoriter = previewUnits.filter { previewUnit in
+            savedUnits.contains { saved in
+                saved.isFavorite && saved.id == previewUnit.id
+            }
+        }
     }
 }

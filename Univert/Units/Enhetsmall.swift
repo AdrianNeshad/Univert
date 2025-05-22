@@ -13,12 +13,12 @@ struct Enhetsmall: View {
     @State private var selectedToUnit: String? = "XXX"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Enhetsmall"
+    let unitId = "Enhetsmall"
     
     let units = ["XXX", "YYY", "ZZZ"]
     
@@ -167,9 +167,9 @@ struct Enhetsmall: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -183,7 +183,7 @@ struct Enhetsmall: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             

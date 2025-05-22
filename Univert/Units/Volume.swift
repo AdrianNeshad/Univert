@@ -19,7 +19,7 @@ struct Volym: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Volym"
+    let unitId = "volume"
     
     let units = ["L", "ml", "cl", "dl", "gal", "cup", "pint", "qrt", "fl oz", "cm³", "dm³", "m³", "mm³"]
     
@@ -176,9 +176,9 @@ struct Volym: View {
                             currentUnits = Units.preview()
                         }
                         
-                        if let match = currentUnits.first(where: { $0.name == unitName }) {
-                            isFavorite = match.isFavorite
-                        }
+                if let match = currentUnits.first(where: { $0.id == unitId }) {
+                    isFavorite = match.isFavorite
+                }
                     }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -191,7 +191,7 @@ struct Volym: View {
             }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -200,6 +200,7 @@ struct Volym: View {
             }
         }
     }
+
     func convertVolume(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "L": 1, // basenhet (liter)

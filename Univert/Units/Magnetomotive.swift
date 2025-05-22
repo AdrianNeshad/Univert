@@ -18,7 +18,7 @@ struct Magnetomotorisk: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Magnetomotorisk kraft"
+    let unitId = "magnetomotive_force"
     
     let units = ["At", "kAt", "mAt", "abAt", "Gb"]
 
@@ -169,9 +169,9 @@ struct Magnetomotorisk: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -185,7 +185,7 @@ struct Magnetomotorisk: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -194,7 +194,7 @@ struct Magnetomotorisk: View {
             }
         }
     }
-    
+
     func convertMagnetomotive(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "At": 1.0,                    // Ampere-turn (referens)

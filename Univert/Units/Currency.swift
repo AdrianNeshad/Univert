@@ -25,7 +25,7 @@ struct Valuta: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Valuta"
+    let unitId = "currency"
     
     let units = ["USD", "EUR", "SEK", "GBP", "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "HKD", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "SGD", "THB", "TRY", "ZAR"]
     
@@ -212,7 +212,7 @@ struct Valuta: View {
                 currentUnits = Units.preview()
             }
             
-            if let match = currentUnits.first(where: { $0.name == unitName }) {
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
                 isFavorite = match.isFavorite
             }
         }
@@ -227,7 +227,7 @@ struct Valuta: View {
         }
     }
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             

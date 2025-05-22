@@ -18,7 +18,7 @@ struct Magnetflöde: View {
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
     
-    let unitName = "Magnetflöde"
+    let unitId = "magnetic_flux"
     
     let units = ["Wb", "mWb", "μWb", "V·s", "MΦ", "kΦ", "Φ", "Mx", "T·m²", "T·cm²", "G·cm²", "Φ₀"]
 
@@ -176,9 +176,9 @@ struct Magnetflöde: View {
                         currentUnits = Units.preview()
                     }
                     
-                    if let match = currentUnits.first(where: { $0.name == unitName }) {
-                        isFavorite = match.isFavorite
-                    }
+            if let match = currentUnits.first(where: { $0.id == unitId }) {
+                isFavorite = match.isFavorite
+            }
                 }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -192,7 +192,7 @@ struct Magnetflöde: View {
     }
     
     func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.name == unitName }) {
+        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
             
@@ -201,7 +201,7 @@ struct Magnetflöde: View {
             }
         }
     }
-    
+
     func convertMagneticFlux(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "Wb": 1.0,
