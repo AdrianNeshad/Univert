@@ -10,7 +10,7 @@ import SwiftUI
 struct Favoriter: View {
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var favoriter: [Units] = []
-    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+    @AppStorage("appLanguage") private var appLanguage = "en"
     
     let unitNamePairs: [String: String] = [
         "Hastighet": "Speed",

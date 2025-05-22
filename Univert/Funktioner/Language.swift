@@ -9,7 +9,7 @@ import SwiftUI
 
 class StringManager {
     static let shared = StringManager()
-    @AppStorage("appLanguage") var language: String = "sv"
+    @AppStorage("appLanguage") var language: String = "en"
     
     private let sv: [String: String] = [
         "X": "X",

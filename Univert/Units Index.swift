@@ -13,7 +13,7 @@ struct UnitsListView: View {
     @State private var units: [Units] = []
     @State private var searchTerm = ""
     @AppStorage("savedUnits") private var savedUnitsData: Data?
-    @AppStorage("appLanguage") private var appLanguage = "sv"
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var showPurchaseSheet = false
     @StateObject private var storeManager = StoreManager()
     @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false

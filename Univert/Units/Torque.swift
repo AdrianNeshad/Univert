@@ -13,7 +13,7 @@ struct Vridmoment: View {
     @State private var selectedToUnit: String? = "N m"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "sv" // default: svenska
+    @AppStorage("appLanguage") private var appLanguage = "en" 
 
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @State private var isFavorite = false

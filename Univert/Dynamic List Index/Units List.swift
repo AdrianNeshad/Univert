@@ -14,7 +14,7 @@ struct Units: Codable {
     var category: String
     
     static func preview() -> [Units] {
-        let lang = UserDefaults.standard.string(forKey: "appLanguage") ?? "sv"
+        let lang = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
         
         return [
             

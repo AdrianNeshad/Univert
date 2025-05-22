@@ -12,7 +12,7 @@ import MessageUI
 struct Inställningar: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @AppStorage("appLanguage") private var appLanguage = "sv"
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
     @StateObject private var storeManager = StoreManager()
     @State private var showRestoreAlert = false
@@ -34,8 +34,8 @@ struct Inställningar: View {
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
                 Picker("Språk / Language", selection: $appLanguage) {
-                    Text("Svenska").tag("sv")
                     Text("English").tag("en")
+                    Text("Svenska").tag("sv")
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .onChange(of: appLanguage) { newLang in

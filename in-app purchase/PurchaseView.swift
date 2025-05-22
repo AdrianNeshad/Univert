@@ -11,7 +11,7 @@ struct PurchaseView: View {
     @ObservedObject var storeManager: StoreManager
     @Binding var isUnlocked: Bool
     @Environment(\.presentationMode) var presentationMode
-    @AppStorage("appLanguage") private var appLanguage = "sv" // Default to Swedish
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @AppStorage("isDarkMode") private var isDarkMode = true
 
     
