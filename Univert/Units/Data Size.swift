@@ -156,6 +156,7 @@ struct Datastorlek: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
+                    .textSelection(.enabled)
             } //HStack
             .padding([.leading, .trailing], 10)
         } //VStack

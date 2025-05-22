@@ -165,6 +165,7 @@ struct Krypto: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
+                        .textSelection(.enabled)
                 }
                 Text(appLanguage == "sv" ? "Källa: CoinGecko" : "Source: CoinGecko")
                     .font(.footnote)

@@ -189,6 +189,7 @@ struct Valuta: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
+                        .textSelection(.enabled)
                 }
                 Text(appLanguage == "sv" ? "Källa: Europeiska Centralbanken (Frankfurter)" : "Source: European Central Bank (Frankfurter)")
                     .font(.footnote)
