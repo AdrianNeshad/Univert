@@ -162,10 +162,10 @@ struct Inställningar: View {
                 EmptyView()
             } footer: {
                 VStack(spacing: 4) {
+                    Text(appVersion)
                     Text("© 2025 Univert App")
                     Text("Github.com/AdrianNeshad")
                     Text("Linkedin.com/in/adrian-neshad")
-                    Text(appVersion)
                 }
                 .font(.caption)
                 .foregroundColor(.gray)
