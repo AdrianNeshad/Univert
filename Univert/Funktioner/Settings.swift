@@ -61,20 +61,19 @@ struct Inställningar: View {
                     Text(appLanguage == "sv" ? "Rensa favoriter" : "Clear Favorites")
                         .foregroundColor(.red)
                 }
-                .alert(isPresented: $showClearAlert) {
-                    Alert(
-                        title: Text(appLanguage == "sv" ? "Är du säker?" : "Are you sure?"),
-                        message: Text(appLanguage == "sv" ? "Vill du rensa dina sparade favoriter?" : "Do you want to clear your saved favorites?"),
-                        primaryButton: .destructive(Text(appLanguage == "sv" ? "Rensa" : "Clear")) {
-                            // Här rensar vi favoriterna
-                            let defaults = UserDefaults.standard
-                            defaults.removeObject(forKey: "savedUnits")
-                            defaults.synchronize()
-                            
-                            units = Units.preview()
-                        },
-                        secondaryButton: .cancel(Text(appLanguage == "sv" ? "Avbryt" : "Cancel"))
-                    )
+                .confirmationDialog(
+                    appLanguage == "sv" ? "Vill du rensa dina sparade favoriter?" : "Do you want to clear your saved favorites?",
+                    isPresented: $showClearAlert,
+                    titleVisibility: .visible
+                ) {
+                    Button(appLanguage == "sv" ? "Rensa" : "Clear", role: .destructive) {
+                        let defaults = UserDefaults.standard
+                        defaults.removeObject(forKey: "savedUnits")
+                        defaults.synchronize()
+                        
+                        units = Units.preview()
+                    }
+                    Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
                 }
             }
 
