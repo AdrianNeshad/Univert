@@ -54,6 +54,7 @@ struct Inställningar: View {
                     .disabled(true)
             }
             
+            // rensa favoriter
             Section(header: Text(appLanguage == "sv" ? "Favoriter" : "Favorites")) {
                 Button(action: {
                     showClearAlert = true
