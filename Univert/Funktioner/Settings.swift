@@ -8,6 +8,7 @@
 import SwiftUI
 import StoreKit
 import MessageUI
+import AlertToast
 
 struct Inställningar: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
@@ -23,6 +24,8 @@ struct Inställningar: View {
     @State private var mailErrorAlert = false
     @State private var units: [Units] = []
     @State private var showClearAlert = false
+    @State private var showToast = false
+    @State private var toastMessage = ""
     
     enum RestoreStatus {
         case success, failure
@@ -73,6 +76,17 @@ struct Inställningar: View {
                         defaults.synchronize()
                         
                         units = Units.preview()
+                        
+                        toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites cleared"
+                                                withAnimation {
+                                                    showToast = true
+                                                }
+                                                // Dölj toast automatiskt efter 2 sekunder
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                    withAnimation {
+                                                        showToast = false
+                                                    }
+                                                }
                     }
                     Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
                 }
@@ -177,6 +191,9 @@ struct Inställningar: View {
         .onAppear {
             storeManager.getProducts(productIDs: ["Univert.AdvancedUnits"])
         }
+        .toast(isPresenting: $showToast) {
+                    AlertToast(type: .complete(Color.green), title: toastMessage)
+                }
     }
     
     private var appVersion: String {
