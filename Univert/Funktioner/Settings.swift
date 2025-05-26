@@ -77,16 +77,15 @@ struct Inställningar: View {
                         
                         units = Units.preview()
                         
-                        toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites cleared"
-                                                withAnimation {
-                                                    showToast = true
-                                                }
-                                                // Dölj toast automatiskt efter 2 sekunder
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                                    withAnimation {
-                                                        showToast = false
-                                                    }
-                                                }
+                        toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites Cleared"
+                            withAnimation {
+                                showToast = true
+                            }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation {
+                                    showToast = false
+                                }
+                            }
                     }
                     Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
                 }
