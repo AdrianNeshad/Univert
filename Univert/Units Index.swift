@@ -10,14 +10,14 @@ import StoreKit
 
 struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
+    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
+    @StateObject private var storeManager = StoreManager()
     @State private var units: [Units] = []
     @State private var searchTerm = ""
     @State private var expandedSubcategories: Set<String> = []
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
-    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var showPurchaseSheet = false
-    @StateObject private var storeManager = StoreManager()
-    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
 
     var filteredUnits: [Units] {
         guard !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return units }
