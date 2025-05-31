@@ -32,7 +32,6 @@ struct Energi: View {
             "Btu": "British Thermal Unit"
         ]
     
-    
     var body: some View {
         VStack {
             HStack {
@@ -96,12 +95,12 @@ struct Energi: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -197,24 +196,20 @@ struct Energi: View {
 
     func convertEnergy(value: Double, fromUnit: String, toUnit: String) -> Double? {
             let conversionFactors: [String: Double] = [
-                "J": 1,           // Joule (basenhet)
-                "kJ": 1000,       // 1 kJ = 1000 J
-                "kWh": 3600000, // 1 kWh = 3,600,000 J
-                "Wh": 3600,       // 1 Wh = 3600 J
-                "cal": 4.184,     // 1 cal = 4.184 J
-                "kcal": 4184,     // 1 kcal = 4184 J
-                "Btu": 1055.06    // 1 Btu = 1055.06 J
+                "J": 1,
+                "kJ": 1000,
+                "kWh": 3600000,
+                "Wh": 3600,
+                "cal": 4.184,
+                "kcal": 4184,
+                "Btu": 1055.06
             ]
             
-            // Kontrollera att enheterna finns i conversionFactors
             guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-                return nil // Om någon enhet inte finns i listan, returnera nil
+                return nil
             }
 
-            // Omvandla till Joule (basenhet)
             let valueInJoules = value * fromFactor
-            
-            // Omvandla från Joule till mål-enheten
             let convertedValue = valueInJoules / toFactor
             return convertedValue
         }
@@ -226,7 +221,5 @@ struct Energi: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }
 

@@ -49,7 +49,6 @@ struct ViskositetK: View {
         "aSt": "Attostokes"
     ]
     
-    
     var body: some View {
         VStack {
             HStack {
@@ -113,12 +112,12 @@ struct ViskositetK: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -163,9 +162,6 @@ struct ViskositetK: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -216,7 +212,7 @@ struct ViskositetK: View {
 
     func convertViscosityK(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m²/s": 1.0, // utgångspunkt för uträkning
+            "m²/s": 1.0,
             "m²/h": 0.0002777778,
             "cm²/s": 0.0001,
             "mm²/s": 1.0E-6,
@@ -242,18 +238,11 @@ struct ViskositetK: View {
             "aSt": 1.0E-22
         ]
 
-        // Kontrollera att enheterna finns i conversionFactors
-        // Kontrollera att enheterna finns
           guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
               return nil
           }
-
-          // Omvandla till basenheten (m²/s)
           let valueInBaseUnit = value * fromFactor
-
-          // Omvandla från basenhet till mål-enhet
           let convertedValue = valueInBaseUnit / toFactor
-
           return convertedValue
     }
 
@@ -264,7 +253,5 @@ struct ViskositetK: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }
 

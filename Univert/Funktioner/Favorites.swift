@@ -44,7 +44,7 @@ struct Favoriter: View {
     }
     
     private func loadFavorites() {
-        let previewUnits = Units.preview() // enheter på aktuellt språk
+        let previewUnits = Units.preview()
         
         guard let data = savedUnitsData,
               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) else {

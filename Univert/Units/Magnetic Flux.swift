@@ -37,7 +37,6 @@ struct Magnetflöde: View {
         "Φ₀": "Magnetic flux quantum"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -101,12 +100,12 @@ struct Magnetflöde: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -151,9 +150,6 @@ struct Magnetflöde: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -208,26 +204,22 @@ struct Magnetflöde: View {
             "Wb": 1.0,
             "mWb": 1e-3,
             "μWb": 1e-6,
-            "V·s": 1.0,               // Volt-sekund är samma som Weber
-            "MΦ": 1e-2,               // 1 megaline = 10^-2 Weber (10^6 line * 10^-8 Weber/line)
-            "kΦ": 1e-5,               // 1 kiloline = 10^-5 Weber
-            "Φ": 1e-8,                // Line i CGS (maxwell)
-            "Mx": 1e-8,               // Maxwell = 10^-8 Weber
-            "T·m²": 1.0,              // Tesla kvadratmeter = Weber
-            "T·cm²": 1e-4,            // Tesla kvadratcentimeter = 10^-4 Weber
-            "G·cm²": 1e-8,            // Gauss kvadratcentimeter = 10^-8 Weber
-            "Φ₀": 2.067833848e-15     // Magnetic flux quantum (Weber)
+            "V·s": 1.0,
+            "MΦ": 1e-2,
+            "kΦ": 1e-5,
+            "Φ": 1e-8,
+            "Mx": 1e-8,
+            "T·m²": 1.0,
+            "T·cm²": 1e-4,
+            "G·cm²": 1e-8,
+            "Φ₀": 2.067833848e-15
         ]
         
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
             return nil
         }
-        
-        // Omvandla till Weber (basenhet)
         let valueInWebers = value * fromFactor
-        
-        // Omvandla från Weber till mål-enhet
         let convertedValue = valueInWebers / toFactor
         return convertedValue
     }
@@ -239,7 +231,4 @@ struct Magnetflöde: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
-
 }

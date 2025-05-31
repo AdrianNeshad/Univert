@@ -97,12 +97,12 @@ struct Tid: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -147,8 +147,6 @@ struct Tid: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -199,25 +197,19 @@ struct Tid: View {
     
     func convertTime(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "s": 1, // basenhet (sekunder)
-            "ms": 0.001, // millisekunder till sekunder
-            "min": 60, // minuter till sekunder
-            "h": 3600, // timmar till sekunder
-            "d": 86400, // dagar till sekunder
-            "w": 604800, // veckor till sekunder
-            "m": 2592000, // månad (genomsnittlig månad) till sekunder
-            "yr": 31536000 // år till sekunder (genomsnittligt år)
+            "s": 1,
+            "ms": 0.001,
+            "min": 60,
+            "h": 3600,
+            "d": 86400,
+            "w": 604800,
+            "m": 2592000,
+            "yr": 31536000
         ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till sekunder (basenhet)
         let valueInSeconds = value * fromFactor
-        
-        // Omvandla från sekunder till mål-enhet
         let convertedValue = valueInSeconds / toFactor
         return convertedValue
     }

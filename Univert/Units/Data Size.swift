@@ -95,19 +95,17 @@ struct Datastorlek: View {
             } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
-            
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
                         }
-            
             HStack(spacing: 10) {
                 TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
@@ -127,7 +125,6 @@ struct Datastorlek: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -147,8 +144,6 @@ struct Datastorlek: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -200,24 +195,19 @@ struct Datastorlek: View {
     func convertDataSize(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "b": 1,
-            "B": 8, // 1 byte = 8 bits
+            "B": 8,
             "KB": 8 * 1024,
-            "MB": 8 * 1024 * 1024, // 1 MB = 1024 KB
-            "GB": 8 * 1024 * 1024 * 1024, // 1 GB = 1024 MB
-            "TB": 8 * 1024 * 1024 * 1024 * 1024, // 1 TB = 1024 GB
-            "PB": 8 * 1024 * 1024 * 1024 * 1024 * 1024, // 1 PB = 1024 TB
-            "EB": 8 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 // 1 EB = 1024 PB
+            "MB": 8 * 1024 * 1024,
+            "GB": 8 * 1024 * 1024 * 1024,
+            "TB": 8 * 1024 * 1024 * 1024 * 1024,
+            "PB": 8 * 1024 * 1024 * 1024 * 1024 * 1024,
+            "EB": 8 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till bit (basenhet)
         let valueInBits = value * fromFactor
-        
-        // Omvandla från bit till mål-enhet
         let convertedValue = valueInBits / toFactor
         return convertedValue
     }

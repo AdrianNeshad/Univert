@@ -99,12 +99,12 @@ struct Yta: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -201,27 +201,22 @@ struct Yta: View {
 
     func convertArea(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m²": 1, // m² is the base unit
-            "km²": 1e6, // 1 km² = 1,000,000 m²
-            "cm²": 1e-4, // 1 cm² = 0.0001 m²
-            "mm²": 1e-6, // 1 mm² = 0.000001 m²
-            "ha": 1e4, // 1 ha = 10,000 m²
-            "ac": 4046.856, // 1 acre = 4046.856 m²
-            "mi²": 2.58999e6, // 1 mi² = 2,589,990 m²
-            "yd²": 0.836127, // 1 yd² = 0.836127 m²
-            "ft²": 0.092903, // 1 ft² = 0.092903 m²
-            "in²": 0.00064516 // 1 in² = 0.00064516 m²
+            "m²": 1,
+            "km²": 1e6,
+            "cm²": 1e-4,
+            "mm²": 1e-6,
+            "ha": 1e4,
+            "ac": 4046.856,
+            "mi²": 2.58999e6,
+            "yd²": 0.836127,
+            "ft²": 0.092903,
+            "in²": 0.00064516
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till m² (basenhet)
         let valueInM2 = value * fromFactor
-        
-        // Omvandla från m² till mål-enhet
         let convertedValue = valueInM2 / toFactor
         return convertedValue
     }
@@ -233,6 +228,4 @@ struct Yta: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

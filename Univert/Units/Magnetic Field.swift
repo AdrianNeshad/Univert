@@ -23,12 +23,11 @@ struct MagnetiskFältstyrka: View {
     let units = ["A/m", "At/m", "kA/m", "Oe"]
     
     let fullNames: [String: String] = [
-        "A/m": "Ampere/meter",            // Basenhet
-        "At/m": "Ampetere-turn/meter",           // Ampere-turn per meter, samma som A/m här
-        "kA/m": "kiloampere/meter",        // 1 kA/m = 1000 A/m
+        "A/m": "Ampere/meter",
+        "At/m": "Ampetere-turn/meter",
+        "kA/m": "kiloampere/meter",
         "Oe": "Oersted"
         ]
-    
     
     var body: some View {
         VStack {
@@ -93,12 +92,12 @@ struct MagnetiskFältstyrka: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -143,9 +142,6 @@ struct MagnetiskFältstyrka: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -197,22 +193,17 @@ struct MagnetiskFältstyrka: View {
 
     func convertMagneticFieldStrength(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "A/m": 1.0,            // Basenhet
-            "At/m": 1.0,           // Ampere-turn per meter, samma som A/m här
-            "kA/m": 1000.0,        // 1 kA/m = 1000 A/m
-            "Oe": 79.57747         // 1 Oersted = 79.57747 A/m
+            "A/m": 1.0,
+            "At/m": 1.0,
+            "kA/m": 1000.0,
+            "Oe": 79.57747
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-        
-        // Omvandla till A/m (basenhet)
         let valueInBase = value * fromFactor
-        
-        // Omvandla från basenhet till mål-enhet
         let convertedValue = valueInBase / toFactor
         return convertedValue
     }
@@ -224,7 +215,4 @@ struct MagnetiskFältstyrka: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
-
 }

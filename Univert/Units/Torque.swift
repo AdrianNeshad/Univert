@@ -93,12 +93,12 @@ struct Vridmoment: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -143,8 +143,6 @@ struct Vridmoment: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -195,21 +193,16 @@ struct Vridmoment: View {
     
     func convertTorque(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "N m": 1, // Newton meter is the base unit
-            "lb ft": 1.35582, // 1 lb ft = 1.35582 N m
-            "lb in": 0.113, // 1 lb in = 0.113 N m
-            "kg m": 9.80665 // 1 kg m = 9.80665 N m
+            "N m": 1,
+            "lb ft": 1.35582,
+            "lb in": 0.113,
+            "kg m": 9.80665
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till N m (basenhet)
         let valueInNm = value * fromFactor
-        
-        // Omvandla från N m till mål-enhet
         let convertedValue = valueInNm / toFactor
         return convertedValue
     }
@@ -221,5 +214,4 @@ struct Vridmoment: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }

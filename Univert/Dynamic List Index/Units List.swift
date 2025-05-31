@@ -8,7 +8,7 @@
 import Foundation
 
 struct Units: Codable, Identifiable {
-    var id: String          // Unikt, språkoberoende ID
+    var id: String         
     var name: String
     var icon: String
     var isFavorite: Bool
@@ -43,7 +43,8 @@ struct Units: Codable, Identifiable {
             Units(id: "numeral_system", name: lang == "sv" ? "Talsystem" : "Numeral System", icon: "🔢", isFavorite: false, category: "avancerad"),
             Units(id: "magnetomotive_force", name: lang == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force", icon: "🧲", isFavorite: false, category: "avancerad"),
             Units(id: "magnetic_field_strength", name: lang == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength", icon: "🧲", isFavorite: false, category: "avancerad"),
-            Units(id: "magnetic_flux", name: lang == "sv" ? "Magnetflöde" : "Magnetic Flux", icon: "🧲", isFavorite: false, category: "avancerad")
+            Units(id: "magnetic_flux", name: lang == "sv" ? "Magnetflöde" : "Magnetic Flux", icon: "🧲", isFavorite: false, category: "avancerad"),
+            Units(id: "image_resolution", name: lang == "sv" ? "Digital bildupplösning" : "Digital Image Resolution", icon: "🌇", isFavorite: false, category: "avancerad")
         ]
     }
 }

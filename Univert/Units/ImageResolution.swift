@@ -1,16 +1,16 @@
 //
-//  Enhetsmall.swift
+//  ImageResolution.swift
 //  Univert
 //
-//  Created by Adrian Neshad on 2025-05-05.
+//  Created by Adrian Neshad on 2025-05-31.
 //
 
 import SwiftUI
 
-struct Enhetsmall: View {
+struct ImageResolution: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "XXX"
-    @State private var selectedToUnit: String? = "XXX"
+    @State private var selectedFromUnit: String? = "ppi"
+    @State private var selectedToUnit: String? = "ppi"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @AppStorage("appLanguage") private var appLanguage = "en"
@@ -20,12 +20,13 @@ struct Enhetsmall: View {
     
     let unitId = "Enhetsmall"
     
-    let units = ["XXX", "YYY", "ZZZ"]
+    let units = ["ppi", "dpi", "dpm", "dpmm"]
     
     let fullNames: [String: String] = [
-            "XXX": "XXX",
-            "YYY": "YYY",
-            "ZZZ": "ZZZ",
+            "ppi": "pixel/inch",
+            "dpi": "dot/inch",
+            "dpm": "dot/meter",
+            "dpmm": "dot/millimeter"
         ]
     
     var body: some View {
@@ -86,7 +87,7 @@ struct Enhetsmall: View {
                 Text("◄")
                     .font(.title)
                     .frame(width: 50)
-            }
+            } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
@@ -141,7 +142,6 @@ struct Enhetsmall: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -150,12 +150,12 @@ struct Enhetsmall: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
-            }
+            } //HStack
             .padding([.leading, .trailing], 10)
-        }
+        } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Mall" : "Template")
+        .navigationTitle(appLanguage == "sv" ? "Digital bildupplösning" : "Digital Image Resolution")
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
@@ -191,37 +191,27 @@ struct Enhetsmall: View {
         }
     }
     
-    func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        let conversionFactors: [String: Double] = [
-            "mg": 0.001,
-            "g": 1,
-            "hg": 100,
-            "kg": 1000,
-            "m ton": 1000000,
-            "carat": 0.2,
-            "t oz": 31.1035,
-            "t lb": 373.2417,
-            "stone": 6350,
-            "oz": 28.3495,
-            "lbs": 453.59237,
-            "N": 9.81,
-            "kN": 9810
+    func convertResolution(value: Double, fromUnit: String, toUnit: String) -> Double? {
+        let toPPI: [String: Double] = [
+            "ppi": 1.0,
+            "dpi": 1.0,
+            "dpm": 0.0254,
+            "dpmm": 25.4
         ]
         
-        guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
+        guard let fromFactor = toPPI[fromUnit], let toFactor = toPPI[toUnit] else {
             return nil
         }
-
-        let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
+        let valueInPPI = value * fromFactor
+        let convertedValue = valueInPPI / toFactor
         return convertedValue
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertMass(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
+        if let result = convertResolution(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
-            outputValue = "Ogiltig enhet"
+            outputValue = appLanguage == "sv" ? "Ogiltig enhet" : "Invalid unit"
         }
     }
 }

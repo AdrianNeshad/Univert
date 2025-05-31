@@ -65,7 +65,6 @@ struct Skostorlek: View {
         ShoeSizeRow(eu: 50, uk: 15, usM: 16, usW: 17, cm: 34)
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -228,10 +227,7 @@ struct Skostorlek: View {
             outputValue = "Ingen match"
             return
         }
-        
         let output = value(for: toUnit, in: row)
-        
-        // Använd FormatterHelper
         outputValue = FormatterHelper.shared.formatResult(output, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 1)
     }
     
@@ -242,7 +238,7 @@ struct Skostorlek: View {
         case "US M": return row.usM
         case "US W": return row.usW
         case "cm": return row.cm
-        case "in": return row.cm / 2.54  // beräkna inch från cm
+        case "in": return row.cm / 2.54  
         default: return 0
         }
     }

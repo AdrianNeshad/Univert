@@ -96,19 +96,16 @@ struct Dataöverföringshastighet: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 180)
-            
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
                         }
-            
             HStack(spacing: 10) {
                 TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
@@ -128,7 +125,6 @@ struct Dataöverföringshastighet: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -148,8 +144,6 @@ struct Dataöverföringshastighet: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -201,26 +195,20 @@ struct Dataöverföringshastighet: View {
     func convertDataTransferSpeed(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "bit/s": 1,
-            "Byte/s": 8, // 1 byte = 8 bits
-            "Kbit/s": 1000, // 1 Kbit = 1000 bits
-            "KB/s": 8 * 1000, // 1 KB = 8 * 1000 bits
-            "Mbit/s": 1000000, // 1 Mbit = 1,000,000 bits
-            "MB/s": 8 * 1000000, // 1 MB = 8 * 1,000,000 bits
-            "Gbit/s": 1000000000, // 1 Gbit = 1,000,000,000 bits
-            "GB/s": 8 * 1000000000, // 1 GB = 8 * 1,000,000,000 bits
-            "Tbit/s": 1000000000000, // 1 Tbit = 1,000,000,000,000 bits
-            "TB/s": 8 * 1000000000000 // 1 TB = 8 * 1,000,000,000,000 bits
+            "Byte/s": 8,
+            "Kbit/s": 1000,
+            "KB/s": 8 * 1000,
+            "Mbit/s": 1000000,
+            "MB/s": 8 * 1000000,
+            "Gbit/s": 1000000000,
+            "GB/s": 8 * 1000000000,
+            "Tbit/s": 1000000000000,
+            "TB/s": 8 * 1000000000000
         ]
-        
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till bit per sekund (basenhet)
         let valueInBitsPerSecond = value * fromFactor
-        
-        // Omvandla från bit per sekund till mål-enhet
         let convertedValue = valueInBitsPerSecond / toFactor
         return convertedValue
     }
@@ -232,6 +220,4 @@ struct Dataöverföringshastighet: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

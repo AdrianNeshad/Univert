@@ -54,6 +54,7 @@
 		3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE560682DCDF49A00CC4450 /* Settings.swift */; };
 		3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */; };
 		3AF017652DEAF4F300CD5F4A /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF017642DEAF4F300CD5F4A /* ShareSheet.swift */; };
+		3AF017672DEAF76100CD5F4A /* ImageResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF017662DEAF76100CD5F4A /* ImageResolution.swift */; };
 		3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enhetsmall.swift; sourceTree = "<group>"; };
 		3AEDDFD72DC901BE00FC5897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3AF017642DEAF4F300CD5F4A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		3AF017662DEAF76100CD5F4A /* ImageResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResolution.swift; sourceTree = "<group>"; };
 		3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,6 +227,7 @@
 				3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */,
 				3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */,
 				3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */,
+				3AF017662DEAF76100CD5F4A /* ImageResolution.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 				3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */,
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,
+				3AF017672DEAF76100CD5F4A /* ImageResolution.swift in Sources */,
 				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
 				3A5CF3CB2DDE5F3500D0038B /* MailFeedback.swift in Sources */,
 			);
@@ -518,7 +522,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Univert/Preview Content\"";
 				DEVELOPMENT_TEAM = U4LPX7NYV2;
 				ENABLE_PREVIEWS = YES;
@@ -559,7 +563,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Univert/Preview Content\"";
 				DEVELOPMENT_TEAM = U4LPX7NYV2;
 				ENABLE_PREVIEWS = YES;

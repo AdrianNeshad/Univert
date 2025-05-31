@@ -32,7 +32,6 @@ struct Effekt: View {
      "ton/ref": "Ton of Refrigeration"
  ]
     
-    
     var body: some View {
         VStack {
             HStack {
@@ -96,12 +95,12 @@ struct Effekt: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -198,28 +197,22 @@ struct Effekt: View {
 
  func convertPower(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "W": 1,           // Watt (basenhet)
-            "kW": 1000,       // 1 kW = 1000 W
-            "MW": 1000000,    // 1 MW = 1,000,000 W
-            "hp": 745.7,      // 1 hp = 745.7 W
-            "BTU/h": 0.2931,  // 1 btu/h ≈ 0.2931 W
-            "ton/ref": 3516.85 // 1 ton/ref ≈ 3516.85 W
+            "W": 1,
+            "kW": 1000,
+            "MW": 1000000,
+            "hp": 745.7,
+            "BTU/h": 0.2931,
+            "ton/ref": 3516.85
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till Watt (basenhet)
         let valueInWatts = value * fromFactor
-        
-        // Omvandla från Watt till mål-enhet
         let convertedValue = valueInWatts / toFactor
         return convertedValue
     }
 
-    // Uppdaterar outputvärdet
     func updateOutputValue(inputDouble: Double) {
         if let result = convertPower(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
@@ -227,5 +220,4 @@ struct Effekt: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }

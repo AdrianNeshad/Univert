@@ -28,7 +28,6 @@ struct Hastighet: View {
         "mi/min", "mi/s", "kn(UK)", "c", "v1", "v2", "v3",
         "vE", "vs(w)", "vs(sw)", "M", "M(SI)"
     ]
-
     
     let fullNames: [String: String] = [
         "m/s": "meter/second",
@@ -65,7 +64,6 @@ struct Hastighet: View {
         "M(SI)": "Mach (SI standard)"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -95,7 +93,7 @@ struct Hastighet: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            } //HStack
+            }
             
             HStack {
                 Text("►")
@@ -124,17 +122,17 @@ struct Hastighet: View {
                 Text("◄")
                     .font(.title)
                     .frame(width: 50)
-            } //HStack
+            }
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -159,7 +157,6 @@ struct Hastighet: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -179,8 +176,6 @@ struct Hastighet: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -189,9 +184,9 @@ struct Hastighet: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
-            } //HStack
+            }
             .padding([.leading, .trailing], 10)
-        } //VStack
+        }
         .padding(.top, 20)
         Spacer()
         .navigationTitle(appLanguage == "sv" ? "Hastighet" : "Speed")
@@ -228,7 +223,6 @@ struct Hastighet: View {
             }
         }
     }
-
     
     func convertVelocity(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
@@ -266,16 +260,10 @@ struct Hastighet: View {
             "M(SI)": 1234.8
         ]
 
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till kilometer per timme (basenhet)
         let valueInKmPerHour = value * fromFactor
-        
-        // Omvandla från kilometer per timme till mål-enhet
         let convertedValue = valueInKmPerHour / toFactor
         return convertedValue
     }

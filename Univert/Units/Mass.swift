@@ -71,7 +71,7 @@ struct Vikt: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            } //HStack
+            } //HStacK
             
             HStack {
                 Text("►")
@@ -208,7 +208,7 @@ struct Vikt: View {
     func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "mg": 0.001,
-            "g": 1, // utgångspunkt för uträkning
+            "g": 1,
             "hg": 100,
             "kg": 1000,
             "m ton": 1000000,
@@ -220,20 +220,15 @@ struct Vikt: View {
             "lbs": 453.59237,
             "N": 9.81,
             "kN": 9810,
-            "μg": 0.000001,         // 1 μg = 0.000001 g
-            "mcg": 0.000001,        // 1 mcg = 0.000001 g
+            "μg": 0.000001,
+            "mcg": 0.000001,
             "ng": 0.000000001,
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till gram (basenhet)
         let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
         let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
         return convertedValue
     }

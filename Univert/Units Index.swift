@@ -213,6 +213,8 @@ func destinationView(for unit: Units) -> some View {
         MagnetiskFältstyrka()
     case "magnetic_flux":
         Magnetflöde()
+    case "image_resolution":
+        ImageResolution()
     default:
         UnitsDetailView(unit: unit)
     }

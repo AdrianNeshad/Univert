@@ -54,7 +54,6 @@ struct ViskositetD: View {
         "lb/ft/h": "Pound per foot per hour"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -118,12 +117,12 @@ struct ViskositetD: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -168,9 +167,6 @@ struct ViskositetD: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -252,17 +248,11 @@ struct ViskositetD: View {
                 "lb/ft/h": 0.0004133789
             ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-                return nil // Om någon enhet inte finns i listan, returnera nil
+                return nil
             }
-
-            // Omvandla till basenheten (Pa·s)
             let valueInBaseUnit = value * fromFactor
-
-            // Omvandla från basenhet till mål-enhet
             let convertedValue = valueInBaseUnit / toFactor
-
             return convertedValue
     }
 

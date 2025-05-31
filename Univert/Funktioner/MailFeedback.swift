@@ -45,6 +45,5 @@ struct MailFeedback: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {
-        // Nothing to update here
     }
 }

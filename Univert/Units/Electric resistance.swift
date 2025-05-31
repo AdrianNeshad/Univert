@@ -35,8 +35,6 @@ struct ElektriskResistans: View {
         "RH": "Quantized Hall resistance"
     ]
 
-    
-    
     var body: some View {
         VStack {
             HStack {
@@ -100,12 +98,12 @@ struct ElektriskResistans: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -150,8 +148,6 @@ struct ElektriskResistans: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
@@ -226,7 +222,6 @@ struct ElektriskResistans: View {
         return convertedValue
     }
 
-
     func updateOutputValue(inputDouble: Double) {
         if let result = convertResistance(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
@@ -234,6 +229,4 @@ struct ElektriskResistans: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

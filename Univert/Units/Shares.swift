@@ -20,7 +20,6 @@ struct Andelar: View {
     
     let unitId = "shares"
 
-    
     let units = ["%", "‰", "mg/Kg", "mg/g", "g/Kg", "ug/Kg", "ug/g", "ppm", "ppb", "ppt", "pptr", "ppth", "ppq", "pg/g", "ng/g", "ng/Kg"]
         
         let fullNames: [String: String] = [
@@ -105,12 +104,12 @@ struct Andelar: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -155,9 +154,6 @@ struct Andelar: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -209,36 +205,30 @@ struct Andelar: View {
 
     func convertShares(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "%": 1.0,                // 1% = 1% (identitet)
+            "%": 1.0,
             "‰": 0.1,
-            "mg/Kg": 0.0001,         // 1 mg/Kg = 1 ppm = 0.0001%
-            "mg/g": 0.1,             // 1 mg/g = 1000 ppm = 0.1%
-            "g/Kg": 0.1,             // 1 g/Kg = 1000 mg/Kg = 0.1%
-            "ug/Kg": 1e-7,           // 1 µg/Kg = 1 ppb = 0.0000001%
-            "ug/g": 0.0001,          // 1 µg/g = 1 ppm = 0.0001%
-            "ppm": 0.0001,           // 1 ppm = 0.0001%
-            "ppb": 1e-7,             // 1 ppb = 0.0000001%
-            "ppt": 1e-10,            // 1 ppt = 0.0000000001%
-            "pptr": 1e-10,           // 1 pptr = 1 ppt = 0.0000000001%
-            "ppth": 0.1,             // 1 ppth = 0.1% (per thousand)
-            "ppq": 1e-13,            // 1 ppq = 0.0000000000001%
-            "pg/g": 1e-10,           // 1 pg/g = 1 ppt = 0.0000000001%
-            "ng/g": 0.0001,          // 1 ng/g = 1 ppm = 0.0001%
-            "ng/Kg": 1e-7            // 1 ng/Kg = 1 ppb = 0.0000001%
+            "mg/Kg": 0.0001,
+            "mg/g": 0.1,
+            "g/Kg": 0.1,
+            "ug/Kg": 1e-7,
+            "ug/g": 0.0001,
+            "ppm": 0.0001,
+            "ppb": 1e-7,
+            "ppt": 1e-10,
+            "pptr": 1e-10,
+            "ppth": 0.1,
+            "ppq": 1e-13,
+            "pg/g": 1e-10,
+            "ng/g": 0.0001,
+            "ng/Kg": 1e-7
         ]
         
-        // Kontrollera att enheterna finns
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
             return nil
         }
-        
-        // Omvandla till procent (basenhet)
         let valueInPercent = value * fromFactor
-        
-        // Omvandla från procent till mål-enhet
         let convertedValue = valueInPercent / toFactor
-        
         return convertedValue
     }
 
@@ -249,6 +239,4 @@ struct Andelar: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

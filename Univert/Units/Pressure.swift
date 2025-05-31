@@ -33,7 +33,6 @@ struct Tryck: View {
         "Pa": "Pascal"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -64,7 +63,6 @@ struct Tryck: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
             }
-            
             HStack {
                 Text("►")
                     .font(.title)
@@ -97,12 +95,11 @@ struct Tryck: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -206,16 +203,10 @@ struct Tryck: View {
             "MPa": 1000000,
             "Pa": 1
         ]
-        
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-        
-        // Omvandla till Pascal (Pa) som basenhet
         let valueInPascals = value * fromFactor
-        
-        // Omvandla från Pascal (Pa) till mål-enheten
         let convertedValue = valueInPascals / toFactor
         return convertedValue
     }
@@ -227,6 +218,4 @@ struct Tryck: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

@@ -34,7 +34,6 @@ struct Inställningar: View {
 
     var body: some View {
         Form {
-            // Inställningar för utseende
             Section(header: Text(appLanguage == "sv" ? "Utseende" : "Appearance")) {
                 Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
@@ -51,14 +50,11 @@ struct Inställningar: View {
                         useSwedishDecimal = false
                     }
                 }
-                
                 Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma decimal separator",
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
             }
-            
-            // rensa favoriter
             Section(header: Text(appLanguage == "sv" ? "Favoriter" : "Favorites")) {
                 Button(action: {
                     showClearAlert = true
@@ -91,7 +87,6 @@ struct Inställningar: View {
                     Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
                 }
             }
-
             // Köp-sektion
             Section(header: Text(appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units")) {
                 if !advancedUnitsUnlocked {
@@ -152,7 +147,6 @@ struct Inställningar: View {
                     }
                 }
             }
-            
             Section(header: Text(appLanguage == "sv" ? "Om" : "About")) {
                 Button(appLanguage == "sv" ? "Betygsätt appen" : "Rate the App") {
                     requestReview()
@@ -181,7 +175,7 @@ struct Inställningar: View {
                                  subject: appLanguage == "sv" ? "Univert feedback" : "Univert Feedback",
                                  messageBody: "")
                 }
-            }            // App-info
+            }          
             Section {
                 EmptyView()
             } footer: {

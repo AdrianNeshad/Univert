@@ -99,12 +99,12 @@ struct Längd: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -201,28 +201,22 @@ struct Längd: View {
     
     func convertLength(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m": 1, // basenhet
-            "cm": 0.01, // centimeter till meter
-            "km": 1000, // kilometer till meter
-            "dm": 0.1, // decimeter till meter
-            "mm": 0.001, // millimeter till meter
-            "mi": 1609.34, // miles till meter
-            "in": 0.0254, // inch till meter
-            "ft": 0.3048, // fot till meter
-            "yd": 0.9144, // yard till meter
-            "µm": 0.000001, // mikrometer till meter
-            "nm": 0.000000001 // nanometer till meter
+            "m": 1,
+            "cm": 0.01,
+            "km": 1000,
+            "dm": 0.1,
+            "mm": 0.001,
+            "mi": 1609.34,
+            "in": 0.0254,
+            "ft": 0.3048,
+            "yd": 0.9144,
+            "µm": 0.000001,
+            "nm": 0.000000001
         ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till meter (basenhet)
         let valueInMeters = value * fromFactor
-        
-        // Omvandla från meter till mål-enhet
         let convertedValue = valueInMeters / toFactor
         return convertedValue
     }

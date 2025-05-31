@@ -30,7 +30,6 @@ struct Magnetomotorisk: View {
         "Gb": "Gilbert"
     ]
     
-    
     var body: some View {
         VStack {
             HStack {
@@ -94,12 +93,12 @@ struct Magnetomotorisk: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -144,8 +143,6 @@ struct Magnetomotorisk: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
 
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
@@ -198,22 +195,17 @@ struct Magnetomotorisk: View {
 
     func convertMagnetomotive(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "At": 1.0,                    // Ampere-turn (referens)
-            "kAt": 1000.0,                // Kiloampere-turn
-            "mAt": 0.001,                 // Milliampere-turn
-            "abAt": 10.0,                 // Abampere-turn
-            "Gb": 0.7957747154595         // Gilbert
+            "At": 1.0,
+            "kAt": 1000.0,
+            "mAt": 0.001,
+            "abAt": 10.0,
+            "Gb": 0.7957747154595
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till Ampere-turn (basenhet)
         let valueInBase = value * fromFactor / conversionFactors["At"]!
-
-        // Omvandla från bas till mål-enhet
         let convertedValue = valueInBase * conversionFactors["At"]! / toFactor
         return convertedValue
     }
@@ -225,5 +217,4 @@ struct Magnetomotorisk: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }
