@@ -35,7 +35,7 @@ struct Inställningar: View {
     var body: some View {
         Form {
             Section(header: Text(appLanguage == "sv" ? "Utseende" : "Appearance")) {
-                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
+                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark Mode", isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
                 Picker("Språk / Language", selection: $appLanguage) {
@@ -50,7 +50,7 @@ struct Inställningar: View {
                         useSwedishDecimal = false
                     }
                 }
-                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma decimal separator",
+                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma Decimal Separator",
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
