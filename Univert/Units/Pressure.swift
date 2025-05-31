@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Tryck: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "bar"
     @State private var selectedToUnit: String? = "bar"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "pressure"
     
@@ -173,26 +177,48 @@ struct Tryck: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
             }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
+            }
         }
     }
-
+    
     func convertPressure(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "bar": 100000,
