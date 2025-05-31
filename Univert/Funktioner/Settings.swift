@@ -156,8 +156,8 @@ struct Inställningar: View {
                                }
                                .sheet(isPresented: $showShareSheet) {
                                    let message = appLanguage == "sv"
-                                       ? "Kolla in nyhetsappen Unifeed! 📲"
-                                       : "Check out the Unifeed news app! 📲"
+                                       ? "Kolla in Univert! 📲"
+                                       : "Check out the Univert app! 📲"
                                    let appLink = URL(string: "https://apps.apple.com/us/app/univert/id6745692591")!
                                    ShareSheet(activityItems: [message, appLink])
                                        .presentationDetents([.medium])
@@ -175,7 +175,20 @@ struct Inställningar: View {
                                  subject: appLanguage == "sv" ? "Univert feedback" : "Univert Feedback",
                                  messageBody: "")
                 }
-            }          
+            }   
+            /*
+            Section(header: Text(appLanguage == "sv" ? "Andra appar" : "Other Apps")) {
+                Link(destination: URL(string: "https://apps.apple.com/us/app/unifeed/id6746576849")!) {
+                    HStack {
+                        Image("Unifeed")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(8)
+                        Text("Unifeed")
+                    }
+                }
+            }
+             */
             Section {
                 EmptyView()
             } footer: {
