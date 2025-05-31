@@ -12,6 +12,7 @@ struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
     @State private var units: [Units] = []
     @State private var searchTerm = ""
+    @State private var expandedSubcategories: Set<String> = []
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var showPurchaseSheet = false
@@ -33,12 +34,59 @@ struct UnitsListView: View {
                     categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
                 }, id: \.self) { category in
                     Section(header: Text(titleForCategory(category)).font(.caption).foregroundColor(.gray)) {
-                        ForEach(groupedUnits[category] ?? [], id: \.id) { unit in
-                            if category == "avancerad" && !advancedUnitsUnlocked {
-                                LockedUnitRow(unit: unit) {
-                                    showPurchaseSheet = true
+                        if category == "avancerad" {
+                            let advancedUnits = groupedUnits[category] ?? []
+                            
+                            let unitsWithSub = advancedUnits.filter { $0.subcategory != nil }
+                            let groupedSub = Dictionary(grouping: unitsWithSub) { $0.subcategory! }
+                            let unitsWithoutSub = advancedUnits.filter { $0.subcategory == nil }
+                            
+                            ForEach(groupedSub.keys.sorted(), id: \.self) { sub in
+                                DisclosureGroup(
+                                    isExpanded: Binding(
+                                        get: { expandedSubcategories.contains(sub) },
+                                        set: { expanded in
+                                            if expanded {
+                                                expandedSubcategories.insert(sub)
+                                            } else {
+                                                expandedSubcategories.remove(sub)
+                                            }
+                                        }
+                                    ),
+                                    content: {
+                                        ForEach(groupedSub[sub] ?? [], id: \.id) { unit in
+                                            if !advancedUnitsUnlocked {
+                                                LockedUnitRow(unit: unit) {
+                                                    showPurchaseSheet = true
+                                                }
+                                            } else {
+                                                NavigationLink(destination: destinationView(for: unit)) {
+                                                    UnitRow(unit: unit)
+                                                }
+                                            }
+                                        }
+                                    },
+                                    label: {
+                                        Text("\(iconForSubcategory(sub)) \(titleForSubcategory(sub))")
+                                            .font(.headline)
+                                        .font(.headline)
+                                        .contentShape(Rectangle())
+                                    }
+                                )
+                            }
+                            ForEach(unitsWithoutSub, id: \.id) { unit in
+                                if !advancedUnitsUnlocked {
+                                    LockedUnitRow(unit: unit) {
+                                        showPurchaseSheet = true
+                                    }
+                                } else {
+                                    NavigationLink(destination: destinationView(for: unit)) {
+                                        UnitRow(unit: unit)
+                                    }
                                 }
-                            } else {
+                            }
+                        } else {
+                            ForEach(groupedUnits[category] ?? [], id: \.id) { unit in
                                 NavigationLink(destination: destinationView(for: unit)) {
                                     UnitRow(unit: unit)
                                 }
@@ -46,7 +94,6 @@ struct UnitsListView: View {
                         }
                     }
                 }
-                
                 if searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     AppFooter()
                 }
@@ -128,6 +175,30 @@ struct UnitsListView: View {
         default: return ""
         }
     }
+    func titleForSubcategory(_ key: String) -> String {
+        switch key {
+        case "magnetism":
+            return appLanguage == "sv" ? "Magnetism" : "Magnetism"
+        case "elektricitet":
+            return appLanguage == "sv" ? "Elektricitet" : "Electricity"
+        case "viskositet":
+            return appLanguage == "sv" ? "Viskositet" : "Viscosity"
+        case "data":
+            return appLanguage == "sv" ? "Data" : "Data"
+        default:
+            return key
+        }
+    }
+    func iconForSubcategory(_ key: String) -> String {
+        switch key.lowercased() {
+        case "magnetism": return "🧲"
+        case "elektricitet": return "⚡️"
+        case "viskositet": return "💧"
+        case "data": return "💾"
+        default: return "📦"
+        }
+    }
+
 }
 
 struct UnitsDetailView: View {
