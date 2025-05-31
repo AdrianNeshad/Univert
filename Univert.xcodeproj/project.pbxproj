@@ -53,6 +53,7 @@
 		3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */; };
 		3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE560682DCDF49A00CC4450 /* Settings.swift */; };
 		3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */; };
+		3AF017652DEAF4F300CD5F4A /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF017642DEAF4F300CD5F4A /* ShareSheet.swift */; };
 		3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		3AE560682DCDF49A00CC4450 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enhetsmall.swift; sourceTree = "<group>"; };
 		3AEDDFD72DC901BE00FC5897 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3AF017642DEAF4F300CD5F4A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +259,7 @@
 				3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */,
 				3A832FD22DD0C0E10058D0F8 /* Language.swift */,
 				3A5CF3CA2DDE5F3500D0038B /* MailFeedback.swift */,
+				3AF017642DEAF4F300CD5F4A /* ShareSheet.swift */,
 			);
 			path = Funktioner;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */,
 				3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */,
 				3A21D7492DC78B2000B37E2D /* Power.swift in Sources */,
+				3AF017652DEAF4F300CD5F4A /* ShareSheet.swift in Sources */,
 				3AC141F02DCF761D00CD7922 /* ViscosityD.swift in Sources */,
 				3AC141F32DCF763500CD7922 /* ViscosityK.swift in Sources */,
 				3AE560692DCDF49A00CC4450 /* Settings.swift in Sources */,
