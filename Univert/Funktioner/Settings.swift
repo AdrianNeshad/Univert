@@ -187,8 +187,17 @@ struct Inställningar: View {
                         Text("Unifeed")
                     }
                 }
+                Link(destination: URL(string: "https://apps.apple.com/us/app/flixswipe/id6746682499")!) {
+                    HStack {
+                        Image("flixswipe")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(8)
+                        Text("FlixSwipe")
+                    }
+                }
             }
-             */
+            */
             Section {
                 EmptyView()
             } footer: {
