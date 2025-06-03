@@ -75,7 +75,6 @@ struct Valuta: View {
                 Text(appLanguage == "sv" ? "Från" : "From")
                     .font(.title)
                     .bold()
-                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
@@ -89,7 +88,7 @@ struct Valuta: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text(appLanguage == "sv" ? "Till" : "To")                    
+                Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
                     .padding(10)
@@ -114,6 +113,10 @@ struct Valuta: View {
                         .frame(width: 100)
                         .padding(.leading, -90)
                 }
+                .onChange(of: selectedFromUnit) { _ in
+                    outputValue = ""
+                    fetchExchangeRates()
+                }
                 
                 PomodoroPicker(
                     selection: $selectedToUnit,
@@ -124,6 +127,9 @@ struct Valuta: View {
                         .bold()
                         .frame(width: 100)
                         .padding(.trailing, -90)
+                }
+                .onChange(of: selectedToUnit) { _ in
+                    updateOutput()
                 }
                 
                 Text("◄")
@@ -156,34 +162,8 @@ struct Valuta: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
-                        .onChange(of: inputValue) { newValue in
-                            var updatedValue = newValue
-                            if !useSwedishDecimal {
-                                let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                                if replaced != newValue {
-                                    updatedValue = replaced
-                                    inputValue = replaced
-                                }
-                            }
-                            
-                            let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            } else {
-                                outputValue = ""
-                            }
-                        }
-                        .onChange(of: selectedFromUnit) { _ in
-                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            }
-                        }
-                        .onChange(of: selectedToUnit) { _ in
-                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            }
+                        .onChange(of: inputValue) { _ in
+                            updateOutput()
                         }
 
                     Text(outputValue.isEmpty ? "" : outputValue)
@@ -222,18 +202,19 @@ struct Valuta: View {
             }
         }
         .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            toggleFavorite()
-                        }) {
-                            Image(systemName: isFavorite ? "star.fill" : "star")
-                        }
-                    }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    Image(systemName: isFavorite ? "star.fill" : "star")
                 }
-                .toast(isPresenting: $showToast) {
-                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
-                }
+            }
+        }
+        .toast(isPresenting: $showToast) {
+            AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+        }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
@@ -290,11 +271,7 @@ struct Valuta: View {
                     self.exchangeRates = decoded.rates
                     self.exchangeRates[fromUnit] = 1.0
                     print("Hämtade växelkurser: \(self.exchangeRates)")
-                    
-                    let normalizedValue = self.inputValue.replacingOccurrences(of: ",", with: ".")
-                    if let inputDouble = Double(normalizedValue) {
-                        self.updateOutputValue(inputDouble: inputDouble)
-                    }
+                    updateOutput()
                 }
             } catch {
                 print("Fel vid JSON-parsing: \(error)")
@@ -302,9 +279,11 @@ struct Valuta: View {
         }.resume()
     }
  
-    func updateOutputValue(inputDouble: Double) {
-        guard let toRate = exchangeRates[selectedToUnit ?? ""] else {
-            outputValue = "Ogiltig enhet"
+    func updateOutput() {
+        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+        guard let inputDouble = Double(normalizedValue),
+              let toRate = exchangeRates[selectedToUnit ?? ""] else {
+            outputValue = ""
             return
         }
         
