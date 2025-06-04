@@ -138,7 +138,7 @@ struct UnitsListView: View {
             }
         }
 
-        var merged: [Units] = previewUnits.map { unit in
+        let merged: [Units] = previewUnits.map { unit in
             if let match = savedUnits.first(where: { $0.id == unit.id }) {
                 var updated = unit
                 updated.isFavorite = match.isFavorite
