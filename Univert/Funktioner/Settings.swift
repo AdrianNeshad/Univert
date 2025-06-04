@@ -72,7 +72,7 @@ struct Inställningar: View {
                         defaults.removeObject(forKey: "savedUnits")
                         defaults.synchronize()
                         
-                        units = Units.preview()
+                        units = Units.preview(for: appLanguage)
                         
                         toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites Cleared"
                             withAnimation {

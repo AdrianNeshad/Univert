@@ -15,9 +15,7 @@ struct Units: Codable, Identifiable {
     var category: String
     var subcategory: String?
     
-    static func preview() -> [Units] {
-        let lang = UserDefaults.standard.string(forKey: "appLanguage") ?? "en"
-        
+    static func preview(for lang: String) -> [Units] {
         return [
             Units(id: "speed", name: lang == "sv" ? "Hastighet" : "Speed", icon: "🏎", isFavorite: false, category: "vanlig"),
             Units(id: "weight", name: lang == "sv" ? "Vikt" : "Weight", icon: "⚖️", isFavorite: false, category: "vanlig"),
