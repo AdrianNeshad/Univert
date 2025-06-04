@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Magnetomotorisk: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "At"
     @State private var selectedToUnit: String? = "At"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "magnetomotive_force"
     
@@ -29,7 +34,6 @@ struct Magnetomotorisk: View {
         "abAt": "Abampere-turn",
         "Gb": "Gilbert"
     ]
-    
     
     var body: some View {
         VStack {
@@ -94,12 +98,12 @@ struct Magnetomotorisk: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -145,8 +149,6 @@ struct Magnetomotorisk: View {
                         }
                     }
 
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -167,7 +169,7 @@ struct Magnetomotorisk: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -175,45 +177,61 @@ struct Magnetomotorisk: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
-    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
 
     func convertMagnetomotive(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "At": 1.0,                    // Ampere-turn (referens)
-            "kAt": 1000.0,                // Kiloampere-turn
-            "mAt": 0.001,                 // Milliampere-turn
-            "abAt": 10.0,                 // Abampere-turn
-            "Gb": 0.7957747154595         // Gilbert
+            "At": 1.0,
+            "kAt": 1000.0,
+            "mAt": 0.001,
+            "abAt": 10.0,
+            "Gb": 0.7957747154595
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till Ampere-turn (basenhet)
         let valueInBase = value * fromFactor / conversionFactors["At"]!
-
-        // Omvandla från bas till mål-enhet
         let convertedValue = valueInBase * conversionFactors["At"]! / toFactor
         return convertedValue
     }
@@ -225,5 +243,4 @@ struct Magnetomotorisk: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }

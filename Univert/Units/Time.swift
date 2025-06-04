@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Tid: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "ms"
     @State private var selectedToUnit: String? = "ms"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "time"
     
@@ -97,12 +101,12 @@ struct Tid: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -147,8 +151,6 @@ struct Tid: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -169,7 +171,7 @@ struct Tid: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -177,47 +179,63 @@ struct Tid: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
     
     func convertTime(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "s": 1, // basenhet (sekunder)
-            "ms": 0.001, // millisekunder till sekunder
-            "min": 60, // minuter till sekunder
-            "h": 3600, // timmar till sekunder
-            "d": 86400, // dagar till sekunder
-            "w": 604800, // veckor till sekunder
-            "m": 2592000, // månad (genomsnittlig månad) till sekunder
-            "yr": 31536000 // år till sekunder (genomsnittligt år)
+            "s": 1,
+            "ms": 0.001,
+            "min": 60,
+            "h": 3600,
+            "d": 86400,
+            "w": 604800,
+            "m": 2592000,
+            "yr": 31536000
         ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till sekunder (basenhet)
         let valueInSeconds = value * fromFactor
-        
-        // Omvandla från sekunder till mål-enhet
         let convertedValue = valueInSeconds / toFactor
         return convertedValue
     }

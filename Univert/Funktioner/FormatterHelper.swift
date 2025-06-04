@@ -17,9 +17,6 @@ class FormatterHelper {
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 4
         formatter.numberStyle = .decimal
-        
-        // Ta bort dessa ↓ så vi sätter dem dynamiskt istället:
-        // formatter.decimalSeparator = ","
         formatter.groupingSeparator = " "
         formatter.usesGroupingSeparator = true
         

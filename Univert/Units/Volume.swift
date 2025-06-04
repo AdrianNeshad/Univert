@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Volym: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "L"
     @State private var selectedToUnit: String? = "L"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "volume"
     
@@ -68,8 +72,7 @@ struct Volym: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            } //HStack
-            
+            } //HStacK
             HStack {
                 Text("►")
                     .font(.title)
@@ -100,19 +103,17 @@ struct Volym: View {
             } //HStack
             .frame(maxWidth: .infinity)
             .frame(height: 180)
-            
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
                         }
-            
             HStack(spacing: 10) {
                 TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
@@ -132,7 +133,6 @@ struct Volym: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -152,8 +152,6 @@ struct Volym: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -174,60 +172,75 @@ struct Volym: View {
                            let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                             currentUnits = savedUnits
                         } else {
-                            currentUnits = Units.preview()
+                            currentUnits = Units.preview(for: appLanguage)
                         }
-                        
                 if let match = currentUnits.first(where: { $0.id == unitId }) {
                     isFavorite = match.isFavorite
                 }
                     }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        toggleFavorite()
-                    }) {
-                        Image(systemName: isFavorite ? "star.fill" : "star")
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                toggleFavorite()
+                            }) {
+                                Image(systemName: isFavorite ? "star.fill" : "star")
+                            }
+                        }
+                    }
+                    .toast(isPresenting: $showToast) {
+                        AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                    }
+        }
+        func toggleFavorite() {
+            if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
+                currentUnits[index].isFavorite.toggle()
+                isFavorite = currentUnits[index].isFavorite
+
+                if let data = try? JSONEncoder().encode(currentUnits) {
+                    savedUnitsData = data
+                }
+
+                if isFavorite {
+                    toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                    toastIcon = "star.fill"
+                    toastColor = .yellow
+                } else {
+                    toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                    toastIcon = "star"
+                    toastColor = .gray
+                }
+
+                withAnimation {
+                    showToast = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    withAnimation {
+                        showToast = false
                     }
                 }
             }
-    }
-    func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
-            currentUnits[index].isFavorite.toggle()
-            isFavorite = currentUnits[index].isFavorite
-            
-            if let data = try? JSONEncoder().encode(currentUnits) {
-                savedUnitsData = data
-            }
         }
-    }
 
     func convertVolume(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "L": 1, // basenhet (liter)
-            "ml": 0.001, // milliliter till liter
-            "cl": 0.01, // centiliter till liter
-            "dl": 0.1, // deciliter till liter
-            "gal": 0.264172, // gallon till liter
+            "L": 1,
+            "ml": 0.001,
+            "cl": 0.01,
+            "dl": 0.1,
+            "gal": 0.264172,
             "cup": 0.236588,
-            "pint": 0.56826125, // pint till liter
-            "qrt": 1.05669, // quart till liter
-            "fl oz": 33.814, // fluid ounce till liter
-            "cm³": 0.001, // kubikcentimeter till liter
+            "pint": 0.56826125,
+            "qrt": 1.05669,
+            "fl oz": 33.814,
+            "cm³": 0.001,
             "dm³": 1,
-            "m³": 1000, // kubikmeter till liter
-            "mm³": 0.000000001 // millimeter kubik till liter
+            "m³": 1000,
+            "mm³": 0.000000001
         ]
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-        
-        // Omvandla till liter (basenhet)
         let valueInLiters = value * fromFactor
-        
-        // Omvandla från liter till mål-enhet
         let convertedValue = valueInLiters / toFactor
         return convertedValue
     }
@@ -239,6 +252,4 @@ struct Volym: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

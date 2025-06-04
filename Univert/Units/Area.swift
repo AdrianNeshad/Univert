@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Yta: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "m²"
     @State private var selectedToUnit: String? = "m²"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "area"
     
@@ -99,12 +103,12 @@ struct Yta: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -171,7 +175,7 @@ struct Yta: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -179,49 +183,66 @@ struct Yta: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
 
     func convertArea(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "m²": 1, // m² is the base unit
-            "km²": 1e6, // 1 km² = 1,000,000 m²
-            "cm²": 1e-4, // 1 cm² = 0.0001 m²
-            "mm²": 1e-6, // 1 mm² = 0.000001 m²
-            "ha": 1e4, // 1 ha = 10,000 m²
-            "ac": 4046.856, // 1 acre = 4046.856 m²
-            "mi²": 2.58999e6, // 1 mi² = 2,589,990 m²
-            "yd²": 0.836127, // 1 yd² = 0.836127 m²
-            "ft²": 0.092903, // 1 ft² = 0.092903 m²
-            "in²": 0.00064516 // 1 in² = 0.00064516 m²
+            "m²": 1,
+            "km²": 1e6,
+            "cm²": 1e-4,
+            "mm²": 1e-6,
+            "ha": 1e4,
+            "ac": 4046.856,
+            "mi²": 2.58999e6,
+            "yd²": 0.836127,
+            "ft²": 0.092903,
+            "in²": 0.00064516
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till m² (basenhet)
         let valueInM2 = value * fromFactor
-        
-        // Omvandla från m² till mål-enhet
         let convertedValue = valueInM2 / toFactor
         return convertedValue
     }
@@ -233,6 +254,4 @@ struct Yta: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

@@ -6,18 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Vridmoment: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "N m"
     @State private var selectedToUnit: String? = "N m"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "torque"
     
@@ -93,12 +97,12 @@ struct Vridmoment: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -143,8 +147,6 @@ struct Vridmoment: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -165,7 +167,7 @@ struct Vridmoment: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -173,43 +175,60 @@ struct Vridmoment: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
     
     func convertTorque(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "N m": 1, // Newton meter is the base unit
-            "lb ft": 1.35582, // 1 lb ft = 1.35582 N m
-            "lb in": 0.113, // 1 lb in = 0.113 N m
-            "kg m": 9.80665 // 1 kg m = 9.80665 N m
+            "N m": 1,
+            "lb ft": 1.35582,
+            "lb in": 0.113,
+            "kg m": 9.80665
         ]
         
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till N m (basenhet)
         let valueInNm = value * fromFactor
-        
-        // Omvandla från N m till mål-enhet
         let convertedValue = valueInNm / toFactor
         return convertedValue
     }
@@ -221,5 +240,4 @@ struct Vridmoment: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
 }

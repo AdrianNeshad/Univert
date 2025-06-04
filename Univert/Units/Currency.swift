@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ExchangeResponse: Codable {
     let rates: [String: Double]
@@ -15,15 +16,18 @@ struct ExchangeResponse: Codable {
 
 struct Valuta: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "USD"
     @State private var selectedToUnit: String? = "USD"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "currency"
     
@@ -71,7 +75,6 @@ struct Valuta: View {
                 Text(appLanguage == "sv" ? "Från" : "From")
                     .font(.title)
                     .bold()
-                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
                     .background(Color.gray.opacity(0.1))
@@ -85,7 +88,7 @@ struct Valuta: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text(appLanguage == "sv" ? "Till" : "To")                    
+                Text(appLanguage == "sv" ? "Till" : "To")
                     .font(.title)
                     .bold()
                     .padding(10)
@@ -110,6 +113,10 @@ struct Valuta: View {
                         .frame(width: 100)
                         .padding(.leading, -90)
                 }
+                .onChange(of: selectedFromUnit) { _ in
+                    outputValue = ""
+                    fetchExchangeRates()
+                }
                 
                 PomodoroPicker(
                     selection: $selectedToUnit,
@@ -120,6 +127,9 @@ struct Valuta: View {
                         .bold()
                         .frame(width: 100)
                         .padding(.trailing, -90)
+                }
+                .onChange(of: selectedToUnit) { _ in
+                    updateOutput()
                 }
                 
                 Text("◄")
@@ -152,34 +162,8 @@ struct Valuta: View {
                         .background(Color.gray.opacity(0.1))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
-                        .onChange(of: inputValue) { newValue in
-                            var updatedValue = newValue
-                            if !useSwedishDecimal {
-                                let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                                if replaced != newValue {
-                                    updatedValue = replaced
-                                    inputValue = replaced
-                                }
-                            }
-                            
-                            let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            } else {
-                                outputValue = ""
-                            }
-                        }
-                        .onChange(of: selectedFromUnit) { _ in
-                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            }
-                        }
-                        .onChange(of: selectedToUnit) { _ in
-                            let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                            if let inputDouble = Double(normalizedValue) {
-                                updateOutputValue(inputDouble: inputDouble)
-                            }
+                        .onChange(of: inputValue) { _ in
+                            updateOutput()
                         }
 
                     Text(outputValue.isEmpty ? "" : outputValue)
@@ -210,7 +194,7 @@ struct Valuta: View {
                let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                 currentUnits = savedUnits
             } else {
-                currentUnits = Units.preview()
+                currentUnits = Units.preview(for: appLanguage)
             }
             
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -226,18 +210,41 @@ struct Valuta: View {
                 }
             }
         }
+        .toast(isPresenting: $showToast) {
+            AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+        }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
             }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
+            }
         }
     }
-    
+
     func fetchExchangeRates() {
         guard let fromUnit = selectedFromUnit else { return }
         let urlString = "https://api.frankfurter.app/latest?from=\(fromUnit)"
@@ -264,11 +271,7 @@ struct Valuta: View {
                     self.exchangeRates = decoded.rates
                     self.exchangeRates[fromUnit] = 1.0
                     print("Hämtade växelkurser: \(self.exchangeRates)")
-                    
-                    let normalizedValue = self.inputValue.replacingOccurrences(of: ",", with: ".")
-                    if let inputDouble = Double(normalizedValue) {
-                        self.updateOutputValue(inputDouble: inputDouble)
-                    }
+                    updateOutput()
                 }
             } catch {
                 print("Fel vid JSON-parsing: \(error)")
@@ -276,9 +279,11 @@ struct Valuta: View {
         }.resume()
     }
  
-    func updateOutputValue(inputDouble: Double) {
-        guard let toRate = exchangeRates[selectedToUnit ?? ""] else {
-            outputValue = "Ogiltig enhet"
+    func updateOutput() {
+        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
+        guard let inputDouble = Double(normalizedValue),
+              let toRate = exchangeRates[selectedToUnit ?? ""] else {
+            outputValue = ""
             return
         }
         

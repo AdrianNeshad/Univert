@@ -6,29 +6,33 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct MagnetiskFältstyrka: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "A/m"
     @State private var selectedToUnit: String? = "A/m"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "magnetic_field_strength"
     
     let units = ["A/m", "At/m", "kA/m", "Oe"]
     
     let fullNames: [String: String] = [
-        "A/m": "Ampere/meter",            // Basenhet
-        "At/m": "Ampetere-turn/meter",           // Ampere-turn per meter, samma som A/m här
-        "kA/m": "kiloampere/meter",        // 1 kA/m = 1000 A/m
+        "A/m": "Ampere/meter",
+        "At/m": "Ampetere-turn/meter",
+        "kA/m": "kiloampere/meter",
         "Oe": "Oersted"
         ]
-    
     
     var body: some View {
         VStack {
@@ -93,12 +97,12 @@ struct MagnetiskFältstyrka: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -143,9 +147,6 @@ struct MagnetiskFältstyrka: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -166,7 +167,7 @@ struct MagnetiskFältstyrka: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -174,45 +175,61 @@ struct MagnetiskFältstyrka: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
-    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
 
     func convertMagneticFieldStrength(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "A/m": 1.0,            // Basenhet
-            "At/m": 1.0,           // Ampere-turn per meter, samma som A/m här
-            "kA/m": 1000.0,        // 1 kA/m = 1000 A/m
-            "Oe": 79.57747         // 1 Oersted = 79.57747 A/m
+            "A/m": 1.0,
+            "At/m": 1.0,
+            "kA/m": 1000.0,
+            "Oe": 79.57747
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-        
-        // Omvandla till A/m (basenhet)
         let valueInBase = value * fromFactor
-        
-        // Omvandla från basenhet till mål-enhet
         let convertedValue = valueInBase / toFactor
         return convertedValue
     }
@@ -224,7 +241,4 @@ struct MagnetiskFältstyrka: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
-
 }

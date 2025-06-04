@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Magnetflöde: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "Wb"
     @State private var selectedToUnit: String? = "Wb"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "magnetic_flux"
     
@@ -37,7 +42,6 @@ struct Magnetflöde: View {
         "Φ₀": "Magnetic flux quantum"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -101,12 +105,12 @@ struct Magnetflöde: View {
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -151,9 +155,6 @@ struct Magnetflöde: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-                
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -174,7 +175,7 @@ struct Magnetflöde: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -182,23 +183,44 @@ struct Magnetflöde: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
-    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
@@ -208,26 +230,22 @@ struct Magnetflöde: View {
             "Wb": 1.0,
             "mWb": 1e-3,
             "μWb": 1e-6,
-            "V·s": 1.0,               // Volt-sekund är samma som Weber
-            "MΦ": 1e-2,               // 1 megaline = 10^-2 Weber (10^6 line * 10^-8 Weber/line)
-            "kΦ": 1e-5,               // 1 kiloline = 10^-5 Weber
-            "Φ": 1e-8,                // Line i CGS (maxwell)
-            "Mx": 1e-8,               // Maxwell = 10^-8 Weber
-            "T·m²": 1.0,              // Tesla kvadratmeter = Weber
-            "T·cm²": 1e-4,            // Tesla kvadratcentimeter = 10^-4 Weber
-            "G·cm²": 1e-8,            // Gauss kvadratcentimeter = 10^-8 Weber
-            "Φ₀": 2.067833848e-15     // Magnetic flux quantum (Weber)
+            "V·s": 1.0,
+            "MΦ": 1e-2,
+            "kΦ": 1e-5,
+            "Φ": 1e-8,
+            "Mx": 1e-8,
+            "T·m²": 1.0,
+            "T·cm²": 1e-4,
+            "G·cm²": 1e-8,
+            "Φ₀": 2.067833848e-15
         ]
         
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
             return nil
         }
-        
-        // Omvandla till Weber (basenhet)
         let valueInWebers = value * fromFactor
-        
-        // Omvandla från Weber till mål-enhet
         let convertedValue = valueInWebers / toFactor
         return convertedValue
     }
@@ -239,7 +257,4 @@ struct Magnetflöde: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
-
 }

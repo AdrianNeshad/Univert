@@ -26,6 +26,7 @@ struct Inställningar: View {
     @State private var showClearAlert = false
     @State private var showToast = false
     @State private var toastMessage = ""
+    @State private var showShareSheet = false
     
     enum RestoreStatus {
         case success, failure
@@ -33,9 +34,8 @@ struct Inställningar: View {
 
     var body: some View {
         Form {
-            // Inställningar för utseende
             Section(header: Text(appLanguage == "sv" ? "Utseende" : "Appearance")) {
-                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark mode", isOn: $isDarkMode)
+                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark Mode", isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
                 Picker("Språk / Language", selection: $appLanguage) {
@@ -50,14 +50,11 @@ struct Inställningar: View {
                         useSwedishDecimal = false
                     }
                 }
-                
-                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma decimal separator",
+                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma Decimal Separator",
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
             }
-            
-            // rensa favoriter
             Section(header: Text(appLanguage == "sv" ? "Favoriter" : "Favorites")) {
                 Button(action: {
                     showClearAlert = true
@@ -75,7 +72,7 @@ struct Inställningar: View {
                         defaults.removeObject(forKey: "savedUnits")
                         defaults.synchronize()
                         
-                        units = Units.preview()
+                        units = Units.preview(for: appLanguage)
                         
                         toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites Cleared"
                             withAnimation {
@@ -90,7 +87,6 @@ struct Inställningar: View {
                     Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
                 }
             }
-
             // Köp-sektion
             Section(header: Text(appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units")) {
                 if !advancedUnitsUnlocked {
@@ -151,12 +147,21 @@ struct Inställningar: View {
                     }
                 }
             }
-            
-            Section(header: Text(appLanguage == "sv" ? "Feedback" : "Feedback")) {
+            Section(header: Text(appLanguage == "sv" ? "Om" : "About")) {
                 Button(appLanguage == "sv" ? "Betygsätt appen" : "Rate the App") {
                     requestReview()
                 }
-
+                Button(appLanguage == "sv" ? "Dela appen" : "Share the App") {
+                                   showShareSheet = true
+                               }
+                               .sheet(isPresented: $showShareSheet) {
+                                   let message = appLanguage == "sv"
+                                       ? "Kolla in Univert! 📲"
+                                       : "Check out the Univert app! 📲"
+                                   let appLink = URL(string: "https://apps.apple.com/us/app/univert/id6745692591")!
+                                   ShareSheet(activityItems: [message, appLink])
+                                       .presentationDetents([.medium])
+                               }
                 Button(appLanguage == "sv" ? "Ge feedback" : "Give Feedback") {
                     if MFMailComposeViewController.canSendMail() {
                         showMailFeedback = true
@@ -170,7 +175,29 @@ struct Inställningar: View {
                                  subject: appLanguage == "sv" ? "Univert feedback" : "Univert Feedback",
                                  messageBody: "")
                 }
-            }            // App-info
+            }   
+            /*
+            Section(header: Text(appLanguage == "sv" ? "Andra appar" : "Other Apps")) {
+                Link(destination: URL(string: "https://apps.apple.com/us/app/unifeed/id6746576849")!) {
+                    HStack {
+                        Image("Unifeed")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(8)
+                        Text("Unifeed")
+                    }
+                }
+                Link(destination: URL(string: "https://apps.apple.com/us/app/flixswipe/id6746682499")!) {
+                    HStack {
+                        Image("flixswipe")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(8)
+                        Text("FlixSwipe")
+                    }
+                }
+            }
+            */
             Section {
                 EmptyView()
             } footer: {

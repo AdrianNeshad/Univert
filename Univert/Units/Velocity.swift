@@ -6,29 +6,32 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Hastighet: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "km/h"
     @State private var selectedToUnit: String? = "km/h"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en" 
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
 
     let unitId = "speed"
     
     let units = [
-        "m/s", "km/h", "mph", "m/h", "m/min", "knot", "km/min", "km/s",
+        "km/h", "mph", "m/s", "m/h", "m/min", "knot", "km/min", "km/s",
         "cm/h", "cm/min", "cm/s", "mm/h", "mm/min", "mm/s",
         "ft/h", "ft/min", "ft/s", "yd/h", "yd/min", "yd/s",
         "mi/min", "mi/s", "kn(UK)", "c", "v1", "v2", "v3",
         "vE", "vs(w)", "vs(sw)", "M", "M(SI)"
     ]
-
     
     let fullNames: [String: String] = [
         "m/s": "meter/second",
@@ -65,7 +68,6 @@ struct Hastighet: View {
         "M(SI)": "Mach (SI standard)"
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -95,7 +97,7 @@ struct Hastighet: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            } //HStack
+            }
             
             HStack {
                 Text("►")
@@ -124,17 +126,17 @@ struct Hastighet: View {
                 Text("◄")
                     .font(.title)
                     .frame(width: 50)
-            } //HStack
+            }
             .frame(maxWidth: .infinity)
             .frame(height: 180)
             
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
                             
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
@@ -159,7 +161,6 @@ struct Hastighet: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -179,8 +180,6 @@ struct Hastighet: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -189,9 +188,9 @@ struct Hastighet: View {
                     .cornerRadius(5)
                     .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
-            } //HStack
+            }
             .padding([.leading, .trailing], 10)
-        } //VStack
+        }
         .padding(.top, 20)
         Spacer()
         .navigationTitle(appLanguage == "sv" ? "Hastighet" : "Speed")
@@ -201,7 +200,7 @@ struct Hastighet: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -209,27 +208,48 @@ struct Hastighet: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
 
-    
     func convertVelocity(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "km/h": 1.0,
@@ -266,16 +286,10 @@ struct Hastighet: View {
             "M(SI)": 1234.8
         ]
 
-        
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till kilometer per timme (basenhet)
         let valueInKmPerHour = value * fromFactor
-        
-        // Omvandla från kilometer per timme till mål-enhet
         let convertedValue = valueInKmPerHour / toFactor
         return convertedValue
     }

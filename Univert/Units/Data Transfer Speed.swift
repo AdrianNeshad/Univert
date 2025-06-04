@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Dataöverföringshastighet: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "bit/s"
     @State private var selectedToUnit: String? = "bit/s"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "data_transfer_speed"
     
@@ -96,19 +101,16 @@ struct Dataöverföringshastighet: View {
             }
             .frame(maxWidth: .infinity)
             .frame(height: 180)
-            
             HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")  // Visa både valutakod och fullständigt namn
+                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
                                 .font(.system(size: 15))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 0)
                         }
-            
             HStack(spacing: 10) {
                 TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
                     .keyboardType(.decimalPad)
@@ -128,7 +130,6 @@ struct Dataöverföringshastighet: View {
                                 inputValue = replaced
                             }
                         }
-                        
                         let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
                         if let inputDouble = Double(normalizedValue) {
                             updateOutputValue(inputDouble: inputDouble)
@@ -148,8 +149,6 @@ struct Dataöverföringshastighet: View {
                             updateOutputValue(inputDouble: inputDouble)
                         }
                     }
-
-
                 Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
@@ -170,7 +169,7 @@ struct Dataöverföringshastighet: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -178,22 +177,44 @@ struct Dataöverföringshastighet: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
@@ -201,26 +222,20 @@ struct Dataöverföringshastighet: View {
     func convertDataTransferSpeed(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "bit/s": 1,
-            "Byte/s": 8, // 1 byte = 8 bits
-            "Kbit/s": 1000, // 1 Kbit = 1000 bits
-            "KB/s": 8 * 1000, // 1 KB = 8 * 1000 bits
-            "Mbit/s": 1000000, // 1 Mbit = 1,000,000 bits
-            "MB/s": 8 * 1000000, // 1 MB = 8 * 1,000,000 bits
-            "Gbit/s": 1000000000, // 1 Gbit = 1,000,000,000 bits
-            "GB/s": 8 * 1000000000, // 1 GB = 8 * 1,000,000,000 bits
-            "Tbit/s": 1000000000000, // 1 Tbit = 1,000,000,000,000 bits
-            "TB/s": 8 * 1000000000000 // 1 TB = 8 * 1,000,000,000,000 bits
+            "Byte/s": 8,
+            "Kbit/s": 1000,
+            "KB/s": 8 * 1000,
+            "Mbit/s": 1000000,
+            "MB/s": 8 * 1000000,
+            "Gbit/s": 1000000000,
+            "GB/s": 8 * 1000000000,
+            "Tbit/s": 1000000000000,
+            "TB/s": 8 * 1000000000000
         ]
-        
-        // Kontrollera om enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till bit per sekund (basenhet)
         let valueInBitsPerSecond = value * fromFactor
-        
-        // Omvandla från bit per sekund till mål-enhet
         let convertedValue = valueInBitsPerSecond / toFactor
         return convertedValue
     }
@@ -232,6 +247,4 @@ struct Dataöverföringshastighet: View {
             outputValue = "Ogiltig enhet"
         }
     }
-
-
 }

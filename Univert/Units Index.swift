@@ -10,13 +10,14 @@ import StoreKit
 
 struct UnitsListView: View {
     @AppStorage("isDarkMode") private var isDarkMode = true
-    @State private var units: [Units] = []
-    @State private var searchTerm = ""
+    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
-    @State private var showPurchaseSheet = false
     @StateObject private var storeManager = StoreManager()
-    @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
+    @State private var units: [Units] = []
+    @State private var searchTerm = ""
+    @State private var expandedSubcategories: Set<String> = []
+    @State private var showPurchaseSheet = false
 
     var filteredUnits: [Units] {
         guard !searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return units }
@@ -28,17 +29,64 @@ struct UnitsListView: View {
             List {
                 let groupedUnits = Dictionary(grouping: filteredUnits) { $0.category }
                 let categoryOrder = ["monetär", "vanlig", "avancerad"]
-                
+
                 ForEach(groupedUnits.keys.sorted { lhs, rhs in
                     categoryOrder.firstIndex(of: lhs) ?? Int.max < categoryOrder.firstIndex(of: rhs) ?? Int.max
                 }, id: \.self) { category in
                     Section(header: Text(titleForCategory(category)).font(.caption).foregroundColor(.gray)) {
-                        ForEach(groupedUnits[category] ?? [], id: \.id) { unit in
-                            if category == "avancerad" && !advancedUnitsUnlocked {
-                                LockedUnitRow(unit: unit) {
-                                    showPurchaseSheet = true
+                        if category == "avancerad" {
+                            let advancedUnits = groupedUnits[category] ?? []
+
+                            let unitsWithSub = advancedUnits.filter { $0.subcategory != nil }
+                            let groupedSub = Dictionary(grouping: unitsWithSub) { $0.subcategory! }
+                            let unitsWithoutSub = advancedUnits.filter { $0.subcategory == nil }
+
+                            ForEach(groupedSub.keys.sorted(), id: \.self) { sub in
+                                DisclosureGroup(
+                                    isExpanded: Binding(
+                                        get: { expandedSubcategories.contains(sub) },
+                                        set: { expanded in
+                                            if expanded {
+                                                expandedSubcategories.insert(sub)
+                                            } else {
+                                                expandedSubcategories.remove(sub)
+                                            }
+                                        }
+                                    ),
+                                    content: {
+                                        ForEach(groupedSub[sub] ?? [], id: \.id) { unit in
+                                            if !advancedUnitsUnlocked {
+                                                LockedUnitRow(unit: unit) {
+                                                    showPurchaseSheet = true
+                                                }
+                                            } else {
+                                                NavigationLink(destination: destinationView(for: unit)) {
+                                                    UnitRow(unit: unit)
+                                                }
+                                            }
+                                        }
+                                    },
+                                    label: {
+                                        Text("\(iconForSubcategory(sub)) \(titleForSubcategory(sub))")
+                                            .font(.headline)
+                                            .contentShape(Rectangle())
+                                    }
+                                )
+                            }
+
+                            ForEach(unitsWithoutSub, id: \.id) { unit in
+                                if !advancedUnitsUnlocked {
+                                    LockedUnitRow(unit: unit) {
+                                        showPurchaseSheet = true
+                                    }
+                                } else {
+                                    NavigationLink(destination: destinationView(for: unit)) {
+                                        UnitRow(unit: unit)
+                                    }
                                 }
-                            } else {
+                            }
+                        } else {
+                            ForEach(groupedUnits[category] ?? [], id: \.id) { unit in
                                 NavigationLink(destination: destinationView(for: unit)) {
                                     UnitRow(unit: unit)
                                 }
@@ -46,7 +94,7 @@ struct UnitsListView: View {
                         }
                     }
                 }
-                
+
                 if searchTerm.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     AppFooter()
                 }
@@ -78,37 +126,33 @@ struct UnitsListView: View {
             loadUnits()
         }
     }
-    
-    func migrateSavedUnitsIfNeeded() {
-        let previewUnits = Units.preview()
-        
+
+    func loadUnits() {
+        let previewUnits = Units.preview(for: appLanguage)
+
         var savedUnits: [Units] = []
         if let data = savedUnitsData,
            let decoded = try? JSONDecoder().decode([Units].self, from: data) {
-            savedUnits = decoded
-        }
-        
-        savedUnits = savedUnits.filter { saved in
-            previewUnits.contains(where: { $0.id == saved.id })
-        }
-        
-        for unit in previewUnits {
-            if !savedUnits.contains(where: { $0.id == unit.id }) {
-                savedUnits.append(unit)
+            savedUnits = decoded.filter { savedUnit in
+                previewUnits.contains(where: { $0.id == savedUnit.id })
             }
         }
-        
-        if savedUnits.count != previewUnits.count {
-            if let encoded = try? JSONEncoder().encode(savedUnits) {
-                savedUnitsData = encoded
+
+        var merged: [Units] = previewUnits.map { unit in
+            if let match = savedUnits.first(where: { $0.id == unit.id }) {
+                var updated = unit
+                updated.isFavorite = match.isFavorite
+                return updated
+            } else {
+                return unit
             }
         }
-        
-        units = savedUnits
-    }
-    
-    func loadUnits() {
-        migrateSavedUnitsIfNeeded()
+
+        if let encoded = try? JSONEncoder().encode(merged) {
+            savedUnitsData = encoded
+        }
+
+        units = merged
     }
 
     func toggleFavorite(_ unit: Units) {
@@ -119,13 +163,33 @@ struct UnitsListView: View {
             }
         }
     }
-    
+
     func titleForCategory(_ key: String) -> String {
         switch key {
         case "vanlig": return appLanguage == "sv" ? "Vanliga enheter" : "Common Units"
         case "monetär": return appLanguage == "sv" ? "Monetära enheter" : "Monetary Units"
         case "avancerad": return appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units"
         default: return ""
+        }
+    }
+
+    func titleForSubcategory(_ key: String) -> String {
+        switch key {
+        case "magnetism": return appLanguage == "sv" ? "Magnetism" : "Magnetism"
+        case "elektricitet": return appLanguage == "sv" ? "Elektricitet" : "Electricity"
+        case "viskositet": return appLanguage == "sv" ? "Viskositet" : "Viscosity"
+        case "data": return appLanguage == "sv" ? "Data" : "Data"
+        default: return key
+        }
+    }
+
+    func iconForSubcategory(_ key: String) -> String {
+        switch key.lowercased() {
+        case "magnetism": return "🧲"
+        case "elektricitet": return "⚡️"
+        case "viskositet": return "💧"
+        case "data": return "💾"
+        default: return "📦"
         }
     }
 }
@@ -161,60 +225,33 @@ struct UnitsListView_Previews: PreviewProvider {
 @ViewBuilder
 func destinationView(for unit: Units) -> some View {
     switch unit.id {
-    case "speed":
-        Hastighet()
-    case "weight":
-        Vikt()
-    case "length":
-        Längd()
-    case "time":
-        Tid()
-    case "temperature":
-        Temperatur()
-    case "volume":
-        Volym()
-    case "shoe_size":
-        Skostorlek()
-    case "data_size":
-        Datastorlek()
-    case "data_transfer_speed":
-        Dataöverföringshastighet()
-    case "pressure":
-        Tryck()
-    case "power":
-        Effekt()
-    case "torque":
-        Vridmoment()
-    case "currency":
-        Valuta()
-    case "area":
-        Yta()
-    case "crypto_beta":
-        Krypto()
-    case "energy":
-        Energi()
-    case "shares":
-        Andelar()
-    case "viscosity_dynamic":
-        ViskositetD()
-    case "viscosity_kinematic":
-        ViskositetK()
-    case "angles":
-        Vinklar()
-    case "electric_current":
-        ElektriskStröm()
-    case "electric_resistance":
-        ElektriskResistans()
-    case "numeral_system":
-        Talsystem()
-    case "magnetomotive_force":
-        Magnetomotorisk()
-    case "magnetic_field_strength":
-        MagnetiskFältstyrka()
-    case "magnetic_flux":
-        Magnetflöde()
-    default:
-        UnitsDetailView(unit: unit)
+    case "speed": Hastighet()
+    case "weight": Vikt()
+    case "length": Längd()
+    case "time": Tid()
+    case "temperature": Temperatur()
+    case "volume": Volym()
+    case "shoe_size": Skostorlek()
+    case "data_size": Datastorlek()
+    case "data_transfer_speed": Dataöverföringshastighet()
+    case "pressure": Tryck()
+    case "power": Effekt()
+    case "torque": Vridmoment()
+    case "currency": Valuta()
+    case "area": Yta()
+    case "crypto_beta": Krypto()
+    case "energy": Energi()
+    case "shares": Andelar()
+    case "viscosity_dynamic": ViskositetD()
+    case "viscosity_kinematic": ViskositetK()
+    case "angles": Vinklar()
+    case "electric_current": ElektriskStröm()
+    case "electric_resistance": ElektriskResistans()
+    case "numeral_system": Talsystem()
+    case "magnetomotive_force": Magnetomotorisk()
+    case "magnetic_field_strength": MagnetiskFältstyrka()
+    case "magnetic_flux": Magnetflöde()
+    case "image_resolution": ImageResolution()
+    default: UnitsDetailView(unit: unit)
     }
 }
-

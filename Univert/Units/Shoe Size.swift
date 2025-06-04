@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ShoeSizeRow {
     let eu: Double
@@ -17,15 +18,18 @@ struct ShoeSizeRow {
 
 struct Skostorlek: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
     @State private var selectedFromUnit: String? = "EU"
     @State private var selectedToUnit: String? = "EU"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
     
     let unitId = "shoe_size"
     
@@ -65,7 +69,6 @@ struct Skostorlek: View {
         ShoeSizeRow(eu: 50, uk: 15, usM: 16, usW: 17, cm: 34)
     ]
 
-    
     var body: some View {
         VStack {
             HStack {
@@ -187,7 +190,7 @@ struct Skostorlek: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -195,22 +198,44 @@ struct Skostorlek: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
@@ -228,10 +253,7 @@ struct Skostorlek: View {
             outputValue = "Ingen match"
             return
         }
-        
         let output = value(for: toUnit, in: row)
-        
-        // Använd FormatterHelper
         outputValue = FormatterHelper.shared.formatResult(output, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 1)
     }
     
@@ -242,7 +264,7 @@ struct Skostorlek: View {
         case "US M": return row.usM
         case "US W": return row.usW
         case "cm": return row.cm
-        case "in": return row.cm / 2.54  // beräkna inch från cm
+        case "in": return row.cm / 2.54  
         default: return 0
         }
     }

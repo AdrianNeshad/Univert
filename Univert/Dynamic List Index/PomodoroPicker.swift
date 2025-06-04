@@ -20,13 +20,8 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
     
     let content: (Item) -> Content
     
-    /* private let feedbackGenerator = UISelectionFeedbackGenerator() */ // 🟢 Feedback generator
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    /*
-    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
-    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .rigid)
-    */
-    
+
     func itemWidthOverride(_ geometry: GeometryProxy) -> CGFloat {
         return itemWidth ?? geometry.size.height * 0.15
     }
@@ -38,7 +33,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         self.onChange = onChange
         self.content = content
         
-        feedbackGenerator.prepare()  // 🟢 Prepare feedback at init
+        feedbackGenerator.prepare()
     }
     
     var body: some View {
@@ -46,7 +41,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
             Picker(geometry)
         }
         .onAppear {
-            feedbackGenerator.prepare()  // 🟢 Prepare again on appear
+            feedbackGenerator.prepare()
         }
         .onChange(of: selection) { onChange?($0) }
     }
@@ -74,8 +69,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
                             }
                         }
                         .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                        .rotation3DEffect(angle, axis: (x: 1, y: 0, z: 0)) // Vertikal lutning
-                    }
+                        .rotation3DEffect(angle, axis: (x: 1, y: 0, z: 0))                    }
                 }
                 .frame(height: itemWidthOverride(geometry))
                 .onTapGesture { onTapped(option, geometry) }
@@ -101,14 +95,9 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
             self.persistentOffset = CGFloat(index) * itemWidthOverride(geometry) * -1
             self.offset = 0
         }
-        
         selection = option
-        
-        // 🟢 Haptic feedback vid tap
-     /*    feedbackGenerator.selectionChanged()  */
         feedbackGenerator.impactOccurred()
         feedbackGenerator.prepare()
-        
         previousSelection = option
     }
     
@@ -143,10 +132,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         }
         
         selection = options[calculatedIndex]
-        
-        // 🟢 Haptic feedback vid ny selection under scroll
         if selection != previousSelection {
-          /*  feedbackGenerator.selectionChanged()  */
             feedbackGenerator.impactOccurred()
             feedbackGenerator.prepare()
             previousSelection = selection
@@ -179,9 +165,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         
         selection = options[calculatedIndex]
         
-        // 🟢 Haptic feedback på end? (frivilligt, kan tas bort)
         if selection != previousSelection {
-        /*    feedbackGenerator.selectionChanged()    */
             feedbackGenerator.impactOccurred()
             feedbackGenerator.prepare()
             previousSelection = selection

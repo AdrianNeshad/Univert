@@ -6,22 +6,26 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct Vikt: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @State private var selectedFromUnit: String? = "mg"
-    @State private var selectedToUnit: String? = "mg"
+    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @AppStorage("appLanguage") private var appLanguage = "en"
+    @State private var selectedFromUnit: String? = "kg"
+    @State private var selectedToUnit: String? = "kg"
     @State private var inputValue = ""
     @State private var outputValue = ""
-    @AppStorage("appLanguage") private var appLanguage = "en"
-
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
+    @State private var showToast = false
+    @State private var toastMessage = ""
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
-    
+    @State private var toastIcon = "star.fill"
+    @State private var toastColor = Color.yellow
+
     let unitId = "weight"
     
-    let units = ["mg", "g", "hg", "kg", "lbs", "μg", "mcg", "ng", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
+    let units = ["kg", "lbs", "mg", "g", "hg", "μg", "mcg", "ng", "m ton","N", "kN", "carat", "t oz", "t lb", "stone", "oz"]
     
     let fullNames: [String: String] = [
         "mg": "Milligram",
@@ -71,7 +75,7 @@ struct Vikt: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-            } //HStack
+            } //HStacK
             
             HStack {
                 Text("►")
@@ -177,7 +181,7 @@ struct Vikt: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview()
+                        currentUnits = Units.preview(for: appLanguage)
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -185,22 +189,44 @@ struct Vikt: View {
             }
                 }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    toggleFavorite()
-                }) {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            toggleFavorite()
+                        }) {
+                            Image(systemName: isFavorite ? "star.fill" : "star")
+                        }
+                    }
                 }
-            }
-        }
+                .toast(isPresenting: $showToast) {
+                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+                }
     }
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
             isFavorite = currentUnits[index].isFavorite
-            
+
             if let data = try? JSONEncoder().encode(currentUnits) {
                 savedUnitsData = data
+            }
+
+            if isFavorite {
+                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastIcon = "star.fill"
+                toastColor = .yellow
+            } else {
+                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastIcon = "star"
+                toastColor = .gray
+            }
+
+            withAnimation {
+                showToast = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showToast = false
+                }
             }
         }
     }
@@ -208,7 +234,7 @@ struct Vikt: View {
     func convertMass(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
             "mg": 0.001,
-            "g": 1, // utgångspunkt för uträkning
+            "g": 1,
             "hg": 100,
             "kg": 1000,
             "m ton": 1000000,
@@ -220,20 +246,15 @@ struct Vikt: View {
             "lbs": 453.59237,
             "N": 9.81,
             "kN": 9810,
-            "μg": 0.000001,         // 1 μg = 0.000001 g
-            "mcg": 0.000001,        // 1 mcg = 0.000001 g
+            "μg": 0.000001,
+            "mcg": 0.000001,
             "ng": 0.000000001,
         ]
         
-        // Kontrollera att enheterna finns i conversionFactors
         guard let fromFactor = conversionFactors[fromUnit], let toFactor = conversionFactors[toUnit] else {
-            return nil // Om någon enhet inte finns i listan, returnera nil
+            return nil
         }
-
-        // Omvandla till gram (basenhet)
         let valueInGrams = value * fromFactor / conversionFactors["g"]!
-        
-        // Omvandla från gram till mål-enhet
         let convertedValue = valueInGrams * conversionFactors["g"]! / toFactor
         return convertedValue
     }
