@@ -45,8 +45,14 @@ struct Units: Codable, Identifiable {
             Units(id: "magnetomotive_force", name: t.get("unit_magnetomotive_force"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
             Units(id: "magnetic_field_strength", name: t.get("unit_magnetic_field_strength"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
             Units(id: "magnetic_flux", name: t.get("unit_magnetic_flux"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
-            Units(id: "image_resolution", name: t.get("unit_image_resolution"), icon: "🌇", isFavorite: false, category: "avancerad")
+            Units(id: "image_resolution", name: t.get("unit_image_resolution"), icon: "🌇", isFavorite: false, category: "avancerad"),
+            Units(id: "inductance", name: t.get("unit_inductance"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "charge", name: t.get("unit_charge"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "linear_charge", name: t.get("unit_linear_charge"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "surface_charge", name: t.get("unit_surface_charge"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "volume_charge", name: t.get("unit_volume_charge"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "magnetic_flux_density", name: t.get("unit_magnetic_flux_density"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
+            Units(id: "radiation", name: t.get("unit_radiation"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
         ]
     }
-
 }

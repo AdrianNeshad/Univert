@@ -179,6 +179,7 @@ struct UnitsListView: View {
         case "elektricitet": return StringManager.shared.get("electricity")
         case "viskositet": return StringManager.shared.get("viscosity")
         case "data": return "Data"
+        case "strålning": return StringManager.shared.get("radiation")
         default: return key
         }
     }
@@ -189,6 +190,7 @@ struct UnitsListView: View {
         case "elektricitet": return "⚡️"
         case "viskositet": return "💧"
         case "data": return "💾"
+        case "strålning": return "☢️"
         default: return "📦"
         }
     }
@@ -252,6 +254,13 @@ func destinationView(for unit: Units) -> some View {
     case "magnetic_field_strength": MagnetiskFältstyrka()
     case "magnetic_flux": Magnetflöde()
     case "image_resolution": ImageResolution()
+    case "inductance": Inductance()
+    case "charge": Charge()
+    case "linear_charge": Linear_charge()
+    case "surface_charge": Surface_charge()
+    case "volume_charge": Volume_charge()
+    case "magnetic_flux_density": Magnetic_Flux_Density()
+    case "radiation": Radiation()
     default: UnitsDetailView(unit: unit)
     }
 }

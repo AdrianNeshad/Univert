@@ -58,6 +58,7 @@ class StringManager {
         "source": "Källa: Europeiska Centralbanken (Frankfurter)",
         "source2": "Källa: CoinGecko",
         "invalidinput": "Ogiltigt värde",
+        "radiation": "Strålning",
         
         "unit_speed": "Hastighet",
         "unit_weight": "Vikt",
@@ -85,7 +86,15 @@ class StringManager {
         "unit_magnetomotive_force": "Magnetomotorisk kraft",
         "unit_magnetic_field_strength": "Magnetisk fältstyrka",
         "unit_magnetic_flux": "Magnetflöde",
-        "unit_image_resolution": "Bildupplösning"
+        "unit_image_resolution": "Bildupplösning",
+        "unit_inductance": "Induktans",
+        "unit_charge": "Laddning",
+        "unit_linear_charge": "Laddningstäthet (linjär)",
+        "unit_volume_charge": "Laddningstäthet (volym)",
+        "unit_surface_charge": "Laddningstäthet (yta)",
+        "unit_magnetic_flux_density": "Magnetisk flödestäthet",
+        "unit_radiation": "Strålning"
+
     ]
     
     private let en: [String: String] = [
@@ -135,6 +144,7 @@ class StringManager {
         "source": "Source: European Central Bank (Frankfurter)",
         "source2": "Source: CoinGecko",
         "invalidinput": "Invalid value",
+        "radiation": "Radiation",
 
         "unit_speed": "Speed",
         "unit_weight": "Weight",
@@ -162,7 +172,15 @@ class StringManager {
         "unit_magnetomotive_force": "Magnetomotive Force",
         "unit_magnetic_field_strength": "Magnetic Field Strength",
         "unit_magnetic_flux": "Magnetic Flux",
-        "unit_image_resolution": "Image Resolution"
+        "unit_image_resolution": "Image Resolution",
+        "unit_inductance": "Inductance",
+        "unit_charge": "Charge",
+        "unit_linear_charge": "Linear Charge Density",
+        "unit_volume_charge": "Volume Charge Density",
+        "unit_surface_charge": "Surface Charge Density",
+        "unit_magnetic_flux_density": "Magnetic Flux Density",
+        "unit_radiation": "Radiation"
+
     ]
 
     
@@ -213,6 +231,7 @@ class StringManager {
         "source": "Quelle: Europäische Zentralbank (Frankfurter)",
         "source2": "Quelle: CoinGecko",
         "invalidinput": "Ungültiger Wert",
+        "radiation": "Strahlung",
 
         "unit_speed": "Geschwindigkeit",
         "unit_weight": "Gewicht",
@@ -240,7 +259,15 @@ class StringManager {
         "unit_magnetomotive_force": "Magnetomotorische Kraft",
         "unit_magnetic_field_strength": "Magnetfeldstärke",
         "unit_magnetic_flux": "Magnetischer Fluss",
-        "unit_image_resolution": "Bildauflösung"
+        "unit_image_resolution": "Bildauflösung",
+        "unit_inductance": "Induktivität",
+        "unit_charge": "Ladung",
+        "unit_linear_charge": "Lineare Ladungsdichte",
+        "unit_volume_charge": "Volumenladungsdichte",
+        "unit_surface_charge": "Oberflächenladungsdichte",
+        "unit_magnetic_flux_density": "Magnetische Flussdichte",
+        "unit_radiation": "Strahlung"
+
     ]
     
     private let es: [String: String] = [
@@ -290,6 +317,7 @@ class StringManager {
         "source": "Fuente: Banco Central Europeo (Frankfurter)",
         "source2": "Fuente: CoinGecko",
         "invalidinput": "Valor inválido",
+        "radiation": "Radiación",
 
         "unit_speed": "Velocidad",
         "unit_weight": "Peso",
@@ -317,7 +345,15 @@ class StringManager {
         "unit_magnetomotive_force": "Fuerza magnetomotriz",
         "unit_magnetic_field_strength": "Intensidad de campo magnético",
         "unit_magnetic_flux": "Flujo magnético",
-        "unit_image_resolution": "Resolución de imagen"
+        "unit_image_resolution": "Resolución de imagen",
+        "unit_inductance": "Inductancia",
+        "unit_charge": "Carga",
+        "unit_linear_charge": "Densidad lineal de carga",
+        "unit_volume_charge": "Densidad de carga volumétrica",
+        "unit_surface_charge": "Densidad de carga superficial",
+        "unit_magnetic_flux_density": "Densidad de flujo magnético",
+        "unit_radiation": "Radiación"
+
     ]
     
     private let fr: [String: String] = [
@@ -367,6 +403,7 @@ class StringManager {
         "source": "Source : Banque centrale européenne (Frankfurter)",
         "source2": "Source : CoinGecko",
         "invalidinput": "Valeur invalide",
+        "radiation": "Rayonnement",
 
         "unit_speed": "Vitesse",
         "unit_weight": "Poids",
@@ -394,7 +431,15 @@ class StringManager {
         "unit_magnetomotive_force": "Force magnétomotrice",
         "unit_magnetic_field_strength": "Intensité du champ magnétique",
         "unit_magnetic_flux": "Flux magnétique",
-        "unit_image_resolution": "Résolution d’image"
+        "unit_image_resolution": "Résolution d’image",
+        "unit_inductance": "Inductance",
+        "unit_charge": "Charge",
+        "unit_linear_charge": "Densité linéique de charge",
+        "unit_volume_charge": "Densité volumique de charge",
+        "unit_surface_charge": "Densité surfacique de charge",
+        "unit_magnetic_flux_density": "Densité de flux magnétique",
+        "unit_radiation": "Rayonnement"
+
     ]
     
     private var tables: [String: [String: String]] {
