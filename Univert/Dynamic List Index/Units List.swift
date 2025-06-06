@@ -15,35 +15,38 @@ struct Units: Codable, Identifiable {
     var category: String
     var subcategory: String?
     
-    static func preview(for lang: String) -> [Units] {
+    static func preview() -> [Units] {
+        let t = StringManager.shared
+
         return [
-            Units(id: "speed", name: lang == "sv" ? "Hastighet" : "Speed", icon: "🏎", isFavorite: false, category: "vanlig"),
-            Units(id: "weight", name: lang == "sv" ? "Vikt" : "Weight", icon: "⚖️", isFavorite: false, category: "vanlig"),
-            Units(id: "length", name: lang == "sv" ? "Längd" : "Length", icon: "📏", isFavorite: false, category: "vanlig"),
-            Units(id: "time", name: lang == "sv" ? "Tid" : "Time", icon: "⏰", isFavorite: false, category: "vanlig"),
-            Units(id: "temperature", name: lang == "sv" ? "Temperatur" : "Temperature", icon: "🌡", isFavorite: false, category: "vanlig"),
-            Units(id: "volume", name: lang == "sv" ? "Volym" : "Volume", icon: "🍷", isFavorite: false, category: "vanlig"),
-            Units(id: "shoe_size", name: lang == "sv" ? "Skostorlek" : "Shoe Size", icon: "👟", isFavorite: false, category: "vanlig"),
-            Units(id: "data_size", name: lang == "sv" ? "Datastorlek" : "Data Size", icon: "💾", isFavorite: false, category: "avancerad", subcategory: "data"),
-            Units(id: "data_transfer_speed", name: lang == "sv" ? "Dataöverföringshastighet" : "Data Transfer Speed", icon: "🔁", isFavorite: false, category: "avancerad", subcategory: "data"),
-            Units(id: "pressure", name: lang == "sv" ? "Tryck" : "Pressure", icon: "🧭", isFavorite: false, category: "avancerad"),
-            Units(id: "power", name: lang == "sv" ? "Effekt" : "Power", icon: "⚡️", isFavorite: false, category: "avancerad"),
-            Units(id: "torque", name: lang == "sv" ? "Vridmoment" : "Torque", icon: "🔩", isFavorite: false, category: "avancerad"),
-            Units(id: "currency", name: lang == "sv" ? "Valuta" : "Currency", icon: "💲", isFavorite: false, category: "monetär"),
-            Units(id: "area", name: lang == "sv" ? "Yta" : "Area", icon: "🗺️", isFavorite: false, category: "vanlig"),
-            Units(id: "crypto_beta", name: lang == "sv" ? "Krypto (beta)" : "Crypto (beta)", icon: "💲", isFavorite: false, category: "monetär"),
-            Units(id: "energy", name: lang == "sv" ? "Energi" : "Energy", icon: "🔋", isFavorite: false, category: "avancerad"),
-            Units(id: "shares", name: lang == "sv" ? "Andelar" : "Shares", icon: "➗", isFavorite: false, category: "avancerad"),
-            Units(id: "viscosity_dynamic", name: lang == "sv" ? "Viskositet (dynamisk)" : "Viscosity (dynamic)", icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
-            Units(id: "viscosity_kinematic", name: lang == "sv" ? "Viskositet (kinematisk)" : "Viscosity (kinematic)", icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
-            Units(id: "angles", name: lang == "sv" ? "Vinklar" : "Angles", icon: "📐", isFavorite: false, category: "avancerad"),
-            Units(id: "electric_current", name: lang == "sv" ? "Elektrisk ström" : "Electric Current", icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
-            Units(id: "electric_resistance", name: lang == "sv" ? "Elektrisk resistans" : "Electric Resistance", icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
-            Units(id: "numeral_system", name: lang == "sv" ? "Talsystem" : "Numeral System", icon: "🔢", isFavorite: false, category: "avancerad"),
-            Units(id: "magnetomotive_force", name: lang == "sv" ? "Magnetomotorisk kraft" : "Magnetomotive Force", icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
-            Units(id: "magnetic_field_strength", name: lang == "sv" ? "Magnetisk fältstyrka" : "Magnetic Field Strength", icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
-            Units(id: "magnetic_flux", name: lang == "sv" ? "Magnetflöde" : "Magnetic Flux", icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
-            Units(id: "image_resolution", name: lang == "sv" ? "Digital bildupplösning" : "Digital Image Resolution", icon: "🌇", isFavorite: false, category: "avancerad")
+            Units(id: "speed", name: t.get("unit_speed"), icon: "🏎", isFavorite: false, category: "vanlig"),
+            Units(id: "weight", name: t.get("unit_weight"), icon: "⚖️", isFavorite: false, category: "vanlig"),
+            Units(id: "length", name: t.get("unit_length"), icon: "📏", isFavorite: false, category: "vanlig"),
+            Units(id: "time", name: t.get("unit_time"), icon: "⏰", isFavorite: false, category: "vanlig"),
+            Units(id: "temperature", name: t.get("unit_temperature"), icon: "🌡", isFavorite: false, category: "vanlig"),
+            Units(id: "volume", name: t.get("unit_volume"), icon: "🍷", isFavorite: false, category: "vanlig"),
+            Units(id: "shoe_size", name: t.get("unit_shoe_size"), icon: "👟", isFavorite: false, category: "vanlig"),
+            Units(id: "data_size", name: t.get("unit_data_size"), icon: "💾", isFavorite: false, category: "avancerad", subcategory: "data"),
+            Units(id: "data_transfer_speed", name: t.get("unit_data_transfer_speed"), icon: "🔁", isFavorite: false, category: "avancerad", subcategory: "data"),
+            Units(id: "pressure", name: t.get("unit_pressure"), icon: "🧭", isFavorite: false, category: "avancerad"),
+            Units(id: "power", name: t.get("unit_power"), icon: "⚡️", isFavorite: false, category: "avancerad"),
+            Units(id: "torque", name: t.get("unit_torque"), icon: "🔩", isFavorite: false, category: "avancerad"),
+            Units(id: "currency", name: t.get("unit_currency"), icon: "💲", isFavorite: false, category: "monetär"),
+            Units(id: "area", name: t.get("unit_area"), icon: "🗺️", isFavorite: false, category: "vanlig"),
+            Units(id: "crypto_beta", name: t.get("unit_crypto_beta"), icon: "💲", isFavorite: false, category: "monetär"),
+            Units(id: "energy", name: t.get("unit_energy"), icon: "🔋", isFavorite: false, category: "avancerad"),
+            Units(id: "shares", name: t.get("unit_shares"), icon: "➗", isFavorite: false, category: "avancerad"),
+            Units(id: "viscosity_dynamic", name: t.get("unit_viscosity_dynamic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
+            Units(id: "viscosity_kinematic", name: t.get("unit_viscosity_kinematic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
+            Units(id: "angles", name: t.get("unit_angles"), icon: "📐", isFavorite: false, category: "avancerad"),
+            Units(id: "electric_current", name: t.get("unit_electric_current"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "electric_resistance", name: t.get("unit_electric_resistance"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "numeral_system", name: t.get("unit_numeral_system"), icon: "🔢", isFavorite: false, category: "avancerad"),
+            Units(id: "magnetomotive_force", name: t.get("unit_magnetomotive_force"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
+            Units(id: "magnetic_field_strength", name: t.get("unit_magnetic_field_strength"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
+            Units(id: "magnetic_flux", name: t.get("unit_magnetic_flux"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
+            Units(id: "image_resolution", name: t.get("unit_image_resolution"), icon: "🌇", isFavorite: false, category: "avancerad")
         ]
     }
+
 }

@@ -34,8 +34,8 @@ struct Inställningar: View {
 
     var body: some View {
         Form {
-            Section(header: Text(appLanguage == "sv" ? "Utseende" : "Appearance")) {
-                Toggle(appLanguage == "sv" ? "Mörkt läge" : "Dark Mode", isOn: $isDarkMode)
+            Section(header: Text(StringManager.shared.get("appearance"))) {
+                Toggle(StringManager.shared.get("darkmode"), isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
                 Picker("Språk / Language", selection: $appLanguage) {
@@ -53,31 +53,31 @@ struct Inställningar: View {
                         useSwedishDecimal = true
                     }
                 }
-                Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma Decimal Separator",
+                Toggle(StringManager.shared.get("comma"),
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
             }
-            Section(header: Text(appLanguage == "sv" ? "Favoriter" : "Favorites")) {
+            Section(header: Text(StringManager.shared.get("favorites"))) {
                 Button(action: {
                     showClearAlert = true
                 }) {
-                    Text(appLanguage == "sv" ? "Rensa favoriter" : "Clear Favorites")
+                    Text(StringManager.shared.get("clearfavorites"))
                         .foregroundColor(.red)
                 }
                 .confirmationDialog(
-                    appLanguage == "sv" ? "Vill du rensa dina sparade favoriter?" : "Do you want to clear your saved favorites?",
+                    StringManager.shared.get("clearfavorites?"),
                     isPresented: $showClearAlert,
                     titleVisibility: .visible
                 ) {
-                    Button(appLanguage == "sv" ? "Rensa" : "Clear", role: .destructive) {
+                    Button(StringManager.shared.get("clear"), role: .destructive) {
                         let defaults = UserDefaults.standard
                         defaults.removeObject(forKey: "savedUnits")
                         defaults.synchronize()
                         
-                        units = Units.preview(for: appLanguage)
+                        units = Units.preview()
                         
-                        toastMessage = appLanguage == "sv" ? "Favoriter rensade" : "Favorites Cleared"
+                        toastMessage = StringManager.shared.get("favoritescleared")
                             withAnimation {
                                 showToast = true
                             }
@@ -87,18 +87,18 @@ struct Inställningar: View {
                                 }
                             }
                     }
-                    Button(appLanguage == "sv" ? "Avbryt" : "Cancel", role: .cancel) { }
+                    Button(StringManager.shared.get("cancel"), role: .cancel) { }
                 }
             }
             // Köp-sektion
-            Section(header: Text(appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units")) {
+            Section(header: Text(StringManager.shared.get("advancedunits"))) {
                 if !advancedUnitsUnlocked {
                     Button(action: {
                         showPurchaseSheet = true
                     }) {
                         HStack {
                             Image(systemName: "lock.open")
-                            Text(appLanguage == "sv" ? "Lås upp avancerade enheter" : "Unlock Advanced Units")
+                            Text(StringManager.shared.get("unlockadvancedunits"))
                             Spacer()
                             if let product = storeManager.products.first {
                                 Text(product.localizedPrice)
@@ -113,12 +113,12 @@ struct Inställningar: View {
                     HStack {
                         Image(systemName: "checkmark.seal.fill")
                             .foregroundColor(.green)
-                        Text(appLanguage == "sv" ? "Avancerade enheter upplåsta" : "Advanced Units Unlocked")
+                        Text(StringManager.shared.get("advancedunitsunlocked"))
                             .foregroundColor(.green)
                     }
                 }
                 
-                Button(appLanguage == "sv" ? "Återställ köp" : "Restore Purchases") {
+                Button(StringManager.shared.get("restorepurchase")) {
                     storeManager.restorePurchases()
                     showRestoreAlert = true
                 }
@@ -126,17 +126,17 @@ struct Inställningar: View {
                     switch restoreStatus {
                     case .success:
                         return Alert(
-                            title: Text(appLanguage == "sv" ? "Köp återställda" : "Purchases Restored"),
-                            message: Text(appLanguage == "sv" ? "Dina köp har återställts." : "Your purchases have been restored."),
+                            title: Text(StringManager.shared.get("purchaserestored")),
+                            message: Text(StringManager.shared.get("purchaserestored")),
                             dismissButton: .default(Text("OK")))
                     case .failure:
                         return Alert(
-                            title: Text(appLanguage == "sv" ? "Återställning misslyckades" : "Restore Failed"),
-                            message: Text(appLanguage == "sv" ? "Inga köp kunde återställas." : "No purchases could be restored."),
+                            title: Text(StringManager.shared.get("restorefailed")),
+                            message: Text(StringManager.shared.get("purchasecouldntrestore")),
                             dismissButton: .default(Text("OK")))
                     default:
                         return Alert(
-                            title: Text(appLanguage == "sv" ? "Bearbetar..." : "Processing..."),
+                            title: Text(StringManager.shared.get("processing...")),
                             message: nil,
                             dismissButton: .cancel())
                     }
@@ -150,22 +150,20 @@ struct Inställningar: View {
                     }
                 }
             }
-            Section(header: Text(appLanguage == "sv" ? "Om" : "About")) {
-                Button(appLanguage == "sv" ? "Betygsätt appen" : "Rate the App") {
+            Section(header: Text(StringManager.shared.get("about"))) {
+                Button(StringManager.shared.get("ratetheapp")) {
                     requestReview()
                 }
-                Button(appLanguage == "sv" ? "Dela appen" : "Share the App") {
+                Button(StringManager.shared.get("sharetheapp")) {
                                    showShareSheet = true
                                }
                                .sheet(isPresented: $showShareSheet) {
-                                   let message = appLanguage == "sv"
-                                       ? "Kolla in Univert! 📲"
-                                       : "Check out the Univert app! 📲"
+                                   let message = StringManager.shared.get("checkoutunivert")
                                    let appLink = URL(string: "https://apps.apple.com/us/app/univert/id6745692591")!
                                    ShareSheet(activityItems: [message, appLink])
                                        .presentationDetents([.medium])
                                }
-                Button(appLanguage == "sv" ? "Ge feedback" : "Give Feedback") {
+                Button(StringManager.shared.get("givefeedback")) {
                     if MFMailComposeViewController.canSendMail() {
                         showMailFeedback = true
                     } else {
@@ -175,12 +173,12 @@ struct Inställningar: View {
                 .sheet(isPresented: $showMailFeedback) {
                     MailFeedback(isShowing: $showMailFeedback,
                                  recipientEmail: "Adrian.neshad1@gmail.com",
-                                 subject: appLanguage == "sv" ? "Univert feedback" : "Univert Feedback",
+                                 subject: StringManager.shared.get("univertfeedback"),
                                  messageBody: "")
                 }
             }   
             /*
-            Section(header: Text(appLanguage == "sv" ? "Andra appar" : "Other Apps")) {
+            Section(header: Text(StringManager.shared.get("otherapps")) {
                 Link(destination: URL(string: "https://apps.apple.com/us/app/unifeed/id6746576849")!) {
                     HStack {
                         Image("Unifeed")

@@ -40,7 +40,7 @@ struct Talsystem: View {
     var body: some View {
         VStack {
             HStack {
-                Text(appLanguage == "sv" ? "Från" : "From")
+                Text(StringManager.shared.get("from"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -57,7 +57,7 @@ struct Talsystem: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text(appLanguage == "sv" ? "Till" : "To")
+                Text(StringManager.shared.get("to"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -112,7 +112,7 @@ struct Talsystem: View {
                         }
             
             HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                TextField(StringManager.shared.get("value"), text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
@@ -164,14 +164,14 @@ struct Talsystem: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Talsystem" : "Numeral System")
+        .navigationTitle(StringManager.shared.get("unit_numeral_system"))
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview(for: appLanguage)
+                        currentUnits = Units.preview()
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -201,11 +201,11 @@ struct Talsystem: View {
             }
 
             if isFavorite {
-                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastMessage = StringManager.shared.get("addedtofavorites")
                 toastIcon = "star.fill"
                 toastColor = .yellow
             } else {
-                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastMessage = StringManager.shared.get("removed")
                 toastIcon = "star"
                 toastColor = .gray
             }
@@ -234,7 +234,7 @@ struct Talsystem: View {
         guard let fromBase = bases[fromUnit],
               let toBase = bases[toUnit],
               let number = Int(value, radix: fromBase) else {
-            return appLanguage == "sv" ? "Ogiltigt tal" : "Invalid input"
+            return StringManager.shared.get("invalidinput")
         }
         
         return String(number, radix: toBase).uppercased()

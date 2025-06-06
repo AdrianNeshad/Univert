@@ -18,23 +18,19 @@ struct PurchaseView: View {
     @available(iOS 16.0, *)
     var body: some View {
         VStack(spacing: 20) {
-            Text(appLanguage == "sv" ? "Lås upp avancerade enheter" : "Unlock advanced units")
+            Text(StringManager.shared.get("unlockadvancedunits"))
                 .multilineTextAlignment(.center)
                 .font(.title)
                 .bold()
                 .padding(.top, 20)
             
-            Text(appLanguage == "sv" ?
-                 "Få tillgång till alla avancerade enhetsomvandlare med ett engångsköp." :
-                 "Get access to all advanced unit converters with a one-time purchase.")
+            Text(StringManager.shared.get("getaccess"))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
             if let product = storeManager.products.first {
                 Button(action: { storeManager.purchaseProduct(product: product) }) {
-                    Text(appLanguage == "sv" ?
-                         "Köp för \(product.localizedPrice)" :
-                         "Purchase for \(product.localizedPrice)")
+                    Text("\(product.localizedPrice)")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue)
@@ -43,11 +39,11 @@ struct PurchaseView: View {
                 }
                 .padding(.horizontal)
             } else {
-                ProgressView(appLanguage == "sv" ? "Laddar..." : "Loading...")
+                ProgressView(StringManager.shared.get("loading..."))
             }
             
             if storeManager.transactionState == .purchased || isUnlocked {
-                Text(appLanguage == "sv" ? "Tack för ditt köp! 🎉" : "Thank you for your purchase! 🎉")
+                Text(StringManager.shared.get("thanksforpurchase"))
                     .foregroundColor(.green)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -57,13 +53,11 @@ struct PurchaseView: View {
             }
             
             if storeManager.transactionState == .failed {
-                Text(appLanguage == "sv" ?
-                    "Köpet misslyckades. Försök igen." :
-                    "Purchase failed. Please try again.")
+                Text(StringManager.shared.get("purchasefailed"))
                     .foregroundColor(.red)
             }
             
-            Button(appLanguage == "sv" ? "Avbryt" : "Cancel") {
+            Button(StringManager.shared.get("cancel")) {
                 presentationMode.wrappedValue.dismiss()
             }
         }

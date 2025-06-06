@@ -19,7 +19,7 @@ struct Favoriter: View {
                     Image(systemName: "star")
                         .font(.largeTitle)
                         .foregroundColor(.gray)
-                    Text(appLanguage == "sv" ? "Du har inte lagt till någon enhet till favoriter ännu" : "You have not added any unit to your favorites")
+                    Text(StringManager.shared.get("notaddedfavorites"))
                         .font(.body)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
@@ -37,14 +37,14 @@ struct Favoriter: View {
                 }
             }
         }
-        .navigationTitle(appLanguage == "sv" ? "Favoriter" : "Favorites")
+        .navigationTitle(StringManager.shared.get("favorites"))
         .onAppear {
             loadFavorites()
         }
     }
     
     private func loadFavorites() {
-        let previewUnits = Units.preview(for: appLanguage)
+        let previewUnits = Units.preview()
         
         guard let data = savedUnitsData,
               let savedUnits = try? JSONDecoder().decode([Units].self, from: data) else {

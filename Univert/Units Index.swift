@@ -99,8 +99,8 @@ struct UnitsListView: View {
                     AppFooter()
                 }
             }
-            .navigationTitle(appLanguage == "sv" ? "Enheter" : "Units")
-            .searchable(text: $searchTerm, prompt: appLanguage == "sv" ? "Sök enheter" : "Search Units")
+            .navigationTitle(StringManager.shared.get("units"))
+            .searchable(text: $searchTerm, prompt: StringManager.shared.get("searchunits"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: Favoriter()) {
@@ -128,7 +128,7 @@ struct UnitsListView: View {
     }
 
     func loadUnits() {
-        let previewUnits = Units.preview(for: appLanguage)
+        let previewUnits = Units.preview()
 
         var savedUnits: [Units] = []
         if let data = savedUnitsData,
@@ -166,19 +166,19 @@ struct UnitsListView: View {
 
     func titleForCategory(_ key: String) -> String {
         switch key {
-        case "vanlig": return appLanguage == "sv" ? "Vanliga enheter" : "Common Units"
-        case "monetär": return appLanguage == "sv" ? "Monetära enheter" : "Monetary Units"
-        case "avancerad": return appLanguage == "sv" ? "Avancerade enheter" : "Advanced Units"
+        case "vanlig": return StringManager.shared.get("commonunits")
+        case "monetär": return StringManager.shared.get("monetaryunits")
+        case "avancerad": return StringManager.shared.get("advancedunits")
         default: return ""
         }
     }
 
     func titleForSubcategory(_ key: String) -> String {
         switch key {
-        case "magnetism": return appLanguage == "sv" ? "Magnetism" : "Magnetism"
-        case "elektricitet": return appLanguage == "sv" ? "Elektricitet" : "Electricity"
-        case "viskositet": return appLanguage == "sv" ? "Viskositet" : "Viscosity"
-        case "data": return appLanguage == "sv" ? "Data" : "Data"
+        case "magnetism": return StringManager.shared.get("magnetism")
+        case "elektricitet": return StringManager.shared.get("electricity")
+        case "viskositet": return StringManager.shared.get("viscosity")
+        case "data": return "Data"
         default: return key
         }
     }

@@ -43,7 +43,7 @@ struct Yta: View {
     var body: some View {
         VStack {
             HStack {
-                Text(appLanguage == "sv" ? "Från" : "From")
+                Text(StringManager.shared.get("from"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -60,7 +60,7 @@ struct Yta: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text(appLanguage == "sv" ? "Till" : "To")
+                Text(StringManager.shared.get("to"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -115,7 +115,7 @@ struct Yta: View {
                         }
             
             HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                TextField(StringManager.shared.get("value"), text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
@@ -175,7 +175,7 @@ struct Yta: View {
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview(for: appLanguage)
+                        currentUnits = Units.preview()
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -205,11 +205,11 @@ struct Yta: View {
             }
 
             if isFavorite {
-                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastMessage = StringManager.shared.get("addedtofavorites")
                 toastIcon = "star.fill"
                 toastColor = .yellow
             } else {
-                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastMessage = StringManager.shared.get("removed")
                 toastIcon = "star"
                 toastColor = .gray
             }
@@ -251,7 +251,7 @@ struct Yta: View {
         if let result = convertArea(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
             outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
         } else {
-            outputValue = "Ogiltig enhet"
+            outputValue = "Error"
         }
     }
 }

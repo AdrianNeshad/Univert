@@ -46,7 +46,7 @@ struct Vinklar: View {
     var body: some View {
         VStack {
             HStack {
-                Text(appLanguage == "sv" ? "Från" : "From")
+                Text(StringManager.shared.get("from"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -63,7 +63,7 @@ struct Vinklar: View {
                     .padding(.leading, 10)
                     .padding(.trailing, 10)
 
-                Text(appLanguage == "sv" ? "Till" : "To")
+                Text(StringManager.shared.get("to"))
                     .font(.title)
                     .bold()
                     .textFieldStyle(PlainTextFieldStyle())
@@ -118,7 +118,7 @@ struct Vinklar: View {
                         }
             
             HStack(spacing: 10) {
-                TextField(appLanguage == "sv" ? "Värde" : "Value", text: $inputValue)
+                TextField(StringManager.shared.get("value"), text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
@@ -169,14 +169,14 @@ struct Vinklar: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(appLanguage == "sv" ? "Vinklar" : "Angles")
+        .navigationTitle(StringManager.shared.get("unit_angles"))
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
                        let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
                         currentUnits = savedUnits
                     } else {
-                        currentUnits = Units.preview(for: appLanguage)
+                        currentUnits = Units.preview()
                     }
                     
             if let match = currentUnits.first(where: { $0.id == unitId }) {
@@ -206,11 +206,11 @@ struct Vinklar: View {
             }
 
             if isFavorite {
-                toastMessage = appLanguage == "sv" ? "Tillagd i favoriter" : "Added to Favorites"
+                toastMessage = StringManager.shared.get("addedtofavorites")
                 toastIcon = "star.fill"
                 toastColor = .yellow
             } else {
-                toastMessage = appLanguage == "sv" ? "Borttagen" : "Removed"
+                toastMessage = StringManager.shared.get("removed")
                 toastIcon = "star"
                 toastColor = .gray
             }
@@ -257,7 +257,7 @@ struct Vinklar: View {
           if let result = convertAngle(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
               outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 4)
           } else {
-              outputValue = "Ogiltig enhet"
+              outputValue = "Error"
           }
       }
 }
