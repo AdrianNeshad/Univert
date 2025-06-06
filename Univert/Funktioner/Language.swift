@@ -85,7 +85,7 @@ class StringManager {
         "unit_magnetomotive_force": "Magnetomotorisk kraft",
         "unit_magnetic_field_strength": "Magnetisk fältstyrka",
         "unit_magnetic_flux": "Magnetflöde",
-        "unit_image_resolution": "Digital bildupplösning"
+        "unit_image_resolution": "Bildupplösning"
     ]
     
     private let en: [String: String] = [
@@ -162,7 +162,7 @@ class StringManager {
         "unit_magnetomotive_force": "Magnetomotive Force",
         "unit_magnetic_field_strength": "Magnetic Field Strength",
         "unit_magnetic_flux": "Magnetic Flux",
-        "unit_image_resolution": "Digital Image Resolution"
+        "unit_image_resolution": "Image Resolution"
     ]
 
     
