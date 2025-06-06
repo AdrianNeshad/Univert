@@ -261,6 +261,9 @@ func destinationView(for unit: Units) -> some View {
     case "volume_charge": Volume_charge()
     case "magnetic_flux_density": Magnetic_Flux_Density()
     case "radiation": Radiation()
+    case "radiation_activity": Radiation_Activity()
+    case "radiation_exposure": Radiation_Exposure()
+    case "radiation_absorbed": Radiation_Absorbed()
     default: UnitsDetailView(unit: unit)
     }
 }

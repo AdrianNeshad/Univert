@@ -1,5 +1,5 @@
 //
-//  Radiation.swift
+//  Radiation Absorbed.swift
 //  Univert
 //
 //  Created by Adrian Neshad on 2025-06-06.
@@ -8,12 +8,12 @@
 import SwiftUI
 import AlertToast
 
-struct Radiation: View {
+struct Radiation_Absorbed: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
-    @State private var selectedFromUnit: String? = "Gy/s"
-    @State private var selectedToUnit: String? = "Gy/s"
+    @State private var selectedFromUnit: String? = "Gy"
+    @State private var selectedToUnit: String? = "Gy"
     @State private var inputValue = ""
     @State private var outputValue = ""
     @State private var showToast = false
@@ -23,26 +23,20 @@ struct Radiation: View {
     @State private var toastIcon = "star.fill"
     @State private var toastColor = Color.yellow
     
-    let unitId = "radiation"
+    let unitId = "radiation_absorbed"
     
-    let units = ["Gy/s", "Gy/min", "Gy/h", "mGy/s", "mGy/min", "mGy/h", "µGy/s", "µGy/min", "µGy/h", "rad/s", "rad/min", "rad/h"]
+    let units = ["Gy", "mGy", "µGy", "nGy", "rad", "mrad", "µrad"]
 
     let fullNames: [String: String] = [
-        "Gy/s": "gray per second",
-        "Gy/min": "gray per minute",
-        "Gy/h": "gray per hour",
-        "mGy/s": "milligray per second",
-        "mGy/min": "milligray per minute",
-        "mGy/h": "milligray per hour",
-        "µGy/s": "microgray per second",
-        "µGy/min": "microgray per minute",
-        "µGy/h": "microgray per hour",
-        "rad/s": "rad per second",
-        "rad/min": "rad per minute",
-        "rad/h": "rad per hour"
+        "Gy": "gray",
+        "mGy": "milligray",
+        "µGy": "microgray",
+        "nGy": "nanogray",
+        "rad": "rad",
+        "mrad": "millirad",
+        "µrad": "microrad"
     ]
-
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -169,7 +163,7 @@ struct Radiation: View {
         } //VStack
         .padding(.top, 20)
         Spacer()
-        .navigationTitle(StringManager.shared.get("unit_radiation"))
+        .navigationTitle(StringManager.shared.get("unit_radiation_absorbed"))
         .padding()
         .onAppear {
                     if let data = savedUnitsData,
@@ -226,33 +220,28 @@ struct Radiation: View {
         }
     }
 
-    func convertRadiationDoseRate(value: Double, fromUnit: String, toUnit: String) -> Double? {
+    func convertRadiationAbsorbedDose(value: Double, fromUnit: String, toUnit: String) -> Double? {
         let conversionFactors: [String: Double] = [
-            "Gy/s": 1.0,
-            "Gy/min": 1.0 / 60.0,
-            "Gy/h": 1.0 / 3600.0,
-            "mGy/s": 1e-3,
-            "mGy/min": 1e-3 / 60.0,
-            "mGy/h": 1e-3 / 3600.0,
-            "µGy/s": 1e-6,
-            "µGy/min": 1e-6 / 60.0,
-            "µGy/h": 1e-6 / 3600.0,
-            "rad/s": 0.01,
-            "rad/min": 0.01 / 60.0,
-            "rad/h": 0.01 / 3600.0
+            "Gy": 1.0,
+            "mGy": 1e-3,
+            "µGy": 1e-6,
+            "nGy": 1e-9,
+            "rad": 0.01,
+            "mrad": 1e-5,
+            "µrad": 1e-8
         ]
-
+        
         guard let fromFactor = conversionFactors[fromUnit],
               let toFactor = conversionFactors[toUnit] else {
             return nil
         }
 
-        let valueInBase = value * fromFactor
-        return valueInBase / toFactor
+        let valueInGy = value * fromFactor
+        return valueInGy / toFactor
     }
 
     func updateOutputValue(inputDouble: Double) {
-        if let result = convertRadiationDoseRate(
+        if let result = convertRadiationAbsorbedDose(
             value: inputDouble,
             fromUnit: selectedFromUnit ?? "",
             toUnit: selectedToUnit ?? ""
@@ -265,5 +254,5 @@ struct Radiation: View {
         } else {
             outputValue = "Error"
         }
-    }
+    }   
 }

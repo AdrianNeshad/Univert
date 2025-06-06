@@ -53,6 +53,9 @@ struct Units: Codable, Identifiable {
             Units(id: "volume_charge", name: t.get("unit_volume_charge"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
             Units(id: "magnetic_flux_density", name: t.get("unit_magnetic_flux_density"), icon: "🧲", isFavorite: false, category: "avancerad", subcategory: "magnetism"),
             Units(id: "radiation", name: t.get("unit_radiation"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
+            Units(id: "radiation_activity", name: t.get("unit_radiation_activity"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
+            Units(id: "radiation_exposure", name: t.get("unit_radiation_exposure"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
+            Units(id: "radiation_absorbed", name: t.get("unit_radiation_absorbed"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
         ]
     }
 }

@@ -93,7 +93,10 @@ class StringManager {
         "unit_volume_charge": "Laddningstäthet (volym)",
         "unit_surface_charge": "Laddningstäthet (yta)",
         "unit_magnetic_flux_density": "Magnetisk flödestäthet",
-        "unit_radiation": "Strålning"
+        "unit_radiation": "Strålning",
+        "unit_radiation_activity": "Strålningsaktivitet",
+        "unit_radiation_exposure": "Strålningsdos (exponering)",
+        "unit_radiation_absorbed": "Strålning – Absorberad dos"
 
     ]
     
@@ -179,7 +182,10 @@ class StringManager {
         "unit_volume_charge": "Volume Charge Density",
         "unit_surface_charge": "Surface Charge Density",
         "unit_magnetic_flux_density": "Magnetic Flux Density",
-        "unit_radiation": "Radiation"
+        "unit_radiation": "Radiation",
+        "unit_radiation_activity": "Radiation Activity",
+        "unit_radiation_exposure": "Radiation Exposure",
+        "unit_radiation_absorbed": "Radiation – Absorbed Dose"
 
     ]
 
@@ -266,7 +272,10 @@ class StringManager {
         "unit_volume_charge": "Volumenladungsdichte",
         "unit_surface_charge": "Oberflächenladungsdichte",
         "unit_magnetic_flux_density": "Magnetische Flussdichte",
-        "unit_radiation": "Strahlung"
+        "unit_radiation": "Strahlung",
+        "unit_radiation_activity": "Aktivität der Strahlung",
+        "unit_radiation_exposure": "Strahlenexposition",
+        "unit_radiation_absorbed": "Strahlung – Absorbierte Dosis"
 
     ]
     
@@ -352,7 +361,10 @@ class StringManager {
         "unit_volume_charge": "Densidad de carga volumétrica",
         "unit_surface_charge": "Densidad de carga superficial",
         "unit_magnetic_flux_density": "Densidad de flujo magnético",
-        "unit_radiation": "Radiación"
+        "unit_radiation": "Radiación",
+        "unit_radiation_activity": "Actividad radiactiva",
+        "unit_radiation_exposure": "Exposición a la radiación",
+        "unit_radiation_absorbed": "Radiación – Dosis absorbida"
 
     ]
     
@@ -438,7 +450,10 @@ class StringManager {
         "unit_volume_charge": "Densité volumique de charge",
         "unit_surface_charge": "Densité surfacique de charge",
         "unit_magnetic_flux_density": "Densité de flux magnétique",
-        "unit_radiation": "Rayonnement"
+        "unit_radiation": "Rayonnement",
+        "unit_radiation_activity": "Activité radioactive",
+        "unit_radiation_exposure": "Exposition aux radiations",
+        "unit_radiation_absorbed": "Rayonnement – Dose absorbée"
 
     ]
     
