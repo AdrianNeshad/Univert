@@ -36,7 +36,7 @@ struct Skostorlek: View {
     let units = ["EU", "UK", "US M", "US W", "cm", "in"]
     
     let fullNames: [String: String] = [
-        "EU": "European Union",
+        "EU": "Europe",
         "UK": "United Kingdom",
         "US M": "US Men's",
         "US W": "US Women's",
