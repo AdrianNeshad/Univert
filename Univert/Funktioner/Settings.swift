@@ -41,13 +41,16 @@ struct Inställningar: View {
                 Picker("Språk / Language", selection: $appLanguage) {
                     Text("English").tag("en")
                     Text("Svenska").tag("sv")
+                    Text("Deutsch").tag("de")
+                    Text("Español").tag("es")
+                    Text("Français").tag("fr")
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .onChange(of: appLanguage) { newLang in
-                    if newLang == "sv" {
-                        useSwedishDecimal = true
-                    } else {
+                    if newLang == "en" {
                         useSwedishDecimal = false
+                    } else {
+                        useSwedishDecimal = true
                     }
                 }
                 Toggle(appLanguage == "sv" ? "Komma decimalseparator" : "Comma Decimal Separator",
@@ -213,7 +216,7 @@ struct Inställningar: View {
                 .padding(.top, -100)
             }
         }
-        .navigationTitle(appLanguage == "sv" ? "Inställningar" : "Settings")
+        .navigationTitle(StringManager.shared.get("settings"))
         .onAppear {
             storeManager.getProducts(productIDs: ["Univert.AdvancedUnits"])
         }
