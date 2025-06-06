@@ -20,13 +20,14 @@ struct PurchaseView: View {
         VStack(spacing: 20) {
             Text(StringManager.shared.get("unlockadvancedunits"))
                 .multilineTextAlignment(.center)
-                .font(.title)
+                .font(.largeTitle)
                 .bold()
                 .padding(.top, 20)
             
             Text(StringManager.shared.get("getaccess"))
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
+                .font(.title2)
             
             if let product = storeManager.products.first {
                 Button(action: { storeManager.purchaseProduct(product: product) }) {
