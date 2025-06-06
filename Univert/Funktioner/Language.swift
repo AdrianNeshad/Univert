@@ -16,7 +16,7 @@ class StringManager {
         "otherapps": "Andra appar",
         "univertfeedback": "Univert feedback",
         "givefeedback": "Ge feedback",
-        "checkoutunivert": "Checka in Univert appen!",
+        "checkoutunivert": "Kolla in Univert appen!",
         "sharetheapp": "Dela appen",
         "ratetheapp": "Betygsätt appen",
         "about": "Om",
