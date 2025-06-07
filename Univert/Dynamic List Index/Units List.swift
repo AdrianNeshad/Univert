@@ -36,8 +36,8 @@ struct Units: Codable, Identifiable {
             Units(id: "crypto_beta", name: t.get("unit_crypto_beta"), icon: "💲", isFavorite: false, category: "monetär"),
             Units(id: "energy", name: t.get("unit_energy"), icon: "🔋", isFavorite: false, category: "avancerad"),
             Units(id: "shares", name: t.get("unit_shares"), icon: "➗", isFavorite: false, category: "avancerad"),
-            Units(id: "viscosity_dynamic", name: t.get("unit_viscosity_dynamic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
-            Units(id: "viscosity_kinematic", name: t.get("unit_viscosity_kinematic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "viskositet"),
+            Units(id: "viscosity_dynamic", name: t.get("unit_viscosity_dynamic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
+            Units(id: "viscosity_kinematic", name: t.get("unit_viscosity_kinematic"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
             Units(id: "angles", name: t.get("unit_angles"), icon: "📐", isFavorite: false, category: "avancerad"),
             Units(id: "electric_current", name: t.get("unit_electric_current"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
             Units(id: "electric_resistance", name: t.get("unit_electric_resistance"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
@@ -57,6 +57,11 @@ struct Units: Codable, Identifiable {
             Units(id: "radiation_exposure", name: t.get("unit_radiation_exposure"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
             Units(id: "radiation_absorbed", name: t.get("unit_radiation_absorbed"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
             Units(id: "linear_current", name: t.get("unit_linear_current"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
+            Units(id: "surface_tension", name: t.get("unit_surface_tension"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
+            Units(id: "flow_rate", name: t.get("unit_flow_rate"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
+            Units(id: "concentration_solution", name: t.get("unit_concentration_solution"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
+            Units(id: "mass_flux_density", name: t.get("unit_mass_flux_density"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
+            Units(id: "luminance", name: t.get("unit_luminance"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
         ]
     }
 }

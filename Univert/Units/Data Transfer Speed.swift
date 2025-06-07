@@ -17,16 +17,16 @@ struct Dataöverföringshastighet: View {
                 "Gbit/s", "GB/s", "Tbit/s", "TB/s"
             ],
             fullNames: [
-                "bit/s": "Bit per second",
-                "Byte/s": "Byte per second",
-                "Kbit/s": "Kilobit per second",
-                "KB/s": "Kilobyte per second",
-                "Mbit/s": "Megabit per second",
-                "MB/s": "Megabyte per second",
-                "Gbit/s": "Gigabit per second",
-                "GB/s": "Gigabyte per second",
-                "Tbit/s": "Terabit per second",
-                "TB/s": "Terabyte per second"
+                "bit/s": "Bit/second",
+                "Byte/s": "Byte/second",
+                "Kbit/s": "Kilobit/second",
+                "KB/s": "Kilobyte/second",
+                "Mbit/s": "Megabit/second",
+                "MB/s": "Megabyte/second",
+                "Gbit/s": "Gigabit/second",
+                "GB/s": "Gigabyte/second",
+                "Tbit/s": "Terabit/second",
+                "TB/s": "Terabyte/second"
             ],
             convert: { value, from, to in
                 let factor: [String: Double] = [

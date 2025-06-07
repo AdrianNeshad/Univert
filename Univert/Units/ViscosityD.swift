@@ -20,22 +20,22 @@ struct ViskositetD: View {
             ],
             fullNames: [
                 "Pa s": "Pascal-second",
-                "kgf s/m²": "Kilogram-force second per square meter",
-                "N s/m²": "Newton second per square meter",
-                "mN s/m²": "Millinewton second per square meter",
-                "dyne s/cm²": "Dyne second per square centimeter",
+                "kgf s/m²": "Kilogram-force second/square meter",
+                "N s/m²": "Newton second/square meter",
+                "mN s/m²": "Millinewton second/square meter",
+                "dyne s/cm²": "Dyne second/square centimeter",
                 "P": "Poise",
                 "EP": "Exapoise", "PP": "Petapoise", "TP": "Terapoise", "GP": "Gigapoise",
                 "MP": "Megapoise", "kP": "Kilopoise", "hP": "Hectopoise", "daP": "Dekapoise",
                 "dP": "Decipoise", "cP": "Centipoise", "mP": "Millipoise", "µP": "Micropoise",
                 "nP": "Nanopoise", "pP": "Picopoise", "fP": "Femtopoise", "aP": "Attopoise",
-                "lbf s/in²": "Pound-force second per square inch",
-                "lbf s/ft²": "Pound-force second per square foot",
-                "pdl s/ft²": "Poundal second per square foot",
-                "g/cm/s": "Gram per centimeter per second",
-                "slug/ft/s": "Slug per foot per second",
-                "lb/ft/s": "Pound per foot per second",
-                "lb/ft/h": "Pound per foot per hour"
+                "lbf s/in²": "Pound-force second/square inch",
+                "lbf s/ft²": "Pound-force second/square foot",
+                "pdl s/ft²": "Poundal second/square foot",
+                "g/cm/s": "Gram per centimeter/second",
+                "slug/ft/s": "Slug per foot/second",
+                "lb/ft/s": "Pound per foot/second",
+                "lb/ft/h": "Pound per foot/hour"
             ],
             convert: { value, from, to in
                 let factors: [String: Double] = [

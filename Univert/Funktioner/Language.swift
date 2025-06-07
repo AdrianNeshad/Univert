@@ -42,7 +42,7 @@ class StringManager {
         "thanksforpurchase": "Tack för ditt köp!",
         "loading...": "Laddar...",
         "getaccess": "Få tillgång till alla avancerade enheter med ett engångsköp",
-        "viscosity": "Viskositet",
+        "fluid": "Vätska",
         "electricity": "Elektricitet",
         "magnetism": "Magnetism",
         "monetaryunits": "Monetära enheter",
@@ -59,6 +59,7 @@ class StringManager {
         "source2": "Källa: CoinGecko",
         "invalidinput": "Ogiltigt värde",
         "radiation": "Strålning",
+        "light": "Belysning",
         
         "unit_speed": "Hastighet",
         "unit_weight": "Vikt",
@@ -98,7 +99,11 @@ class StringManager {
         "unit_radiation_exposure": "Strålningsdos (exponering)",
         "unit_radiation_absorbed": "Strålning – Absorberad dos",
         "unit_linear_current": "Strömtäthet (linjär)",
-
+        "unit_surface_tension": "Ytspänning",
+        "unit_flow_rate": "Flöde",
+        "unit_concentration_solution": "Lösningskoncentration",
+        "unit_mass_flux_density": "Massflödestäthet",
+        "unit_luminance": "Luminans",
     ]
     
     private let en: [String: String] = [
@@ -132,7 +137,7 @@ class StringManager {
         "thanksforpurchase": "Thanks for your purchase!",
         "loading...": "Loading...",
         "getaccess": "Get access to all advanced units with a one-time purchase",
-        "viscosity": "Viscosity",
+        "fluid": "Fluid",
         "electricity": "Electricity",
         "magnetism": "Magnetism",
         "monetaryunits": "Monetary units",
@@ -149,6 +154,7 @@ class StringManager {
         "source2": "Source: CoinGecko",
         "invalidinput": "Invalid value",
         "radiation": "Radiation",
+        "light": "Lighting",
 
         "unit_speed": "Speed",
         "unit_weight": "Weight",
@@ -188,7 +194,11 @@ class StringManager {
         "unit_radiation_exposure": "Radiation Exposure",
         "unit_radiation_absorbed": "Radiation – Absorbed Dose",
         "unit_linear_current": "Linear Current Density",
-
+        "unit_surface_tension": "Surface Tension",
+        "unit_flow_rate": "Flow Rate",
+        "unit_concentration_solution": "Concentration (solution)",
+        "unit_mass_flux_density": "Mass Flux Density",
+        "unit_luminance": "Luminance",
     ]
 
     
@@ -223,7 +233,7 @@ class StringManager {
         "thanksforpurchase": "Danke für Ihren Kauf!",
         "loading...": "Lädt...",
         "getaccess": "Zugang zu allen erweiterten Einheiten mit einem einmaligen Kauf",
-        "viscosity": "Viskosität",
+        "fluid": "Flüssigkeit",
         "electricity": "Elektrizität",
         "magnetism": "Magnetismus",
         "monetaryunits": "Währungseinheiten",
@@ -240,6 +250,7 @@ class StringManager {
         "source2": "Quelle: CoinGecko",
         "invalidinput": "Ungültiger Wert",
         "radiation": "Strahlung",
+        "light": "Beleuchtung",
 
         "unit_speed": "Geschwindigkeit",
         "unit_weight": "Gewicht",
@@ -279,7 +290,11 @@ class StringManager {
         "unit_radiation_exposure": "Strahlenexposition",
         "unit_radiation_absorbed": "Strahlung – Absorbierte Dosis",
         "unit_linear_current": "Lineare Stromdichte",
-
+        "unit_surface_tension": "Oberflächenspannung",
+        "unit_flow_rate": "Durchflussrate",
+        "unit_concentration_solution": "Konzentration (Lösung)",
+        "unit_mass_flux_density": "Massenflussdichte",
+        "unit_luminance": "Leuchtdichte",
     ]
     
     private let es: [String: String] = [
@@ -313,7 +328,7 @@ class StringManager {
         "thanksforpurchase": "¡Gracias por tu compra!",
         "loading...": "Cargando...",
         "getaccess": "Accede a todas las unidades avanzadas con una compra única",
-        "viscosity": "Viscosidad",
+        "fluid": "Fluido",
         "electricity": "Electricidad",
         "magnetism": "Magnetismo",
         "monetaryunits": "Unidades monetarias",
@@ -330,6 +345,7 @@ class StringManager {
         "source2": "Fuente: CoinGecko",
         "invalidinput": "Valor inválido",
         "radiation": "Radiación",
+        "light": "Iluminación",
 
         "unit_speed": "Velocidad",
         "unit_weight": "Peso",
@@ -369,7 +385,11 @@ class StringManager {
         "unit_radiation_exposure": "Exposición a la radiación",
         "unit_radiation_absorbed": "Radiación – Dosis absorbida",
         "unit_linear_current": "Densidad de corriente lineal",
-
+        "unit_surface_tension": "Tensión superficial",
+        "unit_flow_rate": "Caudal",
+        "unit_concentration_solution": "Concentración (solución)",
+        "unit_mass_flux_density": "Densidad de flujo de masa",
+        "unit_luminance": "Luminancia",
     ]
     
     private let fr: [String: String] = [
@@ -403,7 +423,7 @@ class StringManager {
         "thanksforpurchase": "Merci pour votre achat !",
         "loading...": "Chargement...",
         "getaccess": "Accédez à toutes les unités avancées avec un achat unique",
-        "viscosity": "Viscosité",
+        "fluid": "Fluide",
         "electricity": "Électricité",
         "magnetism": "Magnétisme",
         "monetaryunits": "Unités monétaires",
@@ -420,6 +440,7 @@ class StringManager {
         "source2": "Source : CoinGecko",
         "invalidinput": "Valeur invalide",
         "radiation": "Rayonnement",
+        "light": "Éclairage",
 
         "unit_speed": "Vitesse",
         "unit_weight": "Poids",
@@ -459,7 +480,11 @@ class StringManager {
         "unit_radiation_exposure": "Exposition aux radiations",
         "unit_radiation_absorbed": "Rayonnement – Dose absorbée",
         "unit_linear_current": "Densité de courant linéaire",
-
+        "unit_surface_tension": "Tension superficielle",
+        "unit_flow_rate": "Débit",
+        "unit_concentration_solution": "Concentration (solution)",
+        "unit_mass_flux_density": "Densité de flux de masse",
+        "unit_luminance": "Luminance",
     ]
     
     private var tables: [String: [String: String]] {

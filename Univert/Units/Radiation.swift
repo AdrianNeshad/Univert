@@ -19,18 +19,18 @@ struct Radiation: View {
                 "rad/s", "rad/min", "rad/h"
             ],
             fullNames: [
-                "Gy/s": "gray per second",
-                "Gy/min": "gray per minute",
-                "Gy/h": "gray per hour",
-                "mGy/s": "milligray per second",
-                "mGy/min": "milligray per minute",
-                "mGy/h": "milligray per hour",
-                "µGy/s": "microgray per second",
-                "µGy/min": "microgray per minute",
-                "µGy/h": "microgray per hour",
-                "rad/s": "rad per second",
-                "rad/min": "rad per minute",
-                "rad/h": "rad per hour"
+                "Gy/s": "gray/second",
+                "Gy/min": "gray/minute",
+                "Gy/h": "gray/hour",
+                "mGy/s": "milligray/second",
+                "mGy/min": "milligray/minute",
+                "mGy/h": "milligray/hour",
+                "µGy/s": "microgray/second",
+                "µGy/min": "microgray/minute",
+                "µGy/h": "microgray/hour",
+                "rad/s": "rad/second",
+                "rad/min": "rad/minute",
+                "rad/h": "rad/hour"
             ],
             convert: { value, from, to in
                 let map: [String: Double] = [

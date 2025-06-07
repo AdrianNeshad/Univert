@@ -14,11 +14,11 @@ struct LinearCurrent: View {
             titleKey: "unit_linear_current",
             units: ["A/m", "kA/m", "mA/m", "µA/m", "nA/m"],
             fullNames: [
-                "A/m": "ampere per meter",
-                "kA/m": "kiloampere per meter",
-                "mA/m": "milliampere per meter",
-                "µA/m": "microampere per meter",
-                "nA/m": "nanoampere per meter"
+                "A/m": "ampere/meter",
+                "kA/m": "kiloampere/meter",
+                "mA/m": "milliampere/meter",
+                "µA/m": "microampere/meter",
+                "nA/m": "nanoampere/meter"
             ],
             convert: { value, from, to in
                 let map: [String: Double] = [

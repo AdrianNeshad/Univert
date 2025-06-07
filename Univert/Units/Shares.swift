@@ -19,20 +19,20 @@ struct Andelar: View {
             fullNames: [
                 "%": "Percent",
                 "‰": "Per Mille",
-                "mg/Kg": "Milligram per Kilogram",
-                "mg/g": "Milligram per Gram",
-                "g/Kg": "Gram per Kilogram",
-                "ug/Kg": "Microgram per Kilogram",
-                "ug/g": "Microgram per Gram",
+                "mg/Kg": "Milligram/Kilogram",
+                "mg/g": "Milligram/Gram",
+                "g/Kg": "Gram/Kilogram",
+                "ug/Kg": "Microgram/Kilogram",
+                "ug/g": "Microgram/Gram",
                 "ppm": "Parts Per Million",
                 "ppb": "Parts Per Billion",
                 "ppt": "Parts Per Trillion",
                 "pptr": "Parts Per Trillion (pptr)",
                 "ppth": "Parts Per Thousand (ppth)",
                 "ppq": "Parts Per Quadrillion (ppq)",
-                "pg/g": "Picogram per Gram",
-                "ng/g": "Nanogram per Gram",
-                "ng/Kg": "Nanogram per Kilogram"
+                "pg/g": "Picogram/Gram",
+                "ng/g": "Nanogram/Gram",
+                "ng/Kg": "Nanogram/Kilogram"
             ],
             convert: { value, from, to in
                 let factors: [String: Double] = [

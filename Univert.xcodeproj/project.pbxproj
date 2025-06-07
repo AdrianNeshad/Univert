@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		2A5196FC2DF437DD00E3963C /* UnitConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5196FB2DF437D200E3963C /* UnitConverterView.swift */; };
 		2A5196FE2DF438E200E3963C /* Linear Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5196FD2DF4388500E3963C /* Linear Current.swift */; };
+		2A5197042DF4484300E3963C /* Surface Tension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197032DF4482E00E3963C /* Surface Tension.swift */; };
+		2A5197062DF449BB00E3963C /* FlowRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197052DF449B800E3963C /* FlowRate.swift */; };
+		2A5197082DF44ACD00E3963C /* ConcentrationSolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */; };
+		2A51970A2DF44BD600E3963C /* MassFluxDensity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197092DF44BD200E3963C /* MassFluxDensity.swift */; };
+		2A51970C2DF44D9400E3963C /* Luminance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A51970B2DF44D9200E3963C /* Luminance.swift */; };
 		2A761BDE2DF386480065898A /* Inductance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDD2DF386450065898A /* Inductance.swift */; };
 		2A761BE02DF3880E0065898A /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDF2DF388080065898A /* Charge.swift */; };
 		2A761BE22DF389530065898A /* Linear charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BE12DF3894E0065898A /* Linear charge.swift */; };
@@ -73,6 +78,11 @@
 /* Begin PBXFileReference section */
 		2A5196FB2DF437D200E3963C /* UnitConverterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverterView.swift; sourceTree = "<group>"; };
 		2A5196FD2DF4388500E3963C /* Linear Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Linear Current.swift"; sourceTree = "<group>"; };
+		2A5197032DF4482E00E3963C /* Surface Tension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Surface Tension.swift"; sourceTree = "<group>"; };
+		2A5197052DF449B800E3963C /* FlowRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRate.swift; sourceTree = "<group>"; };
+		2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationSolution.swift; sourceTree = "<group>"; };
+		2A5197092DF44BD200E3963C /* MassFluxDensity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassFluxDensity.swift; sourceTree = "<group>"; };
+		2A51970B2DF44D9200E3963C /* Luminance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Luminance.swift; sourceTree = "<group>"; };
 		2A761BDD2DF386450065898A /* Inductance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inductance.swift; sourceTree = "<group>"; };
 		2A761BDF2DF388080065898A /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		2A761BE12DF3894E0065898A /* Linear charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Linear charge.swift"; sourceTree = "<group>"; };
@@ -225,6 +235,11 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				2A51970B2DF44D9200E3963C /* Luminance.swift */,
+				2A5197092DF44BD200E3963C /* MassFluxDensity.swift */,
+				2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */,
+				2A5197052DF449B800E3963C /* FlowRate.swift */,
+				2A5197032DF4482E00E3963C /* Surface Tension.swift */,
 				2A5196FD2DF4388500E3963C /* Linear Current.swift */,
 				2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */,
 				2A761BED2DF396CF0065898A /* Radiation Exposure.swift */,
@@ -383,6 +398,7 @@
 			files = (
 				2A761BE62DF38B390065898A /* Volume charge.swift in Sources */,
 				3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */,
+				2A51970A2DF44BD600E3963C /* MassFluxDensity.swift in Sources */,
 				3A4D18942DD5124300FB6E4D /* Magnetomotive.swift in Sources */,
 				3AAD79C22DCBB78300319189 /* Area.swift in Sources */,
 				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
@@ -394,6 +410,7 @@
 				2A761BF02DF397B70065898A /* Radiation Absorbed.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
 				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
+				2A51970C2DF44D9400E3963C /* Luminance.swift in Sources */,
 				3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */,
 				3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */,
 				3A21D7492DC78B2000B37E2D /* Power.swift in Sources */,
@@ -412,8 +429,10 @@
 				3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */,
 				3AD7078A2DD681C800B5D6EC /* AppFooter.swift in Sources */,
 				2A761BDE2DF386480065898A /* Inductance.swift in Sources */,
+				2A5197062DF449BB00E3963C /* FlowRate.swift in Sources */,
 				2A5196FC2DF437DD00E3963C /* UnitConverterView.swift in Sources */,
 				2A5196FE2DF438E200E3963C /* Linear Current.swift in Sources */,
+				2A5197042DF4484300E3963C /* Surface Tension.swift in Sources */,
 				3AD7078E2DD6820100B5D6EC /* LockedUnitRow.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
@@ -435,6 +454,7 @@
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,
 				3AF017672DEAF76100CD5F4A /* ImageResolution.swift in Sources */,
 				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
+				2A5197082DF44ACD00E3963C /* ConcentrationSolution.swift in Sources */,
 				3A5CF3CB2DDE5F3500D0038B /* MailFeedback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

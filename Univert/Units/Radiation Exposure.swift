@@ -17,9 +17,9 @@ struct Radiation_Exposure: View {
                 "R": "roentgen",
                 "mR": "milliroentgen",
                 "µR": "microroentgen",
-                "C/kg": "coulomb per kilogram",
-                "mC/kg": "millicoulomb per kilogram",
-                "µC/kg": "microcoulomb per kilogram"
+                "C/kg": "coulomb/kilogram",
+                "mC/kg": "millicoulomb/kilogram",
+                "µC/kg": "microcoulomb/kilogram"
             ],
             convert: { value, from, to in
                 let map: [String: Double] = [

@@ -177,9 +177,10 @@ struct UnitsListView: View {
         switch key {
         case "magnetism": return StringManager.shared.get("magnetism")
         case "elektricitet": return StringManager.shared.get("electricity")
-        case "viskositet": return StringManager.shared.get("viscosity")
+        case "vätska": return StringManager.shared.get("fluid")
         case "data": return "Data"
         case "strålning": return StringManager.shared.get("radiation")
+        case "belysning": return StringManager.shared.get("light")
         default: return key
         }
     }
@@ -188,9 +189,10 @@ struct UnitsListView: View {
         switch key.lowercased() {
         case "magnetism": return "🧲"
         case "elektricitet": return "⚡️"
-        case "viskositet": return "💧"
+        case "vätska": return "💧"
         case "data": return "💾"
         case "strålning": return "☢️"
+        case "belysning": return "💡"
         default: return "📦"
         }
     }
@@ -265,6 +267,11 @@ func destinationView(for unit: Units) -> some View {
     case "radiation_exposure": Radiation_Exposure()
     case "radiation_absorbed": Radiation_Absorbed()
     case "linear_current": LinearCurrent()
+    case "surface_tension": SurfaceTension()
+    case "flow_rate": FlowRate()
+    case "concentration_solution": ConcentrationSolution()
+    case "mass_flux_density": MassFluxDensity()
+    case "luminance": Luminance()
     default: UnitsDetailView(unit: unit)
     }
 }

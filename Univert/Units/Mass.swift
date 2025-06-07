@@ -20,7 +20,7 @@ struct Vikt: View {
                 "kg": "Kilogram",
                 "lbs": "Pounds",
                 "μg": "Microgram",
-                "mcg": "Microgram (mcg)",
+                "mcg": "Microgram",
                 "ng": "Nanogram",
                 "m ton": "Metric Ton",
                 "N": "Newton",

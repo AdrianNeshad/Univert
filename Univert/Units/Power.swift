@@ -18,7 +18,7 @@ struct Effekt: View {
                 "MW": "Megawatt",
                 "kW": "Kilowatt",
                 "hp": "Horsepower",
-                "BTU/h": "British Thermal Unit per hour",
+                "BTU/h": "British Thermal Unit/hour",
                 "ton/ref": "Ton of Refrigeration"
             ],
             convert: { value, from, to in
