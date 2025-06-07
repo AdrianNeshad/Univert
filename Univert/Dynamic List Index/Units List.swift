@@ -56,7 +56,7 @@ struct Units: Codable, Identifiable {
             Units(id: "radiation_activity", name: t.get("unit_radiation_activity"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
             Units(id: "radiation_exposure", name: t.get("unit_radiation_exposure"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
             Units(id: "radiation_absorbed", name: t.get("unit_radiation_absorbed"), icon: "☢️", isFavorite: false, category: "avancerad", subcategory: "strålning"),
-            Units(id: "linear_current", name: t.get("unit_linear_current"), icon: "⚡️", isFavorite: false, category: "vanlig"),
+            Units(id: "linear_current", name: t.get("unit_linear_current"), icon: "⚡️", isFavorite: false, category: "avancerad", subcategory: "elektricitet"),
         ]
     }
 }

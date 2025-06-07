@@ -6,239 +6,37 @@
 //
 
 import SwiftUI
-import AlertToast
 
 struct Temperatur: View {
-    @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
-    @AppStorage("savedUnits") private var savedUnitsData: Data?
-    @AppStorage("appLanguage") private var appLanguage = "en"
-    @State private var selectedFromUnit: String? = "°C"
-    @State private var selectedToUnit: String? = "°C"
-    @State private var inputValue = ""
-    @State private var outputValue = ""
-    @State private var showToast = false
-    @State private var toastMessage = ""
-    @State private var isFavorite = false
-    @State private var currentUnits: [Units] = []
-    @State private var toastIcon = "star.fill"
-    @State private var toastColor = Color.yellow
-    
-    let unitId = "temperature"
-    
-    let units = ["°C", "°F", "K"]
-    
-    let fullNames: [String: String] = [
-            "°C": "Celsius",
-            "°F": "Fahrenheit",
-            "K": "Kelvin",
-        ]
-    
     var body: some View {
-        VStack {
-            HStack {
-                Text(StringManager.shared.get("from"))
-                    .font(.title)
-                    .bold()
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(10)
-                    .frame(height: 50)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-                
-                Text("➤")
-                    .font(.title)
-                    .bold()
-                    .frame(width: 100)
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
-
-                Text(StringManager.shared.get("to"))
-                    .font(.title)
-                    .bold()
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(10)
-                    .frame(height: 50)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-            } //HStack
-            
-            HStack {
-                Text("►")
-                    .font(.title)
-                    .frame(width: 50)
-                PomodoroPicker(
-                    selection: $selectedFromUnit,
-                    options: units
-                ) { unit in
-                    Text(unit)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 100)
-                        .padding(.leading, -90)
+        UnitConverterView(definition: UnitDefinition(
+            id: "temperature",
+            titleKey: "unit_temperature",
+            units: ["°C", "°F", "K"],
+            fullNames: [
+                "°C": "Celsius",
+                "°F": "Fahrenheit",
+                "K": "Kelvin"
+            ],
+            convert: { value, from, to in
+                switch (from, to) {
+                case ("°C", "°F"):
+                    return (value * 9/5) + 32
+                case ("°F", "°C"):
+                    return (value - 32) * 5/9
+                case ("°C", "K"):
+                    return value + 273.15
+                case ("K", "°C"):
+                    return value - 273.15
+                case ("°F", "K"):
+                    return (value - 32) * 5/9 + 273.15
+                case ("K", "°F"):
+                    return (value - 273.15) * 9/5 + 32
+                default:
+                    return value
                 }
-                PomodoroPicker(
-                    selection: $selectedToUnit,
-                    options: units
-                ) { unit in
-                    Text(unit)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 100)
-                        .padding(.trailing, -90)
-                }
-                Text("◄")
-                    .font(.title)
-                    .frame(width: 50)
-            } //HStack
-            .frame(maxWidth: .infinity)
-            .frame(height: 180)
-            HStack {
-                            Text("(\(selectedFromUnit ?? "")) \(fullNames[selectedFromUnit ?? ""] ?? "")")
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 10)
-                            
-                            Text("(\(selectedToUnit ?? "")) \(fullNames[selectedToUnit ?? ""] ?? "")")
-                                .font(.system(size: 15))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 0)
-                        }
-            
-            HStack(spacing: 10) {
-                TextField(StringManager.shared.get("value"), text: $inputValue)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .onChange(of: inputValue) { newValue in
-                        var updatedValue = newValue
-                        if !useSwedishDecimal {
-                            let replaced = newValue.replacingOccurrences(of: ",", with: ".")
-                            if replaced != newValue {
-                                updatedValue = replaced
-                                inputValue = replaced
-                            }
-                        }
-                        
-                        let normalizedValue = updatedValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        } else {
-                            outputValue = ""
-                        }
-                    }
-                    .onChange(of: selectedFromUnit) { _ in
-                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        }
-                    }
-                    .onChange(of: selectedToUnit) { _ in
-                        let normalizedValue = inputValue.replacingOccurrences(of: ",", with: ".")
-                        if let inputDouble = Double(normalizedValue) {
-                            updateOutputValue(inputDouble: inputDouble)
-                        }
-                    }
-                Text(outputValue.isEmpty ? "" : outputValue)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .textSelection(.enabled)
-            } //HStack
-            .padding([.leading, .trailing], 10)
-        } //VStack
-        .padding(.top, 20)
-        Spacer()
-        .navigationTitle(StringManager.shared.get("unit_temperature"))
-        .padding()
-        .onAppear {
-                    if let data = savedUnitsData,
-                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-                        currentUnits = savedUnits
-                    } else {
-                        currentUnits = Units.preview()
-                    }
-                    
-            if let match = currentUnits.first(where: { $0.id == unitId }) {
-                isFavorite = match.isFavorite
-            }
-                }
-        .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            toggleFavorite()
-                        }) {
-                            Image(systemName: isFavorite ? "star.fill" : "star")
-                        }
-                    }
-                }
-                .toast(isPresenting: $showToast) {
-                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
-                }
-    }
-    func toggleFavorite() {
-        if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
-            currentUnits[index].isFavorite.toggle()
-            isFavorite = currentUnits[index].isFavorite
-
-            if let data = try? JSONEncoder().encode(currentUnits) {
-                savedUnitsData = data
-            }
-
-            if isFavorite {
-                toastMessage = StringManager.shared.get("addedtofavorites")
-                toastIcon = "star.fill"
-                toastColor = .yellow
-            } else {
-                toastMessage = StringManager.shared.get("removed")
-                toastIcon = "star"
-                toastColor = .gray
-            }
-
-            withAnimation {
-                showToast = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation {
-                    showToast = false
-                }
-            }
-        }
-    }
-
-    func convertTemperature(value: Double, fromUnit: String, toUnit: String) -> Double? {
-        switch (fromUnit, toUnit) {
-        case ("°C", "°F"):
-            return (value * 9/5) + 32
-        case ("°F", "°C"):
-            return (value - 32) * 5/9
-        case ("°C", "K"):
-            return value + 273.15
-        case ("K", "°C"):
-            return value - 273.15
-        case ("°F", "K"):
-            return (value - 32) * 5/9 + 273.15
-        case ("K", "°F"):
-            return (value - 273.15) * 9/5 + 32
-        default:
-            return value
-        }
-    }
-
-    func updateOutputValue(inputDouble: Double) {
-        if let result = convertTemperature(value: inputDouble, fromUnit: selectedFromUnit ?? "", toUnit: selectedToUnit ?? "") {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
-        } else {
-            outputValue = "Error"
-        }
+            },
+            maxFractionDigits: 2
+        ))
     }
 }

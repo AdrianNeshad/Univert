@@ -19,11 +19,11 @@ struct UnitDefinition {
 
 struct UnitConverterView: View {
     let definition: UnitDefinition
-    
+
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
-    
+
     @State private var selectedFromUnit: String?
     @State private var selectedToUnit: String?
     @State private var inputValue = ""
@@ -37,68 +37,106 @@ struct UnitConverterView: View {
 
     var body: some View {
         VStack {
-            // Header
             HStack {
                 Text(StringManager.shared.get("from"))
-                    .font(.title).bold()
-                Spacer()
+                    .font(.title)
+                    .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding(10)
+                    .frame(height: 50)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(5)
+                    .multilineTextAlignment(.center)
+
                 Text("➤")
                     .font(.title)
-                Spacer()
-                Text(StringManager.shared.get("to"))
-                    .font(.title).bold()
-            }
-            .padding(10)
-            .background(Color.gray.opacity(0.1))
-            .cornerRadius(5)
+                    .bold()
+                    .frame(width: 100)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
 
-            // Pickers
-            HStack {
-                Text("►").font(.title).frame(width: 50)
-                PomodoroPicker(selection: $selectedFromUnit, options: definition.units) {
-                    Text($0).font(.title).bold().frame(width: 100)
-                }
-                PomodoroPicker(selection: $selectedToUnit, options: definition.units) {
-                    Text($0).font(.title).bold().frame(width: 100)
-                }
-                Text("◄").font(.title).frame(width: 50)
+                Text(StringManager.shared.get("to"))
+                    .font(.title)
+                    .bold()
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding(10)
+                    .frame(height: 50)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(5)
+                    .multilineTextAlignment(.center)
             }
+
+            HStack {
+                Text("►")
+                    .font(.title)
+                    .frame(width: 50)
+                PomodoroPicker(selection: $selectedFromUnit, options: definition.units) { unit in
+                    Text(unit)
+                        .font(.title)
+                        .bold()
+                        .frame(width: 100)
+                        .padding(.leading, -90)
+                }
+                PomodoroPicker(selection: $selectedToUnit, options: definition.units) { unit in
+                    Text(unit)
+                        .font(.title)
+                        .bold()
+                        .frame(width: 100)
+                        .padding(.trailing, -90)
+                }
+                Text("◄")
+                    .font(.title)
+                    .frame(width: 50)
+            }
+            .frame(maxWidth: .infinity)
             .frame(height: 180)
 
-            // Full names
             HStack {
                 Text("(\(selectedFromUnit ?? "")) \(definition.fullNames[selectedFromUnit ?? ""] ?? "")")
-                Text("(\(selectedToUnit ?? "")) \(definition.fullNames[selectedToUnit ?? ""] ?? "")")
-            }
-            .font(.system(size: 15))
-            .padding(.horizontal, 10)
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 10)
 
-            // Text fields
+                Text("(\(selectedToUnit ?? "")) \(definition.fullNames[selectedToUnit ?? ""] ?? "")")
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 0)
+            }
+
             HStack(spacing: 10) {
                 TextField(StringManager.shared.get("value"), text: $inputValue)
                     .keyboardType(.decimalPad)
                     .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
                     .frame(height: 50)
+                    .frame(maxWidth: .infinity)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
+                    .multilineTextAlignment(.leading)
                     .onChange(of: inputValue, perform: handleInput)
-                    .onChange(of: selectedFromUnit, perform: { _ in triggerConversion() })
-                    .onChange(of: selectedToUnit, perform: { _ in triggerConversion() })
+                    .onChange(of: selectedFromUnit) { _ in triggerConversion() }
+                    .onChange(of: selectedToUnit) { _ in triggerConversion() }
 
-                Text(outputValue)
+                Text(outputValue.isEmpty ? "" : outputValue)
                     .padding(10)
                     .frame(height: 50)
+                    .frame(maxWidth: .infinity)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(5)
+                    .multilineTextAlignment(.leading)
                     .textSelection(.enabled)
             }
-            .padding(.horizontal, 10)
-
-            Spacer()
+            .padding([.leading, .trailing], 10)
         }
+        .padding(.top, 20)
+        Spacer()
         .navigationTitle(StringManager.shared.get(definition.titleKey))
-        .onAppear(perform: loadFavorites)
+        .padding()
+        .onAppear {
+            selectedFromUnit = definition.units.first
+            selectedToUnit = definition.units.first
+            loadFavorites()
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: toggleFavorite) {
@@ -109,18 +147,12 @@ struct UnitConverterView: View {
         .toast(isPresenting: $showToast) {
             AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
         }
-        .onAppear {
-            selectedFromUnit = definition.units.first
-            selectedToUnit = definition.units.first
-        }
     }
 
     private func handleInput(_ newValue: String) {
-        var updatedValue = newValue
         if !useSwedishDecimal {
             let replaced = newValue.replacingOccurrences(of: ",", with: ".")
             if replaced != newValue {
-                updatedValue = replaced
                 inputValue = replaced
             }
         }
@@ -133,7 +165,11 @@ struct UnitConverterView: View {
            let from = selectedFromUnit,
            let to = selectedToUnit,
            let result = definition.convert(value, from, to) {
-            outputValue = FormatterHelper.shared.formatResult(result, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: definition.maxFractionDigits)
+            outputValue = FormatterHelper.shared.formatResult(
+                result,
+                useSwedishDecimal: useSwedishDecimal,
+                maximumFractionDigits: definition.maxFractionDigits
+            )
         } else {
             outputValue = ""
         }
@@ -171,3 +207,4 @@ struct UnitConverterView: View {
         }
     }
 }
+    
