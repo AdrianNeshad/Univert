@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A5196FC2DF437DD00E3963C /* UnitConverterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5196FB2DF437D200E3963C /* UnitConverterView.swift */; };
+		2A5196FE2DF438E200E3963C /* Linear Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5196FD2DF4388500E3963C /* Linear Current.swift */; };
 		2A761BDE2DF386480065898A /* Inductance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDD2DF386450065898A /* Inductance.swift */; };
 		2A761BE02DF3880E0065898A /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDF2DF388080065898A /* Charge.swift */; };
 		2A761BE22DF389530065898A /* Linear charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BE12DF3894E0065898A /* Linear charge.swift */; };
@@ -69,6 +71,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A5196FB2DF437D200E3963C /* UnitConverterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitConverterView.swift; sourceTree = "<group>"; };
+		2A5196FD2DF4388500E3963C /* Linear Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Linear Current.swift"; sourceTree = "<group>"; };
 		2A761BDD2DF386450065898A /* Inductance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inductance.swift; sourceTree = "<group>"; };
 		2A761BDF2DF388080065898A /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		2A761BE12DF3894E0065898A /* Linear charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Linear charge.swift"; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				3AEDDFD72DC901BE00FC5897 /* Info.plist */,
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
 				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
+				2A5196FB2DF437D200E3963C /* UnitConverterView.swift */,
 				3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */,
 				3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
@@ -220,6 +225,7 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				2A5196FD2DF4388500E3963C /* Linear Current.swift */,
 				2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */,
 				2A761BED2DF396CF0065898A /* Radiation Exposure.swift */,
 				2A761BEB2DF395A30065898A /* Radiation Activity.swift */,
@@ -406,6 +412,8 @@
 				3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */,
 				3AD7078A2DD681C800B5D6EC /* AppFooter.swift in Sources */,
 				2A761BDE2DF386480065898A /* Inductance.swift in Sources */,
+				2A5196FC2DF437DD00E3963C /* UnitConverterView.swift in Sources */,
+				2A5196FE2DF438E200E3963C /* Linear Current.swift in Sources */,
 				3AD7078E2DD6820100B5D6EC /* LockedUnitRow.swift in Sources */,
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,

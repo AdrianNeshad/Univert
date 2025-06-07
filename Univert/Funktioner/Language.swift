@@ -96,7 +96,8 @@ class StringManager {
         "unit_radiation": "Strålning",
         "unit_radiation_activity": "Strålningsaktivitet",
         "unit_radiation_exposure": "Strålningsdos (exponering)",
-        "unit_radiation_absorbed": "Strålning – Absorberad dos"
+        "unit_radiation_absorbed": "Strålning – Absorberad dos",
+        "unit_linear_current": "Strömtäthet (linjär)",
 
     ]
     
@@ -185,7 +186,8 @@ class StringManager {
         "unit_radiation": "Radiation",
         "unit_radiation_activity": "Radiation Activity",
         "unit_radiation_exposure": "Radiation Exposure",
-        "unit_radiation_absorbed": "Radiation – Absorbed Dose"
+        "unit_radiation_absorbed": "Radiation – Absorbed Dose",
+        "unit_linear_current": "Linear Current Density",
 
     ]
 
@@ -275,7 +277,8 @@ class StringManager {
         "unit_radiation": "Strahlung",
         "unit_radiation_activity": "Aktivität der Strahlung",
         "unit_radiation_exposure": "Strahlenexposition",
-        "unit_radiation_absorbed": "Strahlung – Absorbierte Dosis"
+        "unit_radiation_absorbed": "Strahlung – Absorbierte Dosis",
+        "unit_linear_current": "Lineare Stromdichte",
 
     ]
     
@@ -364,7 +367,8 @@ class StringManager {
         "unit_radiation": "Radiación",
         "unit_radiation_activity": "Actividad radiactiva",
         "unit_radiation_exposure": "Exposición a la radiación",
-        "unit_radiation_absorbed": "Radiación – Dosis absorbida"
+        "unit_radiation_absorbed": "Radiación – Dosis absorbida",
+        "unit_linear_current": "Densidad de corriente lineal",
 
     ]
     
@@ -453,7 +457,8 @@ class StringManager {
         "unit_radiation": "Rayonnement",
         "unit_radiation_activity": "Activité radioactive",
         "unit_radiation_exposure": "Exposition aux radiations",
-        "unit_radiation_absorbed": "Rayonnement – Dose absorbée"
+        "unit_radiation_absorbed": "Rayonnement – Dose absorbée",
+        "unit_linear_current": "Densité de courant linéaire",
 
     ]
     

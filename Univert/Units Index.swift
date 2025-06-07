@@ -264,6 +264,7 @@ func destinationView(for unit: Units) -> some View {
     case "radiation_activity": Radiation_Activity()
     case "radiation_exposure": Radiation_Exposure()
     case "radiation_absorbed": Radiation_Absorbed()
+    case "linear_current": LinearCurrent()
     default: UnitsDetailView(unit: unit)
     }
 }
