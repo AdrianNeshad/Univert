@@ -185,7 +185,7 @@ struct Inställningar: View {
                             .resizable()
                             .frame(width: 30, height: 30)
                             .cornerRadius(8)
-                        Text("FlixSwipe")
+                        Text("FlixSwipe - Explore New Movies")
                     }
                 }
             }
