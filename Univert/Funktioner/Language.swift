@@ -107,7 +107,8 @@ class StringManager {
         "unit_luminous_intensity": "Ljusstyrka",
         "unit_luminous_flux": "Ljusflöde",
         "unit_illuminance": "Belysning",
-        "unit_frequency": "Frekvens"
+        "unit_frequency": "Frekvens",
+        "unit_fuel_consumption": "Bränsleförbrukning",
     ]
     
     private let en: [String: String] = [
@@ -207,6 +208,7 @@ class StringManager {
         "unit_luminous_flux": "Luminous Flux",
         "unit_illuminance": "Illuminance",
         "unit_frequency": "Frequency",
+        "unit_fuel_consumption": "Fuel Consumption",
     ]
 
     
@@ -307,6 +309,7 @@ class StringManager {
         "unit_luminous_flux": "Lichtstrom",
         "unit_illuminance": "Beleuchtungsstärke",
         "unit_frequency": "Frequenz",
+        "unit_fuel_consumption": "Kraftstoffverbrauch",
     ]
     
     private let es: [String: String] = [
@@ -406,6 +409,7 @@ class StringManager {
         "unit_luminous_flux": "Flujo luminoso",
         "unit_illuminance": "Iluminancia",
         "unit_frequency": "Frecuencia",
+        "unit_fuel_consumption": "Consumo de combustible",
     ]
     
     private let fr: [String: String] = [
@@ -505,6 +509,7 @@ class StringManager {
         "unit_luminous_flux": "Flux lumineux",
         "unit_illuminance": "Éclairement",
         "unit_frequency": "Fréquence",
+        "unit_fuel_consumption": "Consommation de carburant",
     ]
     
     private var tables: [String: [String: String]] {

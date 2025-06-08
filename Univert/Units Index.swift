@@ -276,6 +276,7 @@ func destinationView(for unit: Units) -> some View {
     case "luminous_flux": LuminousFlux()
     case "illuminance": Illuminance()
     case "frequency": Frequency()
+    case "fuel_consumption": FuelConsumption()
     default: UnitsDetailView(unit: unit)
     }
 }

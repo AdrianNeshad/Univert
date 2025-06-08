@@ -66,6 +66,7 @@ struct Units: Codable, Identifiable {
             Units(id: "luminous_flux", name: t.get("unit_luminous_flux"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
             Units(id: "illuminance", name: t.get("unit_illuminance"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
             Units(id: "frequency", name: t.get("unit_frequency"), icon: "〰️", isFavorite: false, category: "avancerad"),
+            Units(id: "fuel_consumption", name: t.get("unit_fuel_consumption"), icon: "⛽️", isFavorite: false, category: "vanlig"),
         ]
     }
 }

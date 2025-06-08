@@ -14,6 +14,7 @@
 		2A5197082DF44ACD00E3963C /* ConcentrationSolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */; };
 		2A51970A2DF44BD600E3963C /* MassFluxDensity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5197092DF44BD200E3963C /* MassFluxDensity.swift */; };
 		2A51970C2DF44D9400E3963C /* Luminance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A51970B2DF44D9200E3963C /* Luminance.swift */; };
+		2A6BFD9D2DF622E000A1E5E2 /* FuelConsumption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BFD9C2DF622DA00A1E5E2 /* FuelConsumption.swift */; };
 		2A761BDE2DF386480065898A /* Inductance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDD2DF386450065898A /* Inductance.swift */; };
 		2A761BE02DF3880E0065898A /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BDF2DF388080065898A /* Charge.swift */; };
 		2A761BE22DF389530065898A /* Linear charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BE12DF3894E0065898A /* Linear charge.swift */; };
@@ -87,6 +88,7 @@
 		2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationSolution.swift; sourceTree = "<group>"; };
 		2A5197092DF44BD200E3963C /* MassFluxDensity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassFluxDensity.swift; sourceTree = "<group>"; };
 		2A51970B2DF44D9200E3963C /* Luminance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Luminance.swift; sourceTree = "<group>"; };
+		2A6BFD9C2DF622DA00A1E5E2 /* FuelConsumption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelConsumption.swift; sourceTree = "<group>"; };
 		2A761BDD2DF386450065898A /* Inductance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inductance.swift; sourceTree = "<group>"; };
 		2A761BDF2DF388080065898A /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		2A761BE12DF3894E0065898A /* Linear charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Linear charge.swift"; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				2A6BFD9C2DF622DA00A1E5E2 /* FuelConsumption.swift */,
 				2AF07D4F2DF582500008EEFF /* Frequency.swift */,
 				2AF07D4D2DF581900008EEFF /* Illuminance.swift */,
 				2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */,
@@ -470,6 +473,7 @@
 				2AF07D502DF582570008EEFF /* Frequency.swift in Sources */,
 				3AF017672DEAF76100CD5F4A /* ImageResolution.swift in Sources */,
 				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
+				2A6BFD9D2DF622E000A1E5E2 /* FuelConsumption.swift in Sources */,
 				2A5197082DF44ACD00E3963C /* ConcentrationSolution.swift in Sources */,
 				3A5CF3CB2DDE5F3500D0038B /* MailFeedback.swift in Sources */,
 			);
