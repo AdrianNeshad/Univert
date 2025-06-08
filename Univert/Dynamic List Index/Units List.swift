@@ -62,6 +62,10 @@ struct Units: Codable, Identifiable {
             Units(id: "concentration_solution", name: t.get("unit_concentration_solution"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
             Units(id: "mass_flux_density", name: t.get("unit_mass_flux_density"), icon: "💧", isFavorite: false, category: "avancerad", subcategory: "vätska"),
             Units(id: "luminance", name: t.get("unit_luminance"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
+            Units(id: "luminous_intensity", name: t.get("unit_luminous_intensity"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
+            Units(id: "luminous_flux", name: t.get("unit_luminous_flux"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
+            Units(id: "illuminance", name: t.get("unit_illuminance"), icon: "💡", isFavorite: false, category: "avancerad", subcategory: "belysning"),
+            Units(id: "frequency", name: t.get("unit_frequency"), icon: "〰️", isFavorite: false, category: "avancerad"),
         ]
     }
 }

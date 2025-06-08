@@ -272,6 +272,10 @@ func destinationView(for unit: Units) -> some View {
     case "concentration_solution": ConcentrationSolution()
     case "mass_flux_density": MassFluxDensity()
     case "luminance": Luminance()
+    case "luminous_intensity": LuminousIntensity()
+    case "luminous_flux": LuminousFlux()
+    case "illuminance": Illuminance()
+    case "frequency": Frequency()
     default: UnitsDetailView(unit: unit)
     }
 }

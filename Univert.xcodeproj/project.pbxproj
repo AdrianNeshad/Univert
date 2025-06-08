@@ -24,6 +24,10 @@
 		2A761BEC2DF395C50065898A /* Radiation Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BEB2DF395A30065898A /* Radiation Activity.swift */; };
 		2A761BEE2DF396D50065898A /* Radiation Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BED2DF396CF0065898A /* Radiation Exposure.swift */; };
 		2A761BF02DF397B70065898A /* Radiation Absorbed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */; };
+		2AF07D4A2DF580310008EEFF /* LuminousIntensity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D492DF580150008EEFF /* LuminousIntensity.swift */; };
+		2AF07D4C2DF581150008EEFF /* LuminousFlux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */; };
+		2AF07D4E2DF581960008EEFF /* Illuminance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D4D2DF581900008EEFF /* Illuminance.swift */; };
+		2AF07D502DF582570008EEFF /* Frequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D4F2DF582500008EEFF /* Frequency.swift */; };
 		3A11B53D2DDE3F8600FF4D64 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A11B53C2DDE3F8600FF4D64 /* StoreKit.framework */; };
 		3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */; };
 		3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7022DC7721000B37E2D /* Assets.xcassets */; };
@@ -93,6 +97,10 @@
 		2A761BEB2DF395A30065898A /* Radiation Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Activity.swift"; sourceTree = "<group>"; };
 		2A761BED2DF396CF0065898A /* Radiation Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Exposure.swift"; sourceTree = "<group>"; };
 		2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Absorbed.swift"; sourceTree = "<group>"; };
+		2AF07D492DF580150008EEFF /* LuminousIntensity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminousIntensity.swift; sourceTree = "<group>"; };
+		2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminousFlux.swift; sourceTree = "<group>"; };
+		2AF07D4D2DF581900008EEFF /* Illuminance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Illuminance.swift; sourceTree = "<group>"; };
+		2AF07D4F2DF582500008EEFF /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		3A11B53C2DDE3F8600FF4D64 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3A21D6FB2DC7720A00B37E2D /* Univert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Univert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertApp.swift; sourceTree = "<group>"; };
@@ -235,6 +243,10 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				2AF07D4F2DF582500008EEFF /* Frequency.swift */,
+				2AF07D4D2DF581900008EEFF /* Illuminance.swift */,
+				2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */,
+				2AF07D492DF580150008EEFF /* LuminousIntensity.swift */,
 				2A51970B2DF44D9200E3963C /* Luminance.swift */,
 				2A5197092DF44BD200E3963C /* MassFluxDensity.swift */,
 				2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */,
@@ -408,6 +420,7 @@
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */,
 				2A761BF02DF397B70065898A /* Radiation Absorbed.swift in Sources */,
+				2AF07D4E2DF581960008EEFF /* Illuminance.swift in Sources */,
 				3A21D7392DC7822800B37E2D /* Length.swift in Sources */,
 				3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */,
 				2A51970C2DF44D9400E3963C /* Luminance.swift in Sources */,
@@ -437,6 +450,7 @@
 				3A21D73B2DC7823200B37E2D /* Time.swift in Sources */,
 				3A21D72B2DC774C600B37E2D /* Units List.swift in Sources */,
 				3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */,
+				2AF07D4A2DF580310008EEFF /* LuminousIntensity.swift in Sources */,
 				3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */,
 				2A761BE82DF38DC50065898A /* Magnetic Flux Density.swift in Sources */,
 				3A832FD32DD0C0E10058D0F8 /* Language.swift in Sources */,
@@ -449,9 +463,11 @@
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
 				3AF378912DCD081E0024BFA9 /* FormatterHelper.swift in Sources */,
 				3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */,
+				2AF07D4C2DF581150008EEFF /* LuminousFlux.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 				3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */,
 				3A21D7362DC7821100B37E2D /* Mass.swift in Sources */,
+				2AF07D502DF582570008EEFF /* Frequency.swift in Sources */,
 				3AF017672DEAF76100CD5F4A /* ImageResolution.swift in Sources */,
 				3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */,
 				2A5197082DF44ACD00E3963C /* ConcentrationSolution.swift in Sources */,

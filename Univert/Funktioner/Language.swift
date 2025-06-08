@@ -77,7 +77,7 @@ class StringManager {
         "unit_area": "Yta",
         "unit_crypto_beta": "Krypto (beta)",
         "unit_energy": "Energi",
-        "unit_shares": "Andelar",
+        "unit_shares": "Kvot / Proportion",
         "unit_viscosity_dynamic": "Viskositet (dynamisk)",
         "unit_viscosity_kinematic": "Viskositet (kinematisk)",
         "unit_angles": "Vinklar",
@@ -104,6 +104,10 @@ class StringManager {
         "unit_concentration_solution": "Lösningskoncentration",
         "unit_mass_flux_density": "Massflödestäthet",
         "unit_luminance": "Luminans",
+        "unit_luminous_intensity": "Ljusstyrka",
+        "unit_luminous_flux": "Ljusflöde",
+        "unit_illuminance": "Belysning",
+        "unit_frequency": "Frekvens"
     ]
     
     private let en: [String: String] = [
@@ -172,7 +176,7 @@ class StringManager {
         "unit_area": "Area",
         "unit_crypto_beta": "Crypto (beta)",
         "unit_energy": "Energy",
-        "unit_shares": "Shares",
+        "unit_shares": "Ratio / Proportion",
         "unit_viscosity_dynamic": "Viscosity (dynamic)",
         "unit_viscosity_kinematic": "Viscosity (kinematic)",
         "unit_angles": "Angles",
@@ -199,6 +203,10 @@ class StringManager {
         "unit_concentration_solution": "Concentration (solution)",
         "unit_mass_flux_density": "Mass Flux Density",
         "unit_luminance": "Luminance",
+        "unit_luminous_intensity": "Luminous Intensity",
+        "unit_luminous_flux": "Luminous Flux",
+        "unit_illuminance": "Illuminance",
+        "unit_frequency": "Frequency",
     ]
 
     
@@ -268,7 +276,7 @@ class StringManager {
         "unit_area": "Fläche",
         "unit_crypto_beta": "Krypto (Beta)",
         "unit_energy": "Energie",
-        "unit_shares": "Anteile",
+        "unit_shares": "Verhältnis / Proportion",
         "unit_viscosity_dynamic": "Dynamische Viskosität",
         "unit_viscosity_kinematic": "Kinematische Viskosität",
         "unit_angles": "Winkel",
@@ -295,6 +303,10 @@ class StringManager {
         "unit_concentration_solution": "Konzentration (Lösung)",
         "unit_mass_flux_density": "Massenflussdichte",
         "unit_luminance": "Leuchtdichte",
+        "unit_luminous_intensity": "Lichtstärke",
+        "unit_luminous_flux": "Lichtstrom",
+        "unit_illuminance": "Beleuchtungsstärke",
+        "unit_frequency": "Frequenz",
     ]
     
     private let es: [String: String] = [
@@ -363,7 +375,7 @@ class StringManager {
         "unit_area": "Área",
         "unit_crypto_beta": "Cripto (beta)",
         "unit_energy": "Energía",
-        "unit_shares": "Acciones",
+        "unit_shares": "Relación / Proporción",
         "unit_viscosity_dynamic": "Viscosidad dinámica",
         "unit_viscosity_kinematic": "Viscosidad cinemática",
         "unit_angles": "Ángulos",
@@ -390,6 +402,10 @@ class StringManager {
         "unit_concentration_solution": "Concentración (solución)",
         "unit_mass_flux_density": "Densidad de flujo de masa",
         "unit_luminance": "Luminancia",
+        "unit_luminous_intensity": "Intensidad luminosa",
+        "unit_luminous_flux": "Flujo luminoso",
+        "unit_illuminance": "Iluminancia",
+        "unit_frequency": "Frecuencia",
     ]
     
     private let fr: [String: String] = [
@@ -458,7 +474,7 @@ class StringManager {
         "unit_area": "Surface",
         "unit_crypto_beta": "Crypto (bêta)",
         "unit_energy": "Énergie",
-        "unit_shares": "Actions",
+        "unit_shares": "Rapport / Proportion",
         "unit_viscosity_dynamic": "Viscosité dynamique",
         "unit_viscosity_kinematic": "Viscosité cinématique",
         "unit_angles": "Angles",
@@ -485,6 +501,10 @@ class StringManager {
         "unit_concentration_solution": "Concentration (solution)",
         "unit_mass_flux_density": "Densité de flux de masse",
         "unit_luminance": "Luminance",
+        "unit_luminous_intensity": "Intensité lumineuse",
+        "unit_luminous_flux": "Flux lumineux",
+        "unit_illuminance": "Éclairement",
+        "unit_frequency": "Fréquence",
     ]
     
     private var tables: [String: [String: String]] {
