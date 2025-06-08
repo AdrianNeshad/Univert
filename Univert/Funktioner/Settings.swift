@@ -176,19 +176,10 @@ struct Inställningar: View {
                                  subject: StringManager.shared.get("univertfeedback"),
                                  messageBody: "")
                 }
-            }   
-            /*
-            Section(header: Text(StringManager.shared.get("otherapps")) {
-                Link(destination: URL(string: "https://apps.apple.com/us/app/unifeed/id6746576849")!) {
-                    HStack {
-                        Image("Unifeed")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .cornerRadius(8)
-                        Text("Unifeed")
-                    }
-                }
-                Link(destination: URL(string: "https://apps.apple.com/us/app/flixswipe/id6746682499")!) {
+            }
+            
+            Section(header: Text(StringManager.shared.get("otherapps"))) {
+                Link(destination: URL(string: "https://apps.apple.com/us/app/flixswipe-explore-new-movies/id6746716902")!) {
                     HStack {
                         Image("flixswipe")
                             .resizable()
@@ -198,20 +189,15 @@ struct Inställningar: View {
                     }
                 }
             }
-            */
+            
+            Section {
+                Text(appVersion)
+            }
+            
             Section {
                 EmptyView()
             } footer: {
-                VStack(spacing: 4) {
-                    Text(appVersion)
-                    Text("© 2025 Univert App")
-                    Text("Github.com/AdrianNeshad")
-                    Text("Linkedin.com/in/adrian-neshad")
-                }
-                .font(.caption)
-                .foregroundColor(.gray)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, -100)
+                AppFooter()
             }
         }
         .navigationTitle(StringManager.shared.get("settings"))
