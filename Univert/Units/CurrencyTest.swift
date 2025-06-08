@@ -18,6 +18,7 @@ struct Krypto: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
+    @Environment(\.colorScheme) var colorScheme
     @State private var selectedFromUnit: String? = "BTC"
     @State private var selectedToUnit: String? = "BTC"
     @State private var inputValue = ""
@@ -51,29 +52,28 @@ struct Krypto: View {
                 Text(StringManager.shared.get("from"))
                     .font(.title)
                     .bold()
-                    .textFieldStyle(PlainTextFieldStyle())
                     .padding(10)
-                    .frame(height: 50)
-                    .background(Color.gray.opacity(0.1))
+                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
-                
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
                 Text("➤")
                     .font(.title)
                     .bold()
-                    .frame(width: 100)
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
+                    .frame(width: 40)
 
                 Text(StringManager.shared.get("to"))
                     .font(.title)
                     .bold()
                     .padding(10)
-                    .frame(height: 50)
-                    .background(Color.gray.opacity(0.1))
+                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
                     .cornerRadius(5)
                     .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            .padding(.horizontal, 50)
+            .frame(maxWidth: .infinity)
             
             HStack {
                 Text("►")
@@ -129,7 +129,7 @@ struct Krypto: View {
                         .padding(10)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.1))
+                        .background(colorScheme == .dark ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
                         .onChange(of: inputValue) { newValue in
@@ -166,7 +166,7 @@ struct Krypto: View {
                         .padding(10)
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.1))
+                        .background(colorScheme == .dark ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
                         .cornerRadius(5)
                         .multilineTextAlignment(.leading)
                         .textSelection(.enabled)
