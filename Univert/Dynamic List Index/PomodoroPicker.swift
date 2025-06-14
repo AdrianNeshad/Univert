@@ -39,11 +39,22 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
     var body: some View {
         GeometryReader { geometry in
             Picker(geometry)
+                .onChange(of: selection) { newValue in
+                    if offset == 0, let newSelection = newValue, let index = options.firstIndex(of: newSelection) {
+                        withAnimation(.spring()) {
+                            self.persistentOffset = CGFloat(index) * itemWidthOverride(geometry) * -1
+                            self.offset = 0
+                        }
+                    }
+                    onChange?(newValue)
+                }
+                .onAppear {
+                    feedbackGenerator.prepare()
+                    if let initialSelection = selection, let index = options.firstIndex(of: initialSelection) {
+                        self.persistentOffset = CGFloat(index) * itemWidthOverride(geometry) * -1
+                    }
+                }
         }
-        .onAppear {
-            feedbackGenerator.prepare()
-        }
-        .onChange(of: selection) { onChange?($0) }
     }
     
     @ViewBuilder
@@ -69,7 +80,8 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
                             }
                         }
                         .position(x: geo.size.width / 2, y: geo.size.height / 2)
-                        .rotation3DEffect(angle, axis: (x: 1, y: 0, z: 0))                    }
+                        .rotation3DEffect(angle, axis: (x: 1, y: 0, z: 0))
+                    }
                 }
                 .frame(height: itemWidthOverride(geometry))
                 .onTapGesture { onTapped(option, geometry) }
@@ -127,12 +139,11 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
             return
         }
         
-        withAnimation(.easeOut(duration: 0.15)) {
-            self.offset = newOffset
-        }
+        self.offset = newOffset
         
-        selection = options[calculatedIndex]
-        if selection != previousSelection {
+        let currentSelection = options[calculatedIndex]
+        if selection != currentSelection {
+            selection = currentSelection
             feedbackGenerator.impactOccurred()
             feedbackGenerator.prepare()
             previousSelection = selection
@@ -160,10 +171,13 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
         
         withAnimation(.spring()) {
             self.persistentOffset = CGFloat(calculatedIndex) * itemWidthOverride(geometry) * -1
-            self.offset = 0
+            self.offset = 0 
         }
         
-        selection = options[calculatedIndex]
+        let finalSelection = options[calculatedIndex]
+        if selection != finalSelection {
+            selection = finalSelection
+        }
         
         if selection != previousSelection {
             feedbackGenerator.impactOccurred()

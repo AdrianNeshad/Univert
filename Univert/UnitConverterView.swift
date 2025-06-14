@@ -35,6 +35,8 @@ struct UnitConverterView: View {
     @State private var toastColor = Color.yellow
     @State private var isFavorite = false
     @State private var currentUnits: [Units] = []
+    
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
     var body: some View {
         VStack {
@@ -48,10 +50,11 @@ struct UnitConverterView: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("➤")
-                    .font(.title)
-                    .bold()
-                    .frame(width: 40)
+                Button(action: swapUnits) {
+                    Image("univert.svg")
+                        .resizable()
+                        .frame(width: 50, height: 40)
+                }
 
                 Text(StringManager.shared.get("to"))
                     .font(.title)
@@ -205,5 +208,13 @@ struct UnitConverterView: View {
             }
         }
     }
+
+    private func swapUnits() {
+        let tempUnit = selectedFromUnit
+        selectedFromUnit = selectedToUnit
+        selectedToUnit = tempUnit
+        triggerConversion()
+        feedbackGenerator.impactOccurred()
+        feedbackGenerator.prepare()
+    }
 }
-    

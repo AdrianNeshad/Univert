@@ -70,6 +70,8 @@ struct Valuta: View {
     
     @State private var exchangeRates: [String: Double] = [:]
     
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    
     var body: some View {
         VStack {
             HStack {
@@ -82,10 +84,11 @@ struct Valuta: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("➤")
-                    .font(.title)
-                    .bold()
-                    .frame(width: 40)
+                Button(action: swapUnits) {
+                    Image("univert.svg")
+                        .resizable()
+                        .frame(width: 50, height: 40)
+                }
 
                 Text(StringManager.shared.get("to"))
                     .font(.title)
@@ -290,5 +293,14 @@ struct Valuta: View {
         
         let convertedValue = inputDouble * toRate
         outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 2)
+    }
+    
+    private func swapUnits() {
+        let tempUnit = selectedFromUnit
+        selectedFromUnit = selectedToUnit
+        selectedToUnit = tempUnit
+        updateOutput()
+        feedbackGenerator.impactOccurred()
+        feedbackGenerator.prepare()
     }
 }

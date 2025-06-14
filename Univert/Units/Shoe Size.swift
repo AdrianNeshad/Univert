@@ -82,11 +82,10 @@ struct Skostorlek: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("➤")
-                    .font(.title)
-                    .bold()
-                    .frame(width: 40)
-
+                    Image("univert.svg")
+                        .resizable()
+                        .frame(width: 50, height: 40)
+                
                 Text(StringManager.shared.get("to"))
                     .font(.title)
                     .bold()
