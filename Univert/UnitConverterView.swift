@@ -63,17 +63,13 @@ struct UnitConverterView: View {
                                 .stroke(Color.blue, lineWidth: 2)
                         )
                         .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Spacer()
-                    
                 Button(action: swapUnits) {
                     Image("univert.svg")
                         .resizable()
                         .frame(width: 50, height: 40)
                 }
-                
-                Spacer()
-                    
                 Menu {
                     ForEach(definition.units, id: \.self) { unit in
                         Button {
@@ -96,6 +92,7 @@ struct UnitConverterView: View {
                                 .stroke(Color.blue, lineWidth: 2)
                         )
                         .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             .padding(.horizontal, 50)
