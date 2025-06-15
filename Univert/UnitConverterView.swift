@@ -40,7 +40,7 @@ struct UnitConverterView: View {
 
     var body: some View {
         VStack {
-                HStack {
+            HStack {
                 Menu {
                     ForEach(definition.units, id: \.self) { unit in
                         Button {
