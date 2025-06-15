@@ -40,7 +40,7 @@ struct UnitConverterView: View {
 
     var body: some View {
         VStack {
-            HStack {
+                HStack {
                 Menu {
                     ForEach(definition.units, id: \.self) { unit in
                         Button {
@@ -60,13 +60,17 @@ struct UnitConverterView: View {
                         .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
                         .cornerRadius(5)
                         .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                Spacer()
+                    
                 Button(action: swapUnits) {
                     Image("univert.svg")
                         .resizable()
                         .frame(width: 50, height: 40)
                 }
+                
+                Spacer()
+                    
                 Menu {
                     ForEach(definition.units, id: \.self) { unit in
                         Button {
@@ -86,7 +90,6 @@ struct UnitConverterView: View {
                         .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
                         .cornerRadius(5)
                         .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             .padding(.horizontal, 50)
