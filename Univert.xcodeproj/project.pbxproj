@@ -292,9 +292,9 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				2AD06F092DFEC56900A6C09C /* Icke-standardiserade */,
-				2AD06F082DFEC53100A6C09C /* Standardiserade */,
 				3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */,
+				2AD06F082DFEC53100A6C09C /* Standardiserade */,
+				2AD06F092DFEC56900A6C09C /* Icke-standardiserade */,
 			);
 			path = Units;
 			sourceTree = "<group>";

@@ -87,11 +87,14 @@ struct Valuta: View {
                         }
                     } label: {
                         Text(StringManager.shared.get("from"))
+                            .foregroundColor(.primary)
                             .font(.title)
                             .bold()
                             .padding(10)
-                            .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                            .cornerRadius(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            )
                             .multilineTextAlignment(.center)
                     }
                 Spacer()
@@ -115,11 +118,14 @@ struct Valuta: View {
                         }
                     } label: {
                         Text(StringManager.shared.get("to"))
+                            .foregroundColor(.primary)
                             .font(.title)
                             .bold()
                             .padding(10)
-                            .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                            .cornerRadius(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            )
                             .multilineTextAlignment(.center)
                     }
                 }
