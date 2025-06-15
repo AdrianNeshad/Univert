@@ -32,6 +32,8 @@ struct Skostorlek: View {
     @State private var toastIcon = "star.fill"
     @State private var toastColor = Color.yellow
     
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+
     let unitId = "shoe_size"
     
     let units = ["EU", "UK", "US M", "US W", "cm", "in"]
@@ -73,28 +75,54 @@ struct Skostorlek: View {
     var body: some View {
         VStack {
             HStack {
-                Text(StringManager.shared.get("from"))
-                    .font(.title)
-                    .bold()
-                    .padding(10)
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Image("univert.svg")
-                        .resizable()
-                        .frame(width: 50, height: 40)
-                
-                Text(StringManager.shared.get("to"))
-                    .font(.title)
-                    .bold()
-                    .padding(10)
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+                        Menu {
+                            ForEach(units, id: \.self) { unit in
+                                Button {
+                                    selectedFromUnit = unit
+                                    convertUsingTable()
+                                    feedbackGenerator.impactOccurred()
+                                    feedbackGenerator.prepare()
+                                } label: {
+                                    Text("\(unit) - \(fullNames[unit] ?? "")")
+                                }
+                            }
+                        } label: {
+                            Text(StringManager.shared.get("from"))
+                                .font(.title)
+                                .bold()
+                                .padding(10)
+                                .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
+                                .cornerRadius(5)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        Button(action: swapUnits) {
+                            Image("univert.svg")
+                                .resizable()
+                                .frame(width: 50, height: 40)
+                        }
+                        Menu {
+                            ForEach(units, id: \.self) { unit in
+                                Button {
+                                    selectedToUnit = unit
+                                    convertUsingTable()
+                                    feedbackGenerator.impactOccurred()
+                                    feedbackGenerator.prepare()
+                                } label: {
+                                    Text("\(unit) - \(fullNames[unit] ?? "")")
+                                }
+                            }
+                        } label: {
+                            Text(StringManager.shared.get("to"))
+                                .font(.title)
+                                .bold()
+                                .padding(10)
+                                .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
+                                .cornerRadius(5)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                    }
             .padding(.horizontal, 50)
             .frame(maxWidth: .infinity)
             
@@ -155,7 +183,7 @@ struct Skostorlek: View {
                         if !useSwedishDecimal {
                             let replaced = newValue.replacingOccurrences(of: ",", with: ".")
                             if replaced != newValue {
-                                inputValue = replaced  
+                                inputValue = replaced
                             }
                         }
                         convertUsingTable()
@@ -184,30 +212,32 @@ struct Skostorlek: View {
         .navigationTitle(StringManager.shared.get("unit_shoe_size"))
         .padding()
         .onAppear {
-                    if let data = savedUnitsData,
-                       let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
-                        currentUnits = savedUnits
-                    } else {
-                        currentUnits = Units.preview()
-                    }
-                    
+            if let data = savedUnitsData,
+                let savedUnits = try? JSONDecoder().decode([Units].self, from: data) {
+                currentUnits = savedUnits
+            } else {
+                currentUnits = Units.preview()
+            }
+            
             if let match = currentUnits.first(where: { $0.id == unitId }) {
                 isFavorite = match.isFavorite
             }
-                }
+            feedbackGenerator.prepare()
+        }
         .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            toggleFavorite()
-                        }) {
-                            Image(systemName: isFavorite ? "star.fill" : "star")
-                        }
-                    }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    toggleFavorite()
+                }) {
+                    Image(systemName: isFavorite ? "star.fill" : "star")
                 }
-                .toast(isPresenting: $showToast) {
-                    AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
-                }
+            }
+        }
+        .toast(isPresenting: $showToast) {
+            AlertToast(displayMode: .hud, type: .systemImage(toastIcon, toastColor), title: toastMessage)
+        }
     }
+    
     func toggleFavorite() {
         if let index = currentUnits.firstIndex(where: { $0.id == unitId }) {
             currentUnits[index].isFavorite.toggle()
@@ -245,6 +275,7 @@ struct Skostorlek: View {
             outputValue = ""
             return
         }
+        
         let nearestRow = shoeSizeTable.min(by: { abs(value(for: fromUnit, in: $0) - inputDouble) < abs(value(for: fromUnit, in: $1) - inputDouble) })
         
         guard let row = nearestRow else {
@@ -262,8 +293,17 @@ struct Skostorlek: View {
         case "US M": return row.usM
         case "US W": return row.usW
         case "cm": return row.cm
-        case "in": return row.cm / 2.54  
+        case "in": return row.cm / 2.54
         default: return 0
         }
+    }
+    
+    private func swapUnits() {
+        let tempUnit = selectedFromUnit
+        selectedFromUnit = selectedToUnit
+        selectedToUnit = tempUnit
+        convertUsingTable()
+        feedbackGenerator.impactOccurred()
+        feedbackGenerator.prepare()
     }
 }

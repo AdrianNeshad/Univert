@@ -45,32 +45,57 @@ struct Krypto: View {
            "DOGE": "Dogecoin",
        ]
     @State private var exchangeRates: [String: Double] = [:]
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
     
     var body: some View {
         VStack {
             HStack {
-                Text(StringManager.shared.get("from"))
-                    .font(.title)
-                    .bold()
-                    .padding(10)
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Image("univert.svg")
-                        .resizable()
-                        .frame(width: 50, height: 40)
-
-                Text(StringManager.shared.get("to"))
-                    .font(.title)
-                    .bold()
-                    .padding(10)
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+                    Menu {
+                        ForEach(units, id: \.self) { unit in
+                            Button {
+                                selectedFromUnit = unit
+                                feedbackGenerator.impactOccurred()
+                                feedbackGenerator.prepare()
+                            } label: {
+                                Text("\(unit) - \(fullNames[unit] ?? "")")
+                            }
+                        }
+                    } label: {
+                        Text(StringManager.shared.get("from"))
+                            .font(.title)
+                            .bold()
+                            .padding(10)
+                            .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
+                            .cornerRadius(5)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    Button(action: swapUnits) {
+                        Image("univert.svg")
+                            .resizable()
+                            .frame(width: 50, height: 40)
+                    }
+                    Menu {
+                        ForEach(units, id: \.self) { unit in
+                            Button {
+                                selectedToUnit = unit
+                                feedbackGenerator.impactOccurred()
+                                feedbackGenerator.prepare()
+                            } label: {
+                                Text("\(unit) - \(fullNames[unit] ?? "")")
+                            }
+                        }
+                    } label: {
+                        Text(StringManager.shared.get("to"))
+                            .font(.title)
+                            .bold()
+                            .padding(10)
+                            .background(colorScheme == .dark ? Color.gray.opacity(0.25) : Color.gray.opacity(0.2))
+                            .cornerRadius(5)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }
             .padding(.horizontal, 50)
             .frame(maxWidth: .infinity)
             
@@ -290,4 +315,13 @@ struct Krypto: View {
 
         outputValue = FormatterHelper.shared.formatResult(convertedValue, useSwedishDecimal: useSwedishDecimal, maximumFractionDigits: 8)
     }
+    
+    private func swapUnits() {
+            let tempUnit = selectedFromUnit
+            selectedFromUnit = selectedToUnit
+            selectedToUnit = tempUnit
+            outputValue = ""
+            feedbackGenerator.impactOccurred()
+            feedbackGenerator.prepare()
+        }
 }
