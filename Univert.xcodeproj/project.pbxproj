@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,16 +40,13 @@
 		3A21D73B2DC7823200B37E2D /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73A2DC7823200B37E2D /* Time.swift */; };
 		3A21D73D2DC7823E00B37E2D /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73C2DC7823E00B37E2D /* Temperature.swift */; };
 		3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D73E2DC7824700B37E2D /* Volume.swift */; };
-		3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */; };
 		3A21D7432DC78AFA00B37E2D /* Data Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7422DC78AFA00B37E2D /* Data Size.swift */; };
 		3A21D7452DC78B0B00B37E2D /* Data Transfer Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */; };
 		3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7462DC78B1600B37E2D /* Pressure.swift */; };
 		3A21D7492DC78B2000B37E2D /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7482DC78B2000B37E2D /* Power.swift */; };
 		3A21D74B2DC78B3300B37E2D /* Torque.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D74A2DC78B3300B37E2D /* Torque.swift */; };
-		3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */; };
 		3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60902DC80E790013BF5E /* Velocity.swift */; };
 		3A2F60932DC816770013BF5E /* PomodoroPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F60922DC816760013BF5E /* PomodoroPicker.swift */; };
-		3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18912DD50E3C00FB6E4D /* Base.swift */; };
 		3A4D18942DD5124300FB6E4D /* Magnetomotive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */; };
 		3A4D18962DD514C500FB6E4D /* Magnetic Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */; };
 		3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */; };
@@ -59,7 +56,6 @@
 		3A832FCF2DD0BC810058D0F8 /* Electric Current.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */; };
 		3A832FD12DD0BDFF0058D0F8 /* Electric resistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */; };
 		3A832FD32DD0C0E10058D0F8 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A832FD22DD0C0E10058D0F8 /* Language.swift */; };
-		3AAD79C02DCBB59800319189 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79BF2DCBB59700319189 /* Currency.swift */; };
 		3AAD79C22DCBB78300319189 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD79C12DCBB78300319189 /* Area.swift */; };
 		3AB3E2282DCE0DE90016EDE9 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */; };
 		3AC141EE2DCF6E6D00CD7922 /* Shares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC141ED2DCF6E6D00CD7922 /* Shares.swift */; };
@@ -118,16 +114,13 @@
 		3A21D73A2DC7823200B37E2D /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		3A21D73C2DC7823E00B37E2D /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		3A21D73E2DC7824700B37E2D /* Volume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
-		3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shoe Size.swift"; sourceTree = "<group>"; };
 		3A21D7422DC78AFA00B37E2D /* Data Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Size.swift"; sourceTree = "<group>"; };
 		3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data Transfer Speed.swift"; sourceTree = "<group>"; };
 		3A21D7462DC78B1600B37E2D /* Pressure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pressure.swift; sourceTree = "<group>"; };
 		3A21D7482DC78B2000B37E2D /* Power.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
 		3A21D74A2DC78B3300B37E2D /* Torque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torque.swift; sourceTree = "<group>"; };
-		3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTest.swift; sourceTree = "<group>"; };
 		3A2F60902DC80E790013BF5E /* Velocity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velocity.swift; sourceTree = "<group>"; };
 		3A2F60922DC816760013BF5E /* PomodoroPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPicker.swift; sourceTree = "<group>"; };
-		3A4D18912DD50E3C00FB6E4D /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magnetomotive.swift; sourceTree = "<group>"; };
 		3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Magnetic Field.swift"; sourceTree = "<group>"; };
 		3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Magnetic Flux.swift"; sourceTree = "<group>"; };
@@ -137,7 +130,6 @@
 		3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric Current.swift"; sourceTree = "<group>"; };
 		3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Electric resistance.swift"; sourceTree = "<group>"; };
 		3A832FD22DD0C0E10058D0F8 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		3AAD79BF2DCBB59700319189 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		3AAD79C12DCBB78300319189 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		3AB3E2272DCE0DE90016EDE9 /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		3AC141ED2DCF6E6D00CD7922 /* Shares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shares.swift; sourceTree = "<group>"; };
@@ -158,6 +150,10 @@
 		3AF378902DCD081E0024BFA9 /* FormatterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatterHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2AD06F092DFEC56900A6C09C /* Icke-standardiserade */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Icke-standardiserade"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		3A21D6F82DC7720A00B37E2D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -171,6 +167,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2AD06F082DFEC53100A6C09C /* Standardiserade */ = {
+			isa = PBXGroup;
+			children = (
+				2A6BFD9C2DF622DA00A1E5E2 /* FuelConsumption.swift */,
+				2AF07D4D2DF581900008EEFF /* Illuminance.swift */,
+				2AF07D4F2DF582500008EEFF /* Frequency.swift */,
+				2AF07D492DF580150008EEFF /* LuminousIntensity.swift */,
+				2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */,
+				2A51970B2DF44D9200E3963C /* Luminance.swift */,
+				2A5197092DF44BD200E3963C /* MassFluxDensity.swift */,
+				2A5197052DF449B800E3963C /* FlowRate.swift */,
+				2A5197032DF4482E00E3963C /* Surface Tension.swift */,
+				2A5196FD2DF4388500E3963C /* Linear Current.swift */,
+				2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */,
+				2A761BED2DF396CF0065898A /* Radiation Exposure.swift */,
+				2A761BEB2DF395A30065898A /* Radiation Activity.swift */,
+				2A761BE92DF390C10065898A /* Radiation.swift */,
+				2A761BE72DF38DB80065898A /* Magnetic Flux Density.swift */,
+				2A761BE52DF38B320065898A /* Volume charge.swift */,
+				2A761BE32DF38A620065898A /* Surface charge.swift */,
+				2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */,
+				2A761BDF2DF388080065898A /* Charge.swift */,
+				2A761BE12DF3894E0065898A /* Linear charge.swift */,
+				3A21D7352DC7821100B37E2D /* Mass.swift */,
+				3A21D73A2DC7823200B37E2D /* Time.swift */,
+				3A21D73C2DC7823E00B37E2D /* Temperature.swift */,
+				3A2F60902DC80E790013BF5E /* Velocity.swift */,
+				3A21D73E2DC7824700B37E2D /* Volume.swift */,
+				3A21D7382DC7822800B37E2D /* Length.swift */,
+				3A21D7422DC78AFA00B37E2D /* Data Size.swift */,
+				3A21D7482DC78B2000B37E2D /* Power.swift */,
+				3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */,
+				3A21D7462DC78B1600B37E2D /* Pressure.swift */,
+				3AC141ED2DCF6E6D00CD7922 /* Shares.swift */,
+				3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */,
+				3AAD79C12DCBB78300319189 /* Area.swift */,
+				3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */,
+				3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */,
+				2A761BDD2DF386450065898A /* Inductance.swift */,
+				3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */,
+				3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */,
+				3AF017662DEAF76100CD5F4A /* ImageResolution.swift */,
+				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
+				3A780DEF2DCD59DB00A8A435 /* Energy.swift */,
+				3A21D74A2DC78B3300B37E2D /* Torque.swift */,
+				3AC141F22DCF763500CD7922 /* ViscosityK.swift */,
+				3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */,
+			);
+			path = Standardiserade;
+			sourceTree = "<group>";
+		};
 		3A11B53B2DDE3F8600FF4D64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,55 +292,9 @@
 		3A21D7282DC7746A00B37E2D /* Units */ = {
 			isa = PBXGroup;
 			children = (
-				2A6BFD9C2DF622DA00A1E5E2 /* FuelConsumption.swift */,
-				2AF07D4F2DF582500008EEFF /* Frequency.swift */,
-				2AF07D4D2DF581900008EEFF /* Illuminance.swift */,
-				2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */,
-				2AF07D492DF580150008EEFF /* LuminousIntensity.swift */,
-				2A51970B2DF44D9200E3963C /* Luminance.swift */,
-				2A5197092DF44BD200E3963C /* MassFluxDensity.swift */,
-				2A5197072DF44AC400E3963C /* ConcentrationSolution.swift */,
-				2A5197052DF449B800E3963C /* FlowRate.swift */,
-				2A5197032DF4482E00E3963C /* Surface Tension.swift */,
-				2A5196FD2DF4388500E3963C /* Linear Current.swift */,
-				2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */,
-				2A761BED2DF396CF0065898A /* Radiation Exposure.swift */,
-				2A761BEB2DF395A30065898A /* Radiation Activity.swift */,
-				2A761BE92DF390C10065898A /* Radiation.swift */,
-				2A761BE72DF38DB80065898A /* Magnetic Flux Density.swift */,
-				2A761BE52DF38B320065898A /* Volume charge.swift */,
-				2A761BE32DF38A620065898A /* Surface charge.swift */,
-				2A761BE12DF3894E0065898A /* Linear charge.swift */,
-				2A761BDF2DF388080065898A /* Charge.swift */,
-				3A2F60902DC80E790013BF5E /* Velocity.swift */,
-				3A21D7352DC7821100B37E2D /* Mass.swift */,
-				3A21D7382DC7822800B37E2D /* Length.swift */,
-				3A21D73A2DC7823200B37E2D /* Time.swift */,
-				3A21D73C2DC7823E00B37E2D /* Temperature.swift */,
-				3A21D73E2DC7824700B37E2D /* Volume.swift */,
-				3A21D7402DC78AEF00B37E2D /* Shoe Size.swift */,
-				3A21D7422DC78AFA00B37E2D /* Data Size.swift */,
-				3A21D7442DC78B0B00B37E2D /* Data Transfer Speed.swift */,
-				3A21D7462DC78B1600B37E2D /* Pressure.swift */,
-				3A21D7482DC78B2000B37E2D /* Power.swift */,
-				3A21D74A2DC78B3300B37E2D /* Torque.swift */,
-				3AAD79BF2DCBB59700319189 /* Currency.swift */,
-				3AAD79C12DCBB78300319189 /* Area.swift */,
-				3A2EF8002DCBD692004CFDDA /* CurrencyTest.swift */,
+				2AD06F092DFEC56900A6C09C /* Icke-standardiserade */,
+				2AD06F082DFEC53100A6C09C /* Standardiserade */,
 				3AEDDFD52DC8F53900FC5897 /* Enhetsmall.swift */,
-				3A780DEF2DCD59DB00A8A435 /* Energy.swift */,
-				3AC141ED2DCF6E6D00CD7922 /* Shares.swift */,
-				3AC141EF2DCF761C00CD7922 /* ViscosityD.swift */,
-				3AC141F22DCF763500CD7922 /* ViscosityK.swift */,
-				3A832FCC2DD0B7BB0058D0F8 /* Angles.swift */,
-				3A832FCE2DD0BC810058D0F8 /* Electric Current.swift */,
-				3A832FD02DD0BDFF0058D0F8 /* Electric resistance.swift */,
-				3A4D18912DD50E3C00FB6E4D /* Base.swift */,
-				3A4D18932DD5124300FB6E4D /* Magnetomotive.swift */,
-				3A4D18952DD514C500FB6E4D /* Magnetic Field.swift */,
-				3A4D18972DD52EA300FB6E4D /* Magnetic Flux.swift */,
-				3AF017662DEAF76100CD5F4A /* ImageResolution.swift */,
-				2A761BDD2DF386450065898A /* Inductance.swift */,
 			);
 			path = Units;
 			sourceTree = "<group>";
@@ -347,6 +348,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2AD06F092DFEC56900A6C09C /* Icke-standardiserade */,
 			);
 			name = Univert;
 			packageProductDependencies = (
@@ -412,13 +416,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A761BE62DF38B390065898A /* Volume charge.swift in Sources */,
-				3A4D18922DD50E3C00FB6E4D /* Base.swift in Sources */,
 				2A51970A2DF44BD600E3963C /* MassFluxDensity.swift in Sources */,
 				3A4D18942DD5124300FB6E4D /* Magnetomotive.swift in Sources */,
 				3AAD79C22DCBB78300319189 /* Area.swift in Sources */,
 				3AEDDFD62DC8F53900FC5897 /* Enhetsmall.swift in Sources */,
 				2A761BEA2DF390C40065898A /* Radiation.swift in Sources */,
-				3A21D7412DC78AEF00B37E2D /* Shoe Size.swift in Sources */,
 				3AD7078C2DD681E400B5D6EC /* UnitRow.swift in Sources */,
 				3A21D7472DC78B1600B37E2D /* Pressure.swift in Sources */,
 				3A4D18982DD52EA300FB6E4D /* Magnetic Flux.swift in Sources */,
@@ -439,7 +441,6 @@
 				3AC141EE2DCF6E6D00CD7922 /* Shares.swift in Sources */,
 				3A832FCD2DD0B7BB0058D0F8 /* Angles.swift in Sources */,
 				3A2F60912DC80E790013BF5E /* Velocity.swift in Sources */,
-				3AAD79C02DCBB59800319189 /* Currency.swift in Sources */,
 				2A761BE02DF3880E0065898A /* Charge.swift in Sources */,
 				3A21D73F2DC7824700B37E2D /* Volume.swift in Sources */,
 				3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */,
@@ -460,7 +461,6 @@
 				2A761BEC2DF395C50065898A /* Radiation Activity.swift in Sources */,
 				2A761BE42DF38A680065898A /* Surface charge.swift in Sources */,
 				2A761BE22DF389530065898A /* Linear charge.swift in Sources */,
-				3A2EF8012DCBD692004CFDDA /* CurrencyTest.swift in Sources */,
 				3A780DF02DCD59DB00A8A435 /* Energy.swift in Sources */,
 				3A4D18962DD514C500FB6E4D /* Magnetic Field.swift in Sources */,
 				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
