@@ -74,102 +74,108 @@ struct Valuta: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Menu {
-                    ForEach(units, id: \.self) { unit in
-                        Button {
-                            selectedFromUnit = unit
-                            feedbackGenerator.impactOccurred()
-                            feedbackGenerator.prepare()
+            ZStack {
+                HStack {
+                    Text("►")
+                        .font(.title)
+                        .frame(width: 50)
+                    
+                    PomodoroPicker(
+                        selection: $selectedFromUnit,
+                        options: units
+                    ) { unit in
+                        Text(unit)
+                            .font(.title)
+                            .bold()
+                            .frame(width: 100)
+                            .padding(.leading, -90)
+                    }
+                    .onChange(of: selectedFromUnit) { _ in
+                        outputValue = ""
+                        fetchExchangeRates()
+                    }
+                    
+                    PomodoroPicker(
+                        selection: $selectedToUnit,
+                        options: units
+                    ) { unit in
+                        Text(unit)
+                            .font(.title)
+                            .bold()
+                            .frame(width: 100)
+                            .padding(.trailing, -90)
+                    }
+                    .onChange(of: selectedToUnit) { _ in
+                        updateOutput()
+                    }
+                    
+                    Text("◄")
+                        .font(.title)
+                        .frame(width: 50)
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 180)
+                
+                VStack {
+                    HStack {
+                        Menu {
+                            ForEach(units, id: \.self) { unit in
+                                Button {
+                                    selectedFromUnit = unit
+                                    feedbackGenerator.impactOccurred()
+                                    feedbackGenerator.prepare()
+                                } label: {
+                                    Text("\(unit) - \(currencyNames[unit] ?? "")")
+                                }
+                            }
                         } label: {
-                            Text("\(unit) - \(currencyNames[unit] ?? "")")
+                            Text(StringManager.shared.get("from"))
+                                .foregroundColor(.primary)
+                                .font(.title)
+                                .bold()
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.blue, lineWidth: 2)
+                                )
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        Button(action: swapUnits) {
+                            Image("univert.svg")
+                                .resizable()
+                                .frame(width: 50, height: 40)
+                        }
+                        Menu {
+                            ForEach(units, id: \.self) { unit in
+                                Button {
+                                    selectedToUnit = unit
+                                    feedbackGenerator.impactOccurred()
+                                    feedbackGenerator.prepare()
+                                } label: {
+                                    Text("\(unit) - \(currencyNames[unit] ?? "")")
+                                }
+                            }
+                        } label: {
+                            Text(StringManager.shared.get("to"))
+                                .foregroundColor(.primary)
+                                .font(.title)
+                                .bold()
+                                .padding(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Color.blue, lineWidth: 2)
+                                )
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
-                } label: {
-                    Text(StringManager.shared.get("from"))
-                        .foregroundColor(.primary)
-                        .font(.title)
-                        .bold()
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.blue, lineWidth: 2)
-                        )
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                Button(action: swapUnits) {
-                    Image("univert.svg")
-                        .resizable()
-                        .frame(width: 50, height: 40)
-                }
-                Menu {
-                    ForEach(units, id: \.self) { unit in
-                        Button {
-                            selectedToUnit = unit
-                            feedbackGenerator.impactOccurred()
-                            feedbackGenerator.prepare()
-                        } label: {
-                            Text("\(unit) - \(currencyNames[unit] ?? "")")
-                        }
-                    }
-                } label: {
-                    Text(StringManager.shared.get("to"))
-                        .foregroundColor(.primary)
-                        .font(.title)
-                        .bold()
-                        .padding(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.blue, lineWidth: 2)
-                        )
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.horizontal, 50)
+                    .frame(maxWidth: .infinity)
+                    
+                    Spacer()
                 }
             }
-            .padding(.horizontal, 50)
-            .frame(maxWidth: .infinity)
-
-            HStack {
-                Text("►")
-                    .font(.title)
-                    .frame(width: 50)
-                
-                PomodoroPicker(
-                    selection: $selectedFromUnit,
-                    options: units
-                ) { unit in
-                    Text(unit)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 100)
-                        .padding(.leading, -90)
-                }
-                .onChange(of: selectedFromUnit) { _ in
-                    outputValue = ""
-                    fetchExchangeRates()
-                }
-                
-                PomodoroPicker(
-                    selection: $selectedToUnit,
-                    options: units
-                ) { unit in
-                    Text(unit)
-                        .font(.title)
-                        .bold()
-                        .frame(width: 100)
-                        .padding(.trailing, -90)
-                }
-                .onChange(of: selectedToUnit) { _ in
-                    updateOutput()
-                }
-                
-                Text("◄")
-                    .font(.title)
-                    .frame(width: 50)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 180)
             
             HStack {
                 Text("(\(selectedFromUnit ?? "")) \(currencyNames[selectedFromUnit ?? ""] ?? "")")
