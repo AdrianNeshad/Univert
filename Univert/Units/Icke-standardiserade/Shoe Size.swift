@@ -99,6 +99,7 @@ struct Skostorlek: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 180)
+                .padding(.top, 80)
                 
                 VStack {
                     HStack {
