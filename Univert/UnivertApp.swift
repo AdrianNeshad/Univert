@@ -53,6 +53,12 @@ struct UnivertApp: App {
             appLanguage = "hi" // Hindi
         } else if preferred.starts(with: "bn") {
             appLanguage = "bn" // Bengali
+        } else if preferred.starts(with: "fa") {
+            appLanguage = "fa" // Farsi
+        } else if preferred.starts(with: "ti") {
+            appLanguage = "ti" // Tigrinja
+        } else if preferred.starts(with: "nl") {
+            appLanguage = "nl" // nederländska
         } else {
             appLanguage = "en"
         }
