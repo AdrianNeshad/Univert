@@ -38,16 +38,34 @@ struct Inställningar: View {
                 Toggle(StringManager.shared.get("darkmode"), isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
-                Picker("Språk / Language", selection: $appLanguage) {
-                    Text("English").tag("en")
-                    Text("Svenska").tag("sv")
-                    Text("Deutsch").tag("de")
-                    Text("Español").tag("es")
-                    Text("Français").tag("fr")
-                }
-                .pickerStyle(SegmentedPickerStyle())
+                Picker(selection: $appLanguage) {
+                    
+                    Text("العربية").tag("ar")       // Arabiska
+                    Text("বাংলা").tag("bn")         // Bengali
+                    Text("中文").tag("zh")           // Kinesiska
+                    Text("Deutsch").tag("de")       // Tyska
+                    Text("English").tag("en")       // Engelska
+                    Text("Español").tag("es")       // Spanska
+                    Text("Français").tag("fr")       // Franska
+                    Text("Ελληνικά").tag("el")       // Grekiska
+                    Text("עברית").tag("he")         // Hebreiska
+                    Text("हिंदी").tag("hi")         // Hindi
+                    Text("한국어").tag("ko")           // Koreanska
+                    Text("Italiano").tag("it")      // Italienska
+                    Text("日本語").tag("ja")           // Japanska
+                    Text("Polski").tag("pl")        // Polska
+                    Text("Português").tag("pt")     // Portugisiska
+                    Text("Русский").tag("ru")       // Ryska
+                    Text("Svenska").tag("sv")       // Svenska
+                    Text("Türkçe").tag("tr")         // Turkiska
+                    
+                    } label: {
+                        Label(StringManager.shared.get("language"), systemImage: "globe")
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                
                 .onChange(of: appLanguage) { newLang in
-                    if newLang == "en" {
+                    if newLang == "en" || newLang == "zh" || newLang == "ja" || newLang == "ko" || newLang == "ar" || newLang == "hi" || newLang == "bn" {
                         useSwedishDecimal = false
                     } else {
                         useSwedishDecimal = true

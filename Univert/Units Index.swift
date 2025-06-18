@@ -178,7 +178,7 @@ struct UnitsListView: View {
         case "magnetism": return StringManager.shared.get("magnetism")
         case "elektricitet": return StringManager.shared.get("electricity")
         case "vätska": return StringManager.shared.get("fluid")
-        case "data": return "Data"
+        case "data": return StringManager.shared.get("data")
         case "strålning": return StringManager.shared.get("radiation")
         case "belysning": return StringManager.shared.get("light")
         default: return key

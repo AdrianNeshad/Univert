@@ -1,10 +1,3 @@
-//
-//  UnivertApp.swift
-//  Univert
-//
-//  Created by Adrian Neshad on 2025-05-04.
-//
-
 import SwiftUI
 
 @main
@@ -34,8 +27,32 @@ struct UnivertApp: App {
             appLanguage = "de"
         } else if preferred.starts(with: "fr") {
             appLanguage = "fr"
-        } else if preferred.starts(with: "es") {
-            appLanguage = "es"
+        } else if preferred.starts(with: "he") {
+            appLanguage = "he" // Hebreiska
+        } else if preferred.starts(with: "zh") {
+            appLanguage = "zh" // Kinesiska
+        } else if preferred.starts(with: "ar") {
+            appLanguage = "ar" // Arabiska
+        } else if preferred.starts(with: "ru") {
+            appLanguage = "ru" // Ryska
+        } else if preferred.starts(with: "ja") {
+            appLanguage = "ja" // Japanska
+        } else if preferred.starts(with: "it") {    
+            appLanguage = "it" // Italienska
+        } else if preferred.starts(with: "tr") {
+            appLanguage = "tr" // Turkiska
+        } else if preferred.starts(with: "ko") {
+            appLanguage = "ko" // Koreanska
+        } else if preferred.starts(with: "pl") {
+            appLanguage = "pl" // Polska
+        } else if preferred.starts(with: "el") {
+            appLanguage = "el" // Grekiska
+        } else if preferred.starts(with: "pt") {
+            appLanguage = "pt" // Portugisiska
+        } else if preferred.starts(with: "hi") {
+            appLanguage = "hi" // Hindi
+        } else if preferred.starts(with: "bn") {
+            appLanguage = "bn" // Bengali
         } else {
             appLanguage = "en"
         }
