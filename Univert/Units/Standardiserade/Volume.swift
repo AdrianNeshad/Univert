@@ -12,7 +12,7 @@ struct Volym: View {
         UnitConverterView(definition: UnitDefinition(
             id: "volume",
             titleKey: "unit_volume",
-            units: ["L", "ml", "cl", "dl", "gal", "cup", "pint", "qrt", "fl oz", "cm³", "dm³", "m³", "mm³"],
+            units: ["L", "ml", "cl", "dl", "gal", "cup", "pint", "qrt", "fl oz", "tsp", "tbsp", "cm³", "dm³", "m³", "mm³"],
             fullNames: [
                 "L": "Liter",
                 "ml": "Milliliter",
@@ -26,7 +26,9 @@ struct Volym: View {
                 "cm³": "Cubic Centimeter",
                 "dm³": "Cubic Decimeter",
                 "m³": "Cubic Meter",
-                "mm³": "Cubic Millimeter"
+                "mm³": "Cubic Millimeter",
+                "tsp": "Teaspoon",
+                "tbsp": "Tablespoon",
             ],
             convert: { value, from, to in
                 let map: [String: Double] = [
@@ -42,12 +44,14 @@ struct Volym: View {
                     "cm³": 0.001,
                     "dm³": 1,
                     "m³": 1000,
-                    "mm³": 0.000001
+                    "mm³": 0.000001,
+                    "tsp": 0.00492892,
+                    "tbsp": 0.0147868,
                 ]
                 guard let fromF = map[from], let toF = map[to] else { return nil }
                 return value * fromF / toF
             },
-            maxFractionDigits: 2
+            maxFractionDigits: 4
         ))
     }
 }

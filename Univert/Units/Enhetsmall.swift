@@ -10,7 +10,7 @@ import SwiftUI
 struct Enhetsmall: View {
     var body: some View {
         UnitConverterView(definition: UnitDefinition(
-            id: "Enhetsmall",
+            id: "enhetsmall",
             titleKey: "unit_template",
             units: ["XXX", "YYY", "ZZZ"],
             fullNames: [
