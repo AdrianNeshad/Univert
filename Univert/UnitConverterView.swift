@@ -156,14 +156,33 @@ struct UnitConverterView: View {
                     .onChange(of: selectedFromUnit) { _ in triggerConversion() }
                     .onChange(of: selectedToUnit) { _ in triggerConversion() }
 
-                Text(outputValue.isEmpty ? "" : outputValue)
-                    .padding(10)
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(colorScheme == .dark ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
-                    .cornerRadius(5)
-                    .multilineTextAlignment(.leading)
-                    .textSelection(.enabled)
+                HStack(spacing: 5) {
+                    Text(outputValue.isEmpty ? "" : outputValue)
+                        .padding(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .textSelection(.enabled)
+
+                    if !outputValue.isEmpty {
+                        Button(action: {
+                            UIPasteboard.general.string = outputValue
+                            toastMessage = StringManager.shared.get("copied")
+                            toastIcon = "doc.on.doc"
+                            toastColor = .green
+                            withAnimation { showToast = true }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                withAnimation { showToast = false }
+                            }
+                        }) {
+                            Image(systemName: "doc.on.doc")
+                                .padding(.trailing, 8)
+                        }
+                    }
+                }
+                .padding(10)
+                .frame(height: 50)
+                .background(colorScheme == .dark ? Color.gray.opacity(0.35) : Color.gray.opacity(0.2))
+                .cornerRadius(5)
             }
             .padding([.leading, .trailing], 10)
         }

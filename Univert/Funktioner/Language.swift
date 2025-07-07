@@ -62,6 +62,7 @@ class StringManager {
         "light": "Belysning",
         "language": "Språk",
         "data": "Data",
+        "copied": "Kopierad",
         
         "unit_speed": "Hastighet",
         "unit_weight": "Vikt",
@@ -164,6 +165,7 @@ class StringManager {
         "light": "Lighting",
         "language": "Language",
         "data": "Data",
+        "copied": "Copied",
         
         "unit_speed": "Speed",
         "unit_weight": "Weight",
@@ -266,6 +268,7 @@ class StringManager {
         "light": "Beleuchtung",
         "language": "Sprache",
         "data": "Daten",
+        "copied": "Kopiert",
 
         "unit_speed": "Geschwindigkeit",
         "unit_weight": "Gewicht",
@@ -368,6 +371,7 @@ class StringManager {
         "light": "Iluminación",
         "language": "Idioma",
         "data": "Datos",
+        "copied": "Copiado",
 
         "unit_speed": "Velocidad",
         "unit_weight": "Peso",
@@ -470,6 +474,7 @@ class StringManager {
         "light": "Éclairage",
         "language": "Langue",
         "data": "Données",
+        "copied": "Copié",
 
         "unit_speed": "Vitesse",
         "unit_weight": "Poids",
@@ -572,6 +577,7 @@ class StringManager {
         "light": "תאורה",
         "language": "שפה",
         "data": "נתונים",
+        "copied": "הועתק",
 
         "unit_speed": "מהירות",
         "unit_weight": "משקל",
@@ -674,6 +680,7 @@ class StringManager {
         "light": "照明",
         "language": "语言",
         "data": "数据",
+        "copied": "已复制",
 
         "unit_speed": "速度",
         "unit_weight": "重量",
@@ -776,6 +783,7 @@ class StringManager {
         "light": "إضاءة",
         "language": "لغة",
         "data": "بيانات",
+        "copied": "تم النسخ",
 
         "unit_speed": "السرعة",
         "unit_weight": "الوزن",
@@ -878,6 +886,7 @@ class StringManager {
         "light": "Освещение",
         "language": "Язык",
         "data": "Данные",
+        "copied": "Скопировано",
         
         "unit_speed": "Скорость",
         "unit_weight": "Вес",
@@ -980,6 +989,7 @@ class StringManager {
         "light": "照明",
         "language": "言語",
         "data": "データ",
+        "copied": "コピー済み",
 
         "unit_speed": "速度",
         "unit_weight": "重さ",
@@ -1082,6 +1092,7 @@ class StringManager {
         "light": "Illuminazione",
         "language": "Lingua",
         "data": "Dati",
+        "copied": "Copiato",
 
         "unit_speed": "Velocità",
         "unit_weight": "Peso",
@@ -1183,6 +1194,7 @@ class StringManager {
         "light": "Aydınlatma",
         "language": "Dil",
         "data": "Veri",
+        "copied": "Kopyalandı",
 
         "unit_speed": "Hız",
         "unit_weight": "Ağırlık",
@@ -1285,6 +1297,7 @@ class StringManager {
         "light": "조명",
         "language": "언어",
         "data": "데이터",
+        "copied": "복사됨",
 
         "unit_speed": "속도",
         "unit_weight": "무게",
@@ -1387,6 +1400,7 @@ class StringManager {
         "light": "Oświetlenie",
         "language": "Język",
         "data": "Dane",
+        "copied": "Skopiowano",
         
         "unit_speed": "Prędkość",
         "unit_weight": "Waga",
@@ -1489,6 +1503,7 @@ class StringManager {
         "light": "Φωτισμός",
         "language": "Γλώσσα",
         "data": "Δεδομένα",
+        "copied": "Αντιγράφηκε",
 
         "unit_speed": "Ταχύτητα",
         "unit_weight": "Βάρος",
@@ -1591,6 +1606,7 @@ class StringManager {
         "light": "Iluminação",
         "language": "Idioma",
         "data": "Dados",
+        "copied": "Copiado",
 
         "unit_speed": "Velocidade",
         "unit_weight": "Peso",
@@ -1693,6 +1709,7 @@ class StringManager {
         "light": "प्रकाश",
         "language": "भाषा",
         "data": "डेटा",
+        "copied": "कॉपी किया गया",
         
         "unit_speed": "गति",
         "unit_weight": "वजन",
@@ -1795,6 +1812,7 @@ class StringManager {
         "light": "আলোকসজ্জা",
         "language": "ভাষা",
         "data": "ডেটা",
+        "copied": "কপি করা হয়েছে",
 
         "unit_speed": "গতি",
         "unit_weight": "ওজন",
@@ -1897,6 +1915,7 @@ class StringManager {
             "light": "روشنایی",
             "language": "زبان",
             "data": "داده",
+            "copied": "کپی شد",
 
             "unit_speed": "سرعت",
             "unit_weight": "وزن",
@@ -1999,6 +2018,7 @@ class StringManager {
             "light": "ብርሃን",
             "language": "ቋንቋ",
             "data": "ዳታ",
+            "copied": "ተቐድቀደ",
 
             "unit_speed": "ፍጥነት",
             "unit_weight": "ክብደት",
@@ -2101,6 +2121,7 @@ class StringManager {
             "light": "Verlichting",
             "language": "Taal",
             "data": "Data",
+            "copied": "Gekopieerd",
 
             "unit_speed": "Snelheid",
             "unit_weight": "Gewicht",
