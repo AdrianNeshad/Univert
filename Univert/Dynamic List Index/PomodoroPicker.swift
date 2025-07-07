@@ -20,7 +20,7 @@ struct PomodoroPicker<Content, Item: Hashable>: View where Content: View {
     
     let content: (Item) -> Content
     
-    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
     func itemWidthOverride(_ geometry: GeometryProxy) -> CGFloat {
         return itemWidth ?? geometry.size.height * 0.15

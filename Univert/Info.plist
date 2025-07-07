@@ -2,10 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-	</array>
+    <key>CFBundleLocalizations</key>
+    <array>
+        <string>sv</string>  <!-- Svenska -->
+        <string>en</string>  <!-- Engelska -->
+        <string>de</string>  <!-- Tyska -->
+        <string>es</string>  <!-- Spanska -->
+        <string>fr</string>  <!-- Franska -->
+        <string>he</string>  <!-- Hebreiska -->
+        <string>zh</string>  <!-- Kinesiska (förenklad) -->
+        <string>ar</string>  <!-- Arabiska -->
+        <string>ru</string>  <!-- Ryska -->
+        <string>ja</string>  <!-- Japanska -->
+        <string>it</string>  <!-- Italienska -->
+        <string>tr</string>  <!-- Turkiska -->
+        <string>ko</string>  <!-- Koreanska -->
+        <string>pl</string>  <!-- Polska -->
+        <string>el</string>  <!-- Grekiska -->
+        <string>pt</string>  <!-- Portugisiska -->
+        <string>hi</string>  <!-- Hindi -->
+        <string>bn</string>  <!-- Bengali -->
+        <string>fa</string>  <!-- Persiska (Dari) -->
+        <string>ti</string>  <!-- Tigrinja -->
+    </array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>UILaunchScreen</key>

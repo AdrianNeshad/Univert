@@ -25,6 +25,7 @@
 		2A761BEC2DF395C50065898A /* Radiation Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BEB2DF395A30065898A /* Radiation Activity.swift */; };
 		2A761BEE2DF396D50065898A /* Radiation Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BED2DF396CF0065898A /* Radiation Exposure.swift */; };
 		2A761BF02DF397B70065898A /* Radiation Absorbed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */; };
+		2A91E5A62E1C47F7006B39E3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2A91E5A52E1C47F7006B39E3 /* Localizable.xcstrings */; };
 		2AF07D4A2DF580310008EEFF /* LuminousIntensity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D492DF580150008EEFF /* LuminousIntensity.swift */; };
 		2AF07D4C2DF581150008EEFF /* LuminousFlux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */; };
 		2AF07D4E2DF581960008EEFF /* Illuminance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF07D4D2DF581900008EEFF /* Illuminance.swift */; };
@@ -95,6 +96,7 @@
 		2A761BEB2DF395A30065898A /* Radiation Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Activity.swift"; sourceTree = "<group>"; };
 		2A761BED2DF396CF0065898A /* Radiation Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Exposure.swift"; sourceTree = "<group>"; };
 		2A761BEF2DF397B00065898A /* Radiation Absorbed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Radiation Absorbed.swift"; sourceTree = "<group>"; };
+		2A91E5A52E1C47F7006B39E3 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2AF07D492DF580150008EEFF /* LuminousIntensity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminousIntensity.swift; sourceTree = "<group>"; };
 		2AF07D4B2DF581100008EEFF /* LuminousFlux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuminousFlux.swift; sourceTree = "<group>"; };
 		2AF07D4D2DF581900008EEFF /* Illuminance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Illuminance.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
 				2A5196FB2DF437D200E3963C /* UnitConverterView.swift */,
 				3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */,
+				2A91E5A52E1C47F7006B39E3 /* Localizable.xcstrings */,
 				3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */,
 				3A21D7022DC7721000B37E2D /* Assets.xcassets */,
 				3AD707842DD6810B00B5D6EC /* in-app purchase */,
@@ -423,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE441D12DD66B7D00D1A14D /* Launch Screen.storyboard in Resources */,
+				2A91E5A62E1C47F7006B39E3 /* Localizable.xcstrings in Resources */,
 				3AD707822DD680A300B5D6EC /* StoreKitConfig.storekit in Resources */,
 				3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */,
 				3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */,
@@ -563,6 +567,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -620,6 +625,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
