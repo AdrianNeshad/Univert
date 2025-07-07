@@ -15,6 +15,7 @@ struct Inställningar: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("appLanguage") private var appLanguage = "en"
     @AppStorage("advancedUnitsUnlocked") private var advancedUnitsUnlocked = false
+    @AppStorage("clipboardUnit") private var clipboardUnit = false
     @StateObject private var storeManager = StoreManager()
     @State private var showRestoreAlert = false
     @State private var showPurchaseSheet = false
@@ -34,7 +35,7 @@ struct Inställningar: View {
 
     var body: some View {
         Form {
-            Section(header: Text(StringManager.shared.get("appearance"))) {
+            Section(header: Text(StringManager.shared.get("settings"))) {
                 Toggle(StringManager.shared.get("darkmode"), isOn: $isDarkMode)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                 
@@ -76,6 +77,13 @@ struct Inställningar: View {
                        isOn: $useSwedishDecimal)
                     .toggleStyle(SwitchToggleStyle(tint: .blue))
                     .disabled(true)
+                Toggle(StringManager.shared.get("unitOnCopy"), isOn: $clipboardUnit)
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+                HStack {
+                    Text(StringManager.shared.get("unitOnCopyInfo"))
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
             }
             Section(header: Text(StringManager.shared.get("favorites"))) {
                 Button(action: {

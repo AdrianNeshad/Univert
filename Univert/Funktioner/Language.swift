@@ -63,6 +63,8 @@ class StringManager {
         "language": "Språk",
         "data": "Data",
         "copied": "Kopierad",
+        "unitOnCopy": "Enhet på kopierat värde",
+        "unitOnCopyInfo": "Visa enhet med kopierat värde: 120 km/h",
         
         "unit_speed": "Hastighet",
         "unit_weight": "Vikt",
@@ -166,6 +168,8 @@ class StringManager {
         "language": "Language",
         "data": "Data",
         "copied": "Copied",
+        "unitOnCopy": "Unit on copied value",
+        "unitOnCopyInfo": "Show unit on copied value: 120 km/h",
         
         "unit_speed": "Speed",
         "unit_weight": "Weight",
@@ -269,6 +273,8 @@ class StringManager {
         "language": "Sprache",
         "data": "Daten",
         "copied": "Kopiert",
+        "unitOnCopy": "Einheit beim Kopieren",
+        "unitOnCopyInfo": "Einheit mit kopiertem Wert anzeigen: 120 km/h",
 
         "unit_speed": "Geschwindigkeit",
         "unit_weight": "Gewicht",
@@ -372,6 +378,8 @@ class StringManager {
         "language": "Idioma",
         "data": "Datos",
         "copied": "Copiado",
+        "unitOnCopy": "Unidad al copiar valor",
+        "unitOnCopyInfo": "Mostrar unidad con el valor copiado: 120 km/h",
 
         "unit_speed": "Velocidad",
         "unit_weight": "Peso",
@@ -475,6 +483,8 @@ class StringManager {
         "language": "Langue",
         "data": "Données",
         "copied": "Copié",
+        "unitOnCopy": "Unité lors de la copie",
+        "unitOnCopyInfo": "Afficher l'unité avec la valeur copiée : 120 km/h",
 
         "unit_speed": "Vitesse",
         "unit_weight": "Poids",
@@ -578,6 +588,8 @@ class StringManager {
         "language": "שפה",
         "data": "נתונים",
         "copied": "הועתק",
+        "unitOnCopy": "יחידה בהעתקה",
+        "unitOnCopyInfo": "הצג יחידה עם הערך המועתק: 120 קמ\"ש",
 
         "unit_speed": "מהירות",
         "unit_weight": "משקל",
@@ -681,6 +693,8 @@ class StringManager {
         "language": "语言",
         "data": "数据",
         "copied": "已复制",
+        "unitOnCopy": "复制时包含单位",
+        "unitOnCopyInfo": "显示带单位的复制值：120 km/h",
 
         "unit_speed": "速度",
         "unit_weight": "重量",
@@ -784,6 +798,8 @@ class StringManager {
         "language": "لغة",
         "data": "بيانات",
         "copied": "تم النسخ",
+        "unitOnCopy": "الوحدة عند النسخ",
+        "unitOnCopyInfo": "عرض الوحدة مع القيمة المنسوخة: 120 كم/س",
 
         "unit_speed": "السرعة",
         "unit_weight": "الوزن",
@@ -887,6 +903,8 @@ class StringManager {
         "language": "Язык",
         "data": "Данные",
         "copied": "Скопировано",
+        "unitOnCopy": "Единица при копировании",
+        "unitOnCopyInfo": "Показать единицу вместе со скопированным значением: 120 km/h",
         
         "unit_speed": "Скорость",
         "unit_weight": "Вес",
@@ -990,6 +1008,8 @@ class StringManager {
         "language": "言語",
         "data": "データ",
         "copied": "コピー済み",
+        "unitOnCopy": "コピー時の単位",
+        "unitOnCopyInfo": "コピーした値に単位を表示：120 km/h",
 
         "unit_speed": "速度",
         "unit_weight": "重さ",
@@ -1093,6 +1113,8 @@ class StringManager {
         "language": "Lingua",
         "data": "Dati",
         "copied": "Copiato",
+        "unitOnCopy": "Unità durante la copia",
+        "unitOnCopyInfo": "Mostra l'unità con il valore copiato: 120 km/h",
 
         "unit_speed": "Velocità",
         "unit_weight": "Peso",
@@ -1195,6 +1217,8 @@ class StringManager {
         "language": "Dil",
         "data": "Veri",
         "copied": "Kopyalandı",
+        "unitOnCopy": "Kopyalama sırasında birim",
+        "unitOnCopyInfo": "Kopyalanan değerle birlikte birimi göster: 120 km/h",
 
         "unit_speed": "Hız",
         "unit_weight": "Ağırlık",
@@ -1298,6 +1322,8 @@ class StringManager {
         "language": "언어",
         "data": "데이터",
         "copied": "복사됨",
+        "unitOnCopy": "복사 시 단위 포함",
+        "unitOnCopyInfo": "복사된 값에 단위를 표시: 120 km/h",
 
         "unit_speed": "속도",
         "unit_weight": "무게",
@@ -1401,6 +1427,8 @@ class StringManager {
         "language": "Język",
         "data": "Dane",
         "copied": "Skopiowano",
+        "unitOnCopy": "Jednostka przy kopiowaniu",
+        "unitOnCopyInfo": "Pokaż jednostkę wraz ze skopiowaną wartością: 120 km/h",
         
         "unit_speed": "Prędkość",
         "unit_weight": "Waga",
@@ -1504,6 +1532,8 @@ class StringManager {
         "language": "Γλώσσα",
         "data": "Δεδομένα",
         "copied": "Αντιγράφηκε",
+        "unitOnCopy": "Μονάδα κατά την αντιγραφή",
+        "unitOnCopyInfo": "Εμφάνιση μονάδας με την αντιγραμμένη τιμή: 120 km/h",
 
         "unit_speed": "Ταχύτητα",
         "unit_weight": "Βάρος",
@@ -1607,6 +1637,8 @@ class StringManager {
         "language": "Idioma",
         "data": "Dados",
         "copied": "Copiado",
+        "unitOnCopy": "Unidade ao copiar",
+        "unitOnCopyInfo": "Mostrar unidade com o valor copiado: 120 km/h",
 
         "unit_speed": "Velocidade",
         "unit_weight": "Peso",
@@ -1710,6 +1742,8 @@ class StringManager {
         "language": "भाषा",
         "data": "डेटा",
         "copied": "कॉपी किया गया",
+        "unitOnCopy": "कॉपी करते समय इकाई",
+        "unitOnCopyInfo": "कॉपी किए गए मान के साथ इकाई दिखाएं: 120 km/h",
         
         "unit_speed": "गति",
         "unit_weight": "वजन",
@@ -1813,6 +1847,8 @@ class StringManager {
         "language": "ভাষা",
         "data": "ডেটা",
         "copied": "কপি করা হয়েছে",
+        "unitOnCopy": "কপি করার সময় একক",
+        "unitOnCopyInfo": "কপি করা মানের সাথে একক দেখান: 120 km/h",
 
         "unit_speed": "গতি",
         "unit_weight": "ওজন",
@@ -1916,6 +1952,8 @@ class StringManager {
             "language": "زبان",
             "data": "داده",
             "copied": "کپی شد",
+            "unitOnCopy": "واحد هنگام کپی",
+            "unitOnCopyInfo": "نمایش واحد همراه با مقدار کپی‌شده: ۱۲۰ کیلومتر/ساعت",
 
             "unit_speed": "سرعت",
             "unit_weight": "وزن",
@@ -2019,6 +2057,8 @@ class StringManager {
             "language": "ቋንቋ",
             "data": "ዳታ",
             "copied": "ተቐድቀደ",
+            "unitOnCopy": "ዝተቐደደ ግንዛቤ ብመዓልቲ",
+            "unitOnCopyInfo": "ኣብ ቅዳሕ ዝተቐደደ ዋጋ መዓልቲ ርእዩ፡ 120 km/h",
 
             "unit_speed": "ፍጥነት",
             "unit_weight": "ክብደት",
@@ -2122,6 +2162,8 @@ class StringManager {
             "language": "Taal",
             "data": "Data",
             "copied": "Gekopieerd",
+            "unitOnCopy": "Eenheid bij kopiëren",
+            "unitOnCopyInfo": "Toon eenheid bij gekopieerde waarde: 120 km/h",
 
             "unit_speed": "Snelheid",
             "unit_weight": "Gewicht",

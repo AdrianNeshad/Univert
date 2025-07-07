@@ -18,6 +18,7 @@ struct Valuta: View {
     @AppStorage("useSwedishDecimal") private var useSwedishDecimal = true
     @AppStorage("savedUnits") private var savedUnitsData: Data?
     @AppStorage("appLanguage") private var appLanguage = "en"
+    @AppStorage("clipboardUnit") private var clipboardUnit = false
     @Environment(\.colorScheme) var colorScheme
     @State private var selectedFromUnit: String? = "USD"
     @State private var selectedToUnit: String? = "USD"
@@ -214,7 +215,7 @@ struct Valuta: View {
 
                         if !outputValue.isEmpty {
                             Button(action: {
-                                UIPasteboard.general.string = outputValue
+                                UIPasteboard.general.string = clipboardUnit ? "\(outputValue) \(selectedToUnit ?? "")" : outputValue
                                 toastMessage = StringManager.shared.get("copied")
                                 toastIcon = "doc.on.doc"
                                 toastColor = .green
