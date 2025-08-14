@@ -212,7 +212,7 @@ struct Inställningar: View {
                             .resizable()
                             .frame(width: 30, height: 30)
                             .cornerRadius(8)
-                        Text("FlixSwipe - Explore New Movies")
+                        Text("SwipeFlix - Explore New Movies")
                     }
                 }
                 Link(destination: URL(string: "https://apps.apple.com/us/app/unifeed-nyhetsfl%C3%B6de/id6746872036")!) {
@@ -221,7 +221,7 @@ struct Inställningar: View {
                             .resizable()
                             .frame(width: 30, height: 30)
                             .cornerRadius(8)
-                        Text("Unifeed - Nyhetsflöde")
+                        Text("Unifeed - Newsfeed")
                     }
                 }
             }
