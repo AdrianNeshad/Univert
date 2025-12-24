@@ -178,24 +178,30 @@ struct Inställningar: View {
                 }
             }
             Section(header: Text(StringManager.shared.get("about"))) {
-                Button(StringManager.shared.get("ratetheapp")) {
+                Button(action: {
                     requestReview()
+                }) {
+                    Label(StringManager.shared.get("ratetheapp"), systemImage: "star")
                 }
-                Button(StringManager.shared.get("sharetheapp")) {
-                                   showShareSheet = true
-                               }
+                Button(action: {
+                    showShareSheet = true
+                }) {
+                    Label(StringManager.shared.get("sharetheapp"), systemImage: "square.and.arrow.up")
+                }
                                .sheet(isPresented: $showShareSheet) {
                                    let message = StringManager.shared.get("checkoutunivert")
                                    let appLink = URL(string: "https://apps.apple.com/us/app/univert/id6745692591")!
                                    ShareSheet(activityItems: [message, appLink])
                                        .presentationDetents([.medium])
                                }
-                Button(StringManager.shared.get("givefeedback")) {
+                Button(action: {
                     if MFMailComposeViewController.canSendMail() {
                         showMailFeedback = true
                     } else {
                         mailErrorAlert = true
                     }
+                }) {
+                    Label(StringManager.shared.get("givefeedback"), systemImage: "envelope")
                 }
                 .sheet(isPresented: $showMailFeedback) {
                     MailFeedback(isShowing: $showMailFeedback,
