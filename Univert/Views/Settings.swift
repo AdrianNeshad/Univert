@@ -179,7 +179,9 @@ struct Inställningar: View {
             }
             Section(header: Text(StringManager.shared.get("about"))) {
                 Button(action: {
-                    requestReview()
+                    if let url = URL(string: "https://apps.apple.com/app/id6745692591?action=write-review") {
+                        UIApplication.shared.open(url)
+                    }
                 }) {
                     Label(StringManager.shared.get("ratetheapp"), systemImage: "star")
                 }
