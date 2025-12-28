@@ -12,7 +12,6 @@
 		3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */; };
 		3A21D7032DC7721000B37E2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7022DC7721000B37E2D /* Assets.xcassets */; };
 		3A21D7062DC7721000B37E2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */; };
-		3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A21D7302DC77A4700B37E2D /* Units Index.swift */; };
 		3ACE9FC62DE510A60049A0D2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 3ACE9FC52DE510A60049A0D2 /* AlertToast */; };
 		3AD707822DD680A300B5D6EC /* StoreKitConfig.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */; };
 		3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD707852DD6812700B5D6EC /* StoreManager.swift */; };
@@ -27,7 +26,6 @@
 		3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivertApp.swift; sourceTree = "<group>"; };
 		3A21D7022DC7721000B37E2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A21D7052DC7721000B37E2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3A21D7302DC77A4700B37E2D /* Units Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Units Index.swift"; sourceTree = "<group>"; };
 		3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfig.storekit; sourceTree = "<group>"; };
 		3AD707852DD6812700B5D6EC /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		3AD707872DD6813600B5D6EC /* PurchaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			children = (
 				3AEDDFD72DC901BE00FC5897 /* Info.plist */,
 				3A21D6FE2DC7720A00B37E2D /* UnivertApp.swift */,
-				3A21D7302DC77A4700B37E2D /* Units Index.swift */,
 				3AD707812DD680A300B5D6EC /* StoreKitConfig.storekit */,
 				2A91E5A52E1C47F7006B39E3 /* Localizable.xcstrings */,
 				3AE441D02DD66B7D00D1A14D /* Launch Screen.storyboard */,
@@ -222,7 +219,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AD707882DD6813600B5D6EC /* PurchaseView.swift in Sources */,
-				3A21D7312DC77A4700B37E2D /* Units Index.swift in Sources */,
 				3A21D6FF2DC7720A00B37E2D /* UnivertApp.swift in Sources */,
 				3AD707862DD6812700B5D6EC /* StoreManager.swift in Sources */,
 			);
