@@ -102,17 +102,16 @@ struct UnitsListView: View {
             .navigationTitle(StringManager.shared.get("units"))
             .searchable(text: $searchTerm, prompt: StringManager.shared.get("searchunits"))
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup {
                     NavigationLink(destination: Favoriter()) {
                         Image(systemName: "star")
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: Inställningar()) {
                         Image(systemName: "gearshape")
                     }
                 }
             }
+            .modifier(ToolbarDisplayModeModifier())
             .sheet(isPresented: $showPurchaseSheet) {
                 PurchaseView(storeManager: storeManager, isUnlocked: $advancedUnitsUnlocked)
             }
@@ -222,6 +221,16 @@ struct UnitsListView_Previews: PreviewProvider {
             UnitsListView()
                 .preferredColorScheme(.dark)
                 .previewDisplayName("Mörkt läge")
+        }
+    }
+}
+
+struct ToolbarDisplayModeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 17.0, *) {
+            content.toolbarTitleDisplayMode(.inlineLarge)
+        } else {
+            content
         }
     }
 }
