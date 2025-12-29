@@ -245,6 +245,7 @@ struct Inställningar: View {
             }
         }
         .navigationTitle(StringManager.shared.get("settings"))
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             storeManager.getProducts(productIDs: ["Univert.AdvancedUnits"])
         }

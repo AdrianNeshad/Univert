@@ -38,6 +38,7 @@ struct Favoriter: View {
             }
         }
         .navigationTitle(StringManager.shared.get("favorites"))
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             loadFavorites()
         }
